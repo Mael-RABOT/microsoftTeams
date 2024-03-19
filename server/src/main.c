@@ -9,5 +9,10 @@
 
 int main(const int ac, const char **av)
 {
+    socket_t *socket = create_server(21);
+
+    if (socket == NULL) {
+        return 0;
+    }
     return 0;
 }

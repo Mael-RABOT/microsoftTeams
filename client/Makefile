@@ -20,13 +20,13 @@ FILE_GCNO	=	$(FILE_SRC:.c=.gcno)
 
 CC    =    gcc
 
-DEBUG	=	-g3
+DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude -I../include
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -pedantic -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=
+LIB	=	-L../libs/ -lsocket
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -43,13 +43,12 @@ all:    $(EXE)
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	LDFLAGS += -DDEBUG
-debug:	$(FILE_OBJ) $(MAIN_OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+debug:	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 clean:
 	rm -rf $(MAIN_OBJ) $(TEST_OBJ) $(FILE_OBJ)
@@ -65,8 +64,8 @@ re:    fclean all
 
 unit_tests:	CFLAGS += $(COVERAGE) -DTEST
 unit_tests: LDFLAGS += $(COVERAGE)
-unit_tests: $(FILE_OBJ) $(TEST_OBJ)
-	$(CC) -o $(TEST_EXE) $^ $(LDFLAGS)
+unit_tests: $(FILE_OBJ) $(TEST_OBJ) ../libs/libsocket.a
+	$(CC) -o $@ $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
 
 tests_run:    clean unit_tests
 	./$(TEST_EXE) --jobs 1

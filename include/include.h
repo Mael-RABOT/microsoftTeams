@@ -7,5 +7,6 @@
 
 #pragma once
 
+#include "../libs/socket/include/socket.h"
 #include <stdio.h>
 #include <stdlib.h>

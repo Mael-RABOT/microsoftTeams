@@ -8,20 +8,24 @@
 all: client server
 
 client:
+	@make -C libs --no-print-dir
 	@make -C client
 
 server:
+	@make -C libs --no-print-dir
 	@make -C server
 
 clean:
+	@make -C libs clean --no-print-dir
 	@make -C client clean --no-print-dir
 	@make -C server clean --no-print-dir
 
 
 fclean:	clean
-	rm -rf coding-style-reports.log
+	@make -C libs fclean --no-print-dir
 	@make -C client fclean --no-print-dir
 	@make -C server fclean --no-print-dir
+	rm -rf coding-style-reports.log
 
 re:    fclean all
 
