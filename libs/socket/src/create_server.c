@@ -7,13 +7,12 @@
 
 #include "../include/socket.h"
 
-static bool init_socket(socket_t *new_socket)
+static bool init_socket_conn(socket_t *new_socket)
 {
     new_socket->socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     new_socket->addrlen = sizeof(new_socket->address);
     if (new_socket->socket_fd < 0) {
         perror("Failed to create socket");
-        free(new_socket);
         return false;
     } else {
         return true;
@@ -33,7 +32,6 @@ static bool bind_socket(socket_t *socket)
         sizeof(socket->address));
 
     if (res < 0) {
-        delete_socket(socket);
         perror("Failed to bind socket");
         return false;
     } else {
@@ -41,18 +39,29 @@ static bool bind_socket(socket_t *socket)
     }
 }
 
+int init_server(socket_t *socket, const int port)
+{
+    init_socket(socket);
+    if (init_socket_conn(socket) == false) {
+        return -1;
+    }
+    set_socket_option(socket, port);
+    if (bind_socket(socket) == false) {
+        return -1;
+    }
+    return 0;
+}
+
 socket_t *create_server(const int port)
 {
     socket_t *socket = malloc(sizeof(socket_t));
 
     if (socket == NULL) {
+        free(socket);
         return NULL;
     }
-    if (init_socket(socket) == false) {
-        return NULL;
-    }
-    set_socket_option(socket, port);
-    if (bind_socket(socket) == false) {
+    if (init_server(socket, port) == -1) {
+        delete_socket(socket);
         return NULL;
     }
     return socket;

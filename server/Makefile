@@ -7,7 +7,7 @@
 
 MAIN_SRC    =	src/main.c
 
-FILE_SRC    =
+FILE_SRC    =	src/server.c
 
 TEST_SRC    =
 

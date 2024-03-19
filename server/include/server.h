@@ -8,3 +8,9 @@
 #pragma once
 
 #include "include.h"
+
+typedef struct {
+    socket_t socket;
+} server_t;
+
+int server(const int ac, const char **av);
