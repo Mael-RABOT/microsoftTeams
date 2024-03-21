@@ -1,11 +1,12 @@
 /*
-** EPITECH PROJECT, 2024
-** myteams
+** EPITECH PROJECT, XXXX
+** NWP_myteams_XXXX
 ** File description:
 ** a file containing libs functions that should be called in myteams_cli
 */
 
-#pragma once
+#ifndef LIB_MYTEAMS_LOGGING_CLIENT_H
+#define LIB_MYTEAMS_LOGGING_CLIENT_H
 
 #include <time.h>
 
@@ -468,3 +469,5 @@ int client_print_subscribed(char const *user_uuid, char const *team_uuid);
 ** /unsubscribe "team_uuid"
 **/
 int client_print_unsubscribed(char const *user_uuid, char const *team_uuid);
+
+#endif /* LIB_MYTEAMS_LOGGING_CLIENT_H */

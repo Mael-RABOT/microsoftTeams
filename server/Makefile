@@ -7,7 +7,9 @@
 
 MAIN_SRC    =	src/main.c
 
-FILE_SRC    =	src/server.c
+FILE_SRC    =	src/server.c \
+				src/logger/create_logger.c \
+				src/logger/delete_logger.c
 
 TEST_SRC    =
 
@@ -21,12 +23,12 @@ FILE_GCNO	=	$(FILE_SRC:.c=.gcno)
 CC    =    gcc
 
 DEBUG	=	-g3 -DDEBUG
-INCLUDE	=	-Iinclude -I../include
+INCLUDE	=	-Iinclude
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
-CFLAGS    = -Wall -Wextra -ansi -pedantic -fanalyzer \
+CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket
+LIB	=	-L../libs/ -lsocket -L../libs/myteams -larray -ldlloader
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion

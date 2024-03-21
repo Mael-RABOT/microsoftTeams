@@ -5,7 +5,9 @@
 ## Makefile
 ##
 
-LIB	=	socket
+LIB	=	socket \
+		array \
+		dlloader
 
 all:
 	@$(foreach X, $(LIB), make -C $X --print-dir;)
