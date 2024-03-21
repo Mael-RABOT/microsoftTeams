@@ -10,15 +10,16 @@
 int server(const int ac, const char **av)
 {
     server_t server;
-    void **array = create_array(2);
+    logger_t *logger = create_logger("./libs/myteams/libmyteams.so");
 
-    logger_t *logger = create_logger("libs/myteams/libmyteams.so");
-    logger->channel_created("a", "b", "c");
-    memset(&server, 0, sizeof(server_t));
+    if (logger == NULL) {
+        return 84;
+    }
     if (init_server(&server.socket, 8080) == -1) {
         close(server.socket.socket_fd);
         return 84;
     }
-    delete_array(array);
+    logger->team_created("a", "b", "c");
+    delete_logger(logger);
     return 0;
 }

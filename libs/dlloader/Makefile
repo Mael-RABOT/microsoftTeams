@@ -16,7 +16,7 @@ DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude -I../include
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -pedantic \
-			$(NO_UNUSED) $(INCLUDE)
+			$(NO_UNUSED) $(INCLUDE) $(DEBUG)
 
 OUTPUT_DIR	=	..
 EXE    =    ../libdlloader.a

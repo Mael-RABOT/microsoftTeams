@@ -7,13 +7,26 @@
 
 #include "../include/socket.h"
 
-static void socket_send(struct socket_s *socket, const char *format, ...)
+static int socket_accept(struct socket_s *socket, struct sockaddr *addr,
+    socklen_t *len)
+{
+    return accept(socket->socket_fd, addr, len);
+}
+
+static int socket_listen(struct socket_s *socket, int backlog)
+{
+    return listen(socket->socket_fd, backlog);
+}
+
+static int socket_send(struct socket_s *socket, const char *format, ...)
 {
     va_list list;
+    int read_val = 0;
 
     va_start(list, format);
-    dprintf(socket->socket_fd, format, list);
+    read_val = dprintf(socket->socket_fd, format, list);
     va_end(list);
+    return read_val;
 }
 
 void init_socket(socket_t *socket)
@@ -24,4 +37,6 @@ void init_socket(socket_t *socket)
     memset(socket, 0, sizeof(socket_t));
     socket->socket_fd = -1;
     socket->send = socket_send;
+    socket->listen = socket_listen;
+    socket->accept = socket_accept;
 }

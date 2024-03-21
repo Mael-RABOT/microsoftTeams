@@ -10,11 +10,8 @@
 #include "server.h"
 
 #define CSTR    const char *
-#define LOAD(x) logger->dlloader->load(logger->dlloader, x);
 
 typedef struct logger_s {
-    dlloader_t *dlloader;
-
     int (*team_created)(CSTR, CSTR, CSTR);
     int (*channel_created)(CSTR, CSTR, CSTR);
     int (*thread_created)(CSTR, CSTR, CSTR, CSTR, CSTR);
@@ -26,6 +23,7 @@ typedef struct logger_s {
     int (*user_logged_in)(CSTR);
     int (*user_logged_out)(CSTR);
     int (*private_message_sended)(CSTR, CSTR, CSTR);
+    dlloader_t *dlloader;
 } logger_t;
 
 logger_t *create_logger(const char *path);

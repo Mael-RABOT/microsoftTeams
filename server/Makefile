@@ -8,6 +8,7 @@
 MAIN_SRC    =	src/main.c
 
 FILE_SRC    =	src/server.c \
+				src/loop.c \
 				src/logger/create_logger.c \
 				src/logger/delete_logger.c
 
@@ -46,11 +47,11 @@ all:    $(EXE)
 	$(CC)   -c -o $@ $<
 
 $(EXE):	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 debug:	CFLAGS += $(DEBUG)
 debug:	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 clean:
 	rm -rf $(MAIN_OBJ) $(TEST_OBJ) $(FILE_OBJ)
@@ -67,7 +68,7 @@ re:    fclean all
 unit_tests:	CFLAGS += $(COVERAGE) -DTEST
 unit_tests: LDFLAGS += $(COVERAGE)
 unit_tests: $(FILE_OBJ) $(TEST_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
 
 tests_run:    clean unit_tests
 	./$(TEST_EXE) --jobs 1

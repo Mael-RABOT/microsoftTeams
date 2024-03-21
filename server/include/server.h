@@ -15,3 +15,4 @@ typedef struct {
 } server_t;
 
 int server(const int ac, const char **av);
+int loop(server_t *server);

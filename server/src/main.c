@@ -7,7 +7,17 @@
 
 #include "server.h"
 
+void debug(void)
+{
+    pid_t pid = getpid();
+
+    printf("PID: %d\n", pid);
+}
+
 int main(const int ac, const char **av)
 {
+    #ifdef DEBUG
+        debug();
+    #endif
     return server(ac, av);
 }
