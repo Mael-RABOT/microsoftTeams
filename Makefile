@@ -16,6 +16,11 @@ server:
 	@make -C libs --no-print-dir
 	@make -C server
 
+debug:
+	@make -C libs debug --no-print-dir
+	@make -C ./client debug
+	@make -C ./server debug
+
 clean:
 	@make -C libs clean --no-print-dir
 	@make -C client clean --no-print-dir
@@ -36,4 +41,4 @@ unit_tests:
 
 tests_run:    unit_tests
 
-.PHONY: all clean re fclean tests_run client server
+.PHONY: all clean re fclean tests_run client server debug

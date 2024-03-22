@@ -5,10 +5,10 @@
 ## Makefile
 ##
 
-FILE_SRC    =	src/create_client.c \
-				src/create_server.c \
-				src/delete_socket.c \
-				src/init_socket.c
+FILE_SRC    =	src/log.c \
+				src/load.c \
+				src/create_logger.c \
+				src/delete_logger.c
 
 FILE_OBJ    =    $(FILE_SRC:.c=.o)
 
@@ -18,10 +18,10 @@ DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude -I../include
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -pedantic \
-			$(NO_UNUSED) $(INCLUDE)
+			$(NO_UNUSED) $(INCLUDE) $(DEBUG)
 
 OUTPUT_DIR	=	..
-EXE    =    ../libsocket.a
+EXE    =    ../liblogging.a
 
 all:    $(EXE)
 

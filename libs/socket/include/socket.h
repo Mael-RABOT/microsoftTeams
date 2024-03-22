@@ -7,14 +7,24 @@
 
 #pragma once
 
-#include "../../../include/include.h"
+#define _GNU_SOURCE
+
+#include <stdarg.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include <netinet/in.h>
 
 typedef struct socket_s {
     int socket_fd;
     struct sockaddr_in address;
     socklen_t addrlen;
-    void (*send)(struct socket_s *socket, const char *format, ...);
+    int (*send)(struct socket_s *socket, const char *format, ...);
+    int (*listen)(struct socket_s *socket, int backlog);
+    int (*accept)(struct socket_s *socket, struct sockaddr *addr,
+        socklen_t *len);
 } socket_t;
 
 socket_t *create_server(const int port);

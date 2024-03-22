@@ -7,18 +7,37 @@
 
 #include "server.h"
 
+static int load_log_library(server_t *server)
+{
+    server->logger = create_server_logger("./libs/myteams/libmyteams.so");
+    if (server->logger == NULL) {
+        return 84;
+    }
+    return 0;
+}
+
+static void unload_server(server_t *server)
+{
+    if (server == NULL) {
+        return;
+    }
+    if (server->logger != NULL) {
+        delete_server_logger(server->logger);
+    }
+}
+
 int server(const int ac, const char **av)
 {
     server_t server;
-    void **array = create_array(2);
 
-    logger_t *logger = create_logger("libs/myteams/libmyteams.so");
-    logger->channel_created("a", "b", "c");
-    memset(&server, 0, sizeof(server_t));
+    if (load_log_library(&server) == 84) {
+        return 84;
+    }
     if (init_server(&server.socket, 8080) == -1) {
         close(server.socket.socket_fd);
         return 84;
     }
-    delete_array(array);
+    server.logger->channel_created("a", "b", "c");
+    unload_server(&server);
     return 0;
 }

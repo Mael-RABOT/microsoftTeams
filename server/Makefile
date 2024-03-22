@@ -8,8 +8,7 @@
 MAIN_SRC    =	src/main.c
 
 FILE_SRC    =	src/server.c \
-				src/logger/create_logger.c \
-				src/logger/delete_logger.c
+				src/loop.c
 
 TEST_SRC    =
 
@@ -28,7 +27,10 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -L../libs/myteams -larray -ldlloader
+LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
+					../libs/libdlloader.a ../libs/liblogging.a
+
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -45,12 +47,12 @@ all:    $(EXE)
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 clean:
 	rm -rf $(MAIN_OBJ) $(TEST_OBJ) $(FILE_OBJ)
@@ -67,7 +69,7 @@ re:    fclean all
 unit_tests:	CFLAGS += $(COVERAGE) -DTEST
 unit_tests: LDFLAGS += $(COVERAGE)
 unit_tests: $(FILE_OBJ) $(TEST_OBJ) ../libs/libsocket.a
-	$(CC) -o $@ $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
+	$(CC) -o $(EXE) $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
 
 tests_run:    clean unit_tests
 	./$(TEST_EXE) --jobs 1
