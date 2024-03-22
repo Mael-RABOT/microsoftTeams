@@ -8,7 +8,7 @@
 #pragma once
 
 enum command_type {
-    A
+    SEND
 };
 
 typedef struct command_s {
