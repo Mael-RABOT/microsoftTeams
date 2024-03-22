@@ -43,11 +43,11 @@ int init_server(socket_t *socket, const int port)
 {
     init_socket(socket);
     if (init_socket_conn(socket) == false) {
-        return -1;
+        return 84;
     }
     set_socket_option(socket, port);
     if (bind_socket(socket) == false) {
-        return -1;
+        return 84;
     }
     return 0;
 }

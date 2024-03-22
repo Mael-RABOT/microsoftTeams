@@ -9,6 +9,12 @@
 
 #define _GNU_SOURCE
 
+#define MAX_NAME_LENGTH 32
+#define MAX_DESCRIPTION_LENGTH  255
+#define MAX_BODY_LENGTH 512
+#define MAX_USER    16
+
+#include <sys/select.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
