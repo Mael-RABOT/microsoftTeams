@@ -21,19 +21,19 @@ CFLAGS    = -Wall -Wextra -ansi -pedantic \
 			$(NO_UNUSED) $(INCLUDE) $(DEBUG)
 
 OUTPUT_DIR	=	..
-EXE    =    ../liblogger.a
+EXE    =    ../liblogging.a
 
 all:    $(EXE)
 
 %.o:	%.c
 	$(CC) $(CFLAGS)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ)
-	ar rc $@ $^
+$(EXE):	$(FILE_OBJ)
+	ar rc $(EXE) $(FILE_OBJ)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ)
-	$(CC) -o $@ $^ $(LDFLAGS)
+debug:	$(FILE_OBJ)
+	ar rc $(EXE) $(FILE_OBJ)
 
 clean:
 	rm -rf $(FILE_OBJ)

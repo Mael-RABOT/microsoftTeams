@@ -17,7 +17,7 @@ server:
 	@make -C server
 
 debug:
-	@make -C libs --no-print-dir
+	@make -C libs debug --no-print-dir
 	@make -C ./client debug
 	@make -C ./server debug
 

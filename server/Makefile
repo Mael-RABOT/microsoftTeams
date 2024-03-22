@@ -28,9 +28,9 @@ CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
 LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
-					../libs/libdlloader.a ../libs/liblogger.a
+					../libs/libdlloader.a ../libs/liblogging.a
 
-LIB	=	-L../libs/ -lsocket -larray -llogger -ldlloader
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
