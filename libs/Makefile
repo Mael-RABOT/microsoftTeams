@@ -7,7 +7,8 @@
 
 LIB	=	socket \
 		array \
-		dlloader
+		dlloader \
+		logging
 
 all:
 	@$(foreach X, $(LIB), make -C $X --print-dir;)

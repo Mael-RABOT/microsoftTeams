@@ -7,7 +7,10 @@
 
 #pragma once
 
-#include "../../../include/include.h"
+#include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void **create_array(unsigned int size);
 bool delete_array(void **array);

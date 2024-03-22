@@ -8,9 +8,7 @@
 MAIN_SRC    =	src/main.c
 
 FILE_SRC    =	src/server.c \
-				src/loop.c \
-				src/logger/create_logger.c \
-				src/logger/delete_logger.c
+				src/loop.c
 
 TEST_SRC    =
 
@@ -29,7 +27,10 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -L../libs/myteams -larray -ldlloader
+LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
+					../libs/libdlloader.a ../libs/liblogger.a
+
+LIB	=	-L../libs/ -lsocket -larray -llogger -ldlloader
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -46,11 +47,11 @@ all:    $(EXE)
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 clean:

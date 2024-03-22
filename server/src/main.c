@@ -16,8 +16,5 @@ void debug(void)
 
 int main(const int ac, const char **av)
 {
-    #ifdef DEBUG
-        debug();
-    #endif
     return server(ac, av);
 }

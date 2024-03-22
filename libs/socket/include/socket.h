@@ -7,7 +7,14 @@
 
 #pragma once
 
-#include "../../../include/include.h"
+#define _GNU_SOURCE
+
+#include <stdarg.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include <netinet/in.h>
 
 typedef struct socket_s {

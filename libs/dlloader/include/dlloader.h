@@ -7,12 +7,8 @@
 
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdbool.h>
 #include <dlfcn.h>
+#include <stdlib.h>
 #include "../../myteams/logging_client.h"
 #include "../../myteams/logging_server.h"
 

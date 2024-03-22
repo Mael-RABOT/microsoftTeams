@@ -7,8 +7,6 @@
 
 #pragma once
 
-#include "../../../include/include.h"
-
 enum command_type {
     A
 };
