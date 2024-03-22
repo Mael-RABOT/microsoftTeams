@@ -18,7 +18,7 @@ DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude -I../include
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -pedantic \
-			$(NO_UNUSED) $(INCLUDE) $(DEBUG)
+			$(NO_UNUSED) $(INCLUDE)
 
 OUTPUT_DIR	=	..
 EXE    =    ../liblogging.a

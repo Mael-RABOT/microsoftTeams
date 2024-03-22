@@ -21,12 +21,15 @@ FILE_GCNO	=	$(FILE_SRC:.c=.gcno)
 CC    =    gcc
 
 DEBUG	=	-g3 -DDEBUG
-INCLUDE	=	-Iinclude -I../include
+INCLUDE	=	-Iinclude
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
-CFLAGS    = -Wall -Wextra -ansi -pedantic -fanalyzer \
+CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket
+LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
+					../libs/libdlloader.a ../libs/liblogging.a
+
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -43,11 +46,12 @@ all:    $(EXE)
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+	@strip $(EXE)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ) ../libs/libsocket.a
+debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 clean:

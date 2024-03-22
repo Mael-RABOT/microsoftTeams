@@ -9,11 +9,10 @@
 
 #include "../../include/include.h"
 
-typedef struct {
+typedef struct server_s {
     socket_t socket;
     server_logger_t *logger;
 } server_t;
 
 int server(const int ac, const char **av);
 int loop(server_t *server);
-void write_log(const char *str);

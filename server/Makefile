@@ -49,6 +49,7 @@ all:    $(EXE)
 
 $(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+	@strip $(EXE)
 
 debug:	CFLAGS += $(DEBUG)
 debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
