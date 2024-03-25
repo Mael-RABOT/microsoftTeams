@@ -7,7 +7,31 @@
 
 #include "client.h"
 
+static int launch_client(client_t *client, const char *input_ip,
+    const char *input_port)
+{
+    const unsigned short port = atoi(input_port);
+    const unsigned int address = 0;
+    int status = inet_pton(AF_INET, input_ip, (void *)&address);
+
+    if (status <= 0) {
+        return 84;
+    }
+    if (load_client(client, address, port) == 84) {
+        return 84;
+    }
+    loop(client);
+    return 0;
+}
+
 int client(const int ac, const char **av)
 {
-    return 0;
+    client_t client;
+    int status = check_args(ac, av, 3);
+
+    if (status != 0) {
+        return (status - 1);
+    }
+    status = launch_client(&client, av[1], av[2]);
+    return status;
 }

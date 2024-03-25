@@ -7,21 +7,26 @@
 
 #include "server.h"
 
+static int launch_server(server_t *server, const char *input_port)
+{
+    const unsigned short port = atoi(input_port);
+
+    if (load_server(server, port) == 84) {
+        return 84;
+    }
+    loop(server);
+    return 0;
+}
+
 int server(const int ac, const char **av)
 {
     server_t server;
-    unsigned short port;
-    int status = args(ac, av);
+    int status = check_args(ac, av, 2);
 
     if (status != 0) {
         return (status - 1);
     }
-    port = atoi(av[1]);
-    load_server(&server, port);
-    if (server.socket.listen(&server.socket, port) == -1) {
-        return 84;
-    }
-    loop(&server);
+    status = launch_server(&server, av[1]);
     unload_server(&server);
-    return 0;
+    return status;
 }

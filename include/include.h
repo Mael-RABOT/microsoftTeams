@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stdarg.h>
 #include <dlfcn.h>
+#include <arpa/inet.h>
 
 #include "../libs/array/include/array.h"
 #include "../libs/socket/include/socket.h"
@@ -30,3 +31,7 @@
 #include "../libs/logging/include/logging.h"
 #include "../libs/myteams/logging_client.h"
 #include "../libs/myteams/logging_server.h"
+
+char **load_file(const char *path);
+void display_usage(const char *path);
+int check_args(const int ac, const char **av, const int no_arg);

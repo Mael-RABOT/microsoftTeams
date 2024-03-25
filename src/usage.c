@@ -5,7 +5,7 @@
 ** usage.c
 */
 
-#include "server.h"
+#include "../include/include.h"
 
 void display_usage(const char *path)
 {

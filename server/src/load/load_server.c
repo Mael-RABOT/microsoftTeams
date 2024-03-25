@@ -27,5 +27,8 @@ int load_server(server_t *server, const unsigned short port)
     if (load_log_library(server) == 84) {
         return 84;
     }
+    if (server->socket.listen(&server->socket, port) == -1) {
+        return 84;
+    }
     return 0;
 }

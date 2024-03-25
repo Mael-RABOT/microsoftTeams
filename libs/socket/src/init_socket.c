@@ -29,6 +29,12 @@ static int socket_send(struct socket_s *socket, const char *format, ...)
     return read_val;
 }
 
+static int socket_connect(struct socket_s *socket)
+{
+    return connect(socket->socket_fd, (struct sockaddr *)&socket->address,
+        socket->addrlen);
+}
+
 void init_socket(socket_t *socket)
 {
     if (socket == NULL) {
@@ -39,4 +45,5 @@ void init_socket(socket_t *socket)
     socket->send = socket_send;
     socket->listen = socket_listen;
     socket->accept = socket_accept;
+    socket->connect = socket_connect;
 }

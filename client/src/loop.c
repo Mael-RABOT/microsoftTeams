@@ -2,12 +2,17 @@
 ** EPITECH PROJECT, 2024
 ** B-NWP-400-LYN-4-1-myteams-mael.rabot
 ** File description:
-** main.c
+** loop.c
 */
 
 #include "client.h"
 
-int main(const int ac, const char **av)
+int loop(client_t *client)
 {
-    return client(ac, av);
+    int running = 1;
+
+    while (running) {
+
+    }
+    return 0;
 }

@@ -11,17 +11,28 @@
 #include "command.h"
 #include "../../include/include.h"
 
+typedef struct comment_s {
+
+} comment_t;
+
+typedef struct thread_s {
+    comment_t **comments;
+} thread_t;
+
+typedef struct channel_s {
+    thread_t **threads;
+} channel_t;
+
+typedef struct team_s {
+    channel_t **channels;
+} team_t;
+
 typedef struct server_s {
     fd_set fd_set;
     socket_t socket;
     server_logger_t *logger;
     user_t *users[MAX_USER + 1];
 } server_t;
-
-char **load_file(const char *path);
-
-void display_usage(const char *path);
-int args(const int ac, const char **av);
 
 int server(const int ac, const char **av);
 int loop(server_t *server);

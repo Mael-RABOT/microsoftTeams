@@ -5,7 +5,7 @@
 ** load_file.c
 */
 
-#include "server.h"
+#include "../include/include.h"
 
 static int get_size(FILE *file)
 {

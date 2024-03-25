@@ -9,7 +9,12 @@ MAIN_SRC    =	src/main.c
 
 COMMAND_SRC	=	src/command/display.c
 
-FILE_SRC    =	$(COMMAND_SRC) \
+COMMON_SRC	=	../src/load_file.c \
+				../src/usage.c \
+				../src/args.c
+
+FILE_SRC    =	$(COMMON_SRC) \
+				$(COMMAND_SRC) \
 				src/loop.c \
 				src/stdin.c \
 				src/server.c \
@@ -17,10 +22,7 @@ FILE_SRC    =	$(COMMAND_SRC) \
 				src/load/unload_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
-				src/conn/accept.c \
-				src/load_file.c \
-				src/usage.c \
-				src/args.c
+				src/conn/accept.c
 
 TEST_SRC    =
 

@@ -9,7 +9,7 @@
 
 static int set_client_logger_ptr(client_logger_t *logger)
 {
-    int status = load(logger->dlloader, logger, 30,
+    int status = load(logger->dlloader, logger, 29,
     "client_event_logged_in", "client_event_logged_out",
     "client_event_private_message_received",
     "client_event_thread_reply_received",
