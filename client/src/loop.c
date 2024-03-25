@@ -12,7 +12,6 @@ int loop(client_t *client)
     int running = 1;
 
     while (running) {
-
     }
     return 0;
 }
