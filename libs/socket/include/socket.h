@@ -25,11 +25,12 @@ typedef struct socket_s {
     int (*listen)(struct socket_s *socket, int backlog);
     int (*accept)(struct socket_s *socket, struct sockaddr *addr,
         socklen_t *len);
+    int (*connect)(struct socket_s *socket);
 } socket_t;
 
-socket_t *create_server(const int port);
-int init_server(socket_t *socket, const int port);
-socket_t *create_client(const int address, const int port);
-int init_client(socket_t *socket, const int address, const int port);
+socket_t *create_server(const unsigned short port);
+int init_server(socket_t *socket, const unsigned short port);
+socket_t *create_client(const int address, const unsigned short port);
+int init_client(socket_t *socket, const int address, const unsigned short port);
 void delete_socket(socket_t *socket);
 void init_socket(socket_t *socket);

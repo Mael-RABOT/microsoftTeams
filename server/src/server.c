@@ -7,37 +7,26 @@
 
 #include "server.h"
 
-static int load_log_library(server_t *server)
+static int launch_server(server_t *server, const char *input_port)
 {
-    server->logger = create_server_logger("./libs/myteams/libmyteams.so");
-    if (server->logger == NULL) {
+    const unsigned short port = atoi(input_port);
+
+    if (load_server(server, port) == 84) {
         return 84;
     }
+    loop(server);
     return 0;
-}
-
-static void unload_server(server_t *server)
-{
-    if (server == NULL) {
-        return;
-    }
-    if (server->logger != NULL) {
-        delete_server_logger(server->logger);
-    }
 }
 
 int server(const int ac, const char **av)
 {
     server_t server;
+    int status = check_args(ac, av, 2);
 
-    if (load_log_library(&server) == 84) {
-        return 84;
+    if (status != 0) {
+        return (status - 1);
     }
-    if (init_server(&server.socket, 8080) == -1) {
-        close(server.socket.socket_fd);
-        return 84;
-    }
-    server.logger->channel_created("a", "b", "c");
+    status = launch_server(&server, av[1]);
     unload_server(&server);
-    return 0;
+    return status;
 }

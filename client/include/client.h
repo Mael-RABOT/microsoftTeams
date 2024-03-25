@@ -16,3 +16,7 @@ typedef struct client_s {
 
 int client(const int ac, const char **av);
 int loop(client_t *client);
+
+int load_client(client_t *client, const unsigned int address,
+    const unsigned short port);
+void unload_client(client_t *client);

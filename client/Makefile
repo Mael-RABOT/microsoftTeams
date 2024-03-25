@@ -7,7 +7,15 @@
 
 MAIN_SRC    =	src/main.c
 
-FILE_SRC    =
+COMMON_SRC	=	../src/load_file.c \
+				../src/usage.c \
+				../src/args.c
+
+FILE_SRC    =	$(COMMON_SRC) \
+				src/client.c \
+				src/loop.c \
+				src/load/load_client.c \
+				src/load/unload_client.c
 
 TEST_SRC    =
 

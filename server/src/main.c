@@ -7,6 +7,10 @@
 
 #include "server.h"
 
+const input_command_t input_command[] = {
+    {"exit", display}
+};
+
 void debug(void)
 {
     pid_t pid = getpid();

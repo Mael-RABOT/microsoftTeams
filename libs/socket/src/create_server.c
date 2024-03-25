@@ -19,7 +19,7 @@ static bool init_socket_conn(socket_t *new_socket)
     }
 }
 
-static void set_socket_option(socket_t *socket, int port)
+static void set_socket_option(socket_t *socket, const unsigned short port)
 {
     socket->address.sin_family = AF_INET;
     socket->address.sin_addr.s_addr = INADDR_ANY;
@@ -39,20 +39,20 @@ static bool bind_socket(socket_t *socket)
     }
 }
 
-int init_server(socket_t *socket, const int port)
+int init_server(socket_t *socket, const unsigned short port)
 {
     init_socket(socket);
     if (init_socket_conn(socket) == false) {
-        return -1;
+        return 84;
     }
     set_socket_option(socket, port);
     if (bind_socket(socket) == false) {
-        return -1;
+        return 84;
     }
     return 0;
 }
 
-socket_t *create_server(const int port)
+socket_t *create_server(const unsigned short port)
 {
     socket_t *socket = malloc(sizeof(socket_t));
 
