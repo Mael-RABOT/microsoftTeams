@@ -17,7 +17,10 @@ FILE_SRC    =	$(COMMAND_SRC) \
 				src/load/unload_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
-				src/conn/accept.c
+				src/conn/accept.c \
+				src/load_file.c \
+				src/usage.c \
+				src/args.c
 
 TEST_SRC    =
 

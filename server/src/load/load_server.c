@@ -20,7 +20,7 @@ static int load_log_library(server_t *server)
 int load_server(server_t *server, const unsigned short port)
 {
     memset(server, 0, sizeof(server_t));
-    if (init_server(&server->socket, 8080) == 84) {
+    if (init_server(&server->socket, port) == 84) {
         close(server->socket.socket_fd);
         return 84;
     }

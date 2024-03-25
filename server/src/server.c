@@ -10,9 +10,17 @@
 int server(const int ac, const char **av)
 {
     server_t server;
+    unsigned short port;
+    int status = args(ac, av);
 
-    load_server(&server, 8080);
-    server.socket.listen(&server.socket, 10);
+    if (status != 0) {
+        return (status - 1);
+    }
+    port = atoi(av[1]);
+    load_server(&server, port);
+    if (server.socket.listen(&server.socket, port) == -1) {
+        return 84;
+    }
     loop(&server);
     unload_server(&server);
     return 0;

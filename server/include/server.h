@@ -18,6 +18,11 @@ typedef struct server_s {
     user_t *users[MAX_USER + 1];
 } server_t;
 
+char **load_file(const char *path);
+
+void display_usage(const char *path);
+int args(const int ac, const char **av);
+
 int server(const int ac, const char **av);
 int loop(server_t *server);
 
