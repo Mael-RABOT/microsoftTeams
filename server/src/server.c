@@ -21,7 +21,7 @@ static int launch_server(server_t *server, const char *input_port)
 int server(const int ac, const char **av)
 {
     server_t server;
-    int status = check_args(ac, av, 2);
+    int status = check_args(ac, av, 2, "./server/usage.md");
 
     if (status != 0) {
         return (status - 1);

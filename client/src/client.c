@@ -27,7 +27,7 @@ static int launch_client(client_t *client, const char *input_ip,
 int client(const int ac, const char **av)
 {
     client_t client;
-    int status = check_args(ac, av, 3);
+    int status = check_args(ac, av, 3, "./client/usage.md");
 
     if (status != 0) {
         return (status - 1);

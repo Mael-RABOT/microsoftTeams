@@ -34,4 +34,5 @@
 
 char **load_file(const char *path);
 void display_usage(const char *path);
-int check_args(const int ac, const char **av, const int no_arg);
+int check_args(
+    const int ac, const char **av, const int no_arg, const char *path);
