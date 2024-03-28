@@ -7,7 +7,6 @@ vgcore.*
 *.pdf
 *.o
 *.a
-*.so
 *.gcno
 *.gcda
 *.html

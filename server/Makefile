@@ -7,7 +7,8 @@
 
 MAIN_SRC    =	src/main.c
 
-COMMAND_SRC	=	src/command/display.c
+COMMAND_SRC	=	src/command/display.c \
+				src/command/clear.c
 
 COMMON_SRC	=	../src/load_file.c \
 				../src/usage.c \
@@ -22,7 +23,8 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/load/unload_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
-				src/conn/accept.c
+				src/conn/accept.c \
+				src/completion.c
 
 TEST_SRC    =
 
@@ -44,7 +46,7 @@ CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
 					../libs/libdlloader.a ../libs/liblogging.a
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lreadline
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -55,8 +57,9 @@ TEST_EXE    =    $(EXE)_test
 
 all:    $(EXE)
 
-%.o:	%.c
+%.o:    %.c
 	$(CC) $(CFLAGS)   -c -o $@ $<
+
 
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<

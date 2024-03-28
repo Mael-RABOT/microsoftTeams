@@ -11,27 +11,15 @@
 #include "command.h"
 #include "../../include/include.h"
 
-typedef struct comment_s {
-
-} comment_t;
-
-typedef struct thread_s {
-    comment_t **comments;
-} thread_t;
-
-typedef struct channel_s {
-    thread_t **threads;
-} channel_t;
-
-typedef struct team_s {
-    channel_t **channels;
-} team_t;
+void init_completion(void);
 
 typedef struct server_s {
     fd_set fd_set;
     socket_t socket;
     server_logger_t *logger;
     user_t *users[MAX_USER + 1];
+    char stdin_buf[256];
+    int index;
 } server_t;
 
 int server(const int ac, const char **av);

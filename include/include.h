@@ -24,6 +24,9 @@
 #include <stdarg.h>
 #include <dlfcn.h>
 #include <arpa/inet.h>
+#include <termios.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #include "../libs/array/include/array.h"
 #include "../libs/socket/include/socket.h"

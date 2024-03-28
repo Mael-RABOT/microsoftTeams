@@ -7,8 +7,10 @@
 
 #include "server.h"
 
-const input_command_t input_command[] = {
-    {"exit", display}
+const input_command_t input_command[MAX_COMMAND] = {
+    {"exit", display},
+    {"clear", clear},
+    {"display", display}
 };
 
 void debug(void)
