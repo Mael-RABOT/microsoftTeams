@@ -50,20 +50,6 @@ static void loop_command(server_t *server, int *is_running, char *buf)
     return;
 }
 
-/*
-** int read_stdin(server_t *server, int *is_running)
-** {
-**     char *buf = my_readline("> ");
-**
-**     if (buf == NULL) {
-**         return 0;
-**     }
-**     loop_command(server, is_running, buf);
-**     free(buf);
-**     return 0;
-** }
-*/
-
 int read_stdin(server_t *server, int *is_running)
 {
     int i = 0;
@@ -82,3 +68,17 @@ int read_stdin(server_t *server, int *is_running)
     }
     return 0;
 }
+
+/*
+** int read_stdin(server_t *server, int *is_running)
+** {
+**     char *buf = my_readline("> ");
+**
+**     if (buf == NULL) {
+**         return 0;
+**     }
+**     loop_command(server, is_running, buf);
+**     free(buf);
+**     return 0;
+** }
+*/
