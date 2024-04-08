@@ -6,7 +6,7 @@
 ##
 
 FILE_SRC	= src/completion.c \
-			  src/history.c \
+			  src/history/history.c \
 			  src/term.c \
 			  src/completion_manip.c \
 

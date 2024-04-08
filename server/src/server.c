@@ -34,19 +34,11 @@ char *completion_detect_word(const char *buf)
     return NULL;
 }
 
-int moveCursor(int x, int y)
-{
-    printf("\033[%d;%dH", x, y);
-    return 0;
-}
-
 int server(const int ac, const char **av, const char **env)
 {
     server_t server;
     int status = check_args(ac, av, 2, "./server/usage.md");
 
-    moveCursor(0, 0);
-    printf("Server is running\n");
     completion_function = completion_detect_word;
     init_term();
     memset(&server, 0, sizeof(server_t));

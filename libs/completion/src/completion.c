@@ -18,13 +18,16 @@ static bool get_move(history_t *history, char *line, char character)
 
     switch (character) {
         case 'A':
-            hline = completion_detect_history_up(history, line);
+            hline = completion_detect_history_up(history);
             if (hline != NULL) {
                 strcpy(line, hline);
             }
             return true;
         case 'B':
-            printf("DOWN\n");
+            hline = completion_detect_history_down(history);
+            if (hline != NULL) {
+                strcpy(line, hline);
+            }
             return true;
         case 'C':
             return false;
@@ -36,15 +39,15 @@ static bool get_move(history_t *history, char *line, char character)
 
 static void display_line(const char *prompt, history_t *history, char *line)
 {
-    int i = 0;
-    int len = 0;
+    unsigned int i = 0;
 
-    /*printf("\r");
-    while (i < len) {
+    printf("\r");
+    while (i < COLS) {
         printf(" ");
         i += 1;
-    }*/
+    }
     printf("\r%s", line);
+    fflush(stdout);
 }
 
 static bool detect_character(char *line, char *character)
@@ -106,5 +109,6 @@ char *my_readline(const char *prompt)
     }
     memset(line, 0, 1024);
     get_input(prompt, history, line);
+    add_history(line);
     return line;
 }
