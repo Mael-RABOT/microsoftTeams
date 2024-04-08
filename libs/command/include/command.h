@@ -8,9 +8,9 @@
 #pragma once
 
 typedef enum command_type_e {
-    ERROR = -2,
-    TEXT = -1,
-    HELP = 0,
+    ERROR = -1,
+    TEXT = 0,
+    HELP = 1,
     LOGIN,
     LOGOUT,
     USERS,
