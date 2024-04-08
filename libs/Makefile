@@ -7,6 +7,7 @@
 
 LIB	=	socket \
 		array \
+		completion \
 		dlloader \
 		logging
 

@@ -25,13 +25,13 @@
 #include <dlfcn.h>
 #include <arpa/inet.h>
 #include <termios.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <linux/limits.h>
 
 #include "../libs/array/include/array.h"
 #include "../libs/socket/include/socket.h"
 #include "../libs/dlloader/include/dlloader.h"
 #include "../libs/logging/include/logging.h"
+#include "../libs/completion/include/completion.h"
 #include "../libs/myteams/logging_client.h"
 #include "../libs/myteams/logging_server.h"
 
@@ -39,3 +39,5 @@ char **load_file(const char *path);
 void display_usage(const char *path);
 int check_args(
     const int ac, const char **av, const int no_arg, const char *path);
+const char *get_env_pair(const char **env, const char *key);
+const char *get_env_value(const char **env, const char *key);
