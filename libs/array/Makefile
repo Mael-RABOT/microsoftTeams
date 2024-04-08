@@ -13,7 +13,8 @@ FILE_SRC    =	src/append_array.c \
 				src/len_array.c \
 				src/print_array.c \
 				src/remove_array.c \
-				src/shift_array.c
+				src/shift_array.c	\
+				src/split.c \
 
 FILE_OBJ    =    $(FILE_SRC:.c=.o)
 

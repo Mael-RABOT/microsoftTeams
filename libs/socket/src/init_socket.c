@@ -24,7 +24,7 @@ static int socket_send(struct socket_s *socket, const char *format, ...)
     int read_val = 0;
 
     va_start(list, format);
-    read_val = dprintf(socket->socket_fd, format, list);
+    read_val = vdprintf(socket->socket_fd, format, list);
     va_end(list);
     return read_val;
 }

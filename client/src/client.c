@@ -20,8 +20,7 @@ static int launch_client(client_t *client, const char *input_ip,
     if (load_client(client, address, port) == 84) {
         return 84;
     }
-    loop(client);
-    return 0;
+    return loop(client);
 }
 
 int client(const int ac, const char **av)
