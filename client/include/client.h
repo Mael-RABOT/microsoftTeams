@@ -8,11 +8,17 @@
 #pragma once
 
 #include "../../include/include.h"
+#include "../../libs/command/include/command.h"
 
 typedef struct client_s {
     socket_t socket;
     client_logger_t *logger;
 } client_t;
+
+typedef struct command_map_s {
+    char *input;
+    command_type_t command_type;
+} command_map;
 
 int client(const int ac, const char **av);
 int loop(client_t *client);

@@ -31,7 +31,7 @@ CC    =    gcc
 DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
-CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
+CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
 LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
