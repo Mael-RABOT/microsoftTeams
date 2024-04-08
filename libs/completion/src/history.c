@@ -56,13 +56,10 @@ char *completion_detect_history_up(history_t *history, const char *buf)
         return NULL;
     }
     while (history->index >= 0) {
-        if (strncmp(history->array[history->index], buf, strlen(buf)) == 0) {
-            line = strdup(&history->array[history->index][strlen(buf)]);
-            line[strlen(line) - 1] = '\0';
-            history->index -= 1;
-            return line;
-        }
+        line = strdup(&history->array[history->index][strlen(buf)]);
+        line[strlen(line) - 1] = '\0';
         history->index -= 1;
+        return line;
     }
     return NULL;
 }

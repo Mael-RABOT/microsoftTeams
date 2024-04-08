@@ -12,12 +12,10 @@ void delete_character(char *line, char *character)
     int len = strlen(line);
 
     if (strlen(line) == 0) {
-        *character = fgetc(stdin);
         return;
     }
     line[len - 1] = '\0';
     printf("\b \b");
-    *character = fgetc(stdin);
     return;
 }
 
@@ -27,6 +25,5 @@ void complete(char *line)
 
     if (command != NULL) {
         strcat(line, command);
-        printf("%s", command);
     }
 }

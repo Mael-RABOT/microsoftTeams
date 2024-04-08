@@ -15,8 +15,10 @@ enum status_e {
     LOGGED
 };
 
-enum command_type {
-    HELP,
+typedef enum command_type_e {
+    ERROR = -1,
+    TEXT = 0,
+    HELP = 1,
     LOGIN,
     LOGOUT,
     USERS,
@@ -30,16 +32,16 @@ enum command_type {
     CREATE,
     LIST,
     INFO
-};
+} command_type_t;
 
 struct command_s {
-    enum command_type type;
+    command_type_t type;
     int no_args;
     enum status_e required;
 };
 
 struct packet_s {
-    enum command_type type;
+    command_type_t type;
 };
 
 extern struct command_s command_lists[NO_COMMAND];
