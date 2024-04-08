@@ -9,6 +9,6 @@
 
 void clear(server_t *server)
 {
-    printf("\033c\n");
+    printf("\033c");
     fflush(stdout);
 }

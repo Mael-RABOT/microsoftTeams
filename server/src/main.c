@@ -20,7 +20,7 @@ void debug(void)
     printf("PID: %d\n", pid);
 }
 
-int main(const int ac, const char **av)
+int main(const int ac, const char **av, const char **env)
 {
-    return server(ac, av);
+    return server(ac, av, env);
 }

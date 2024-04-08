@@ -6,9 +6,9 @@
 */
 
 #include "server.h"
-#include <readline/readline.h>
 
-static int launch_server(server_t *server, const char *input_port)
+static int launch_server(const char **env, server_t *server,
+    const char *input_port)
 {
     const unsigned short port = atoi(input_port);
 
@@ -19,17 +19,31 @@ static int launch_server(server_t *server, const char *input_port)
     return 0;
 }
 
-int server(const int ac, const char **av)
+char *completion_detect_word(const char *buf)
+{
+    int i = 0;
+    const char *command = NULL;
+
+    while (i < MAX_COMMAND) {
+        command = input_command[i].name;
+        i += 1;
+        if (strncmp(command, buf, strlen(buf)) == 0) {
+            return strdup(&command[strlen(buf)]);
+        }
+    }
+    return NULL;
+}
+
+int server(const int ac, const char **av, const char **env)
 {
     server_t server;
     int status = check_args(ac, av, 2, "./server/usage.md");
 
-    init_completion();
     memset(&server, 0, sizeof(server_t));
     if (status != 0) {
         return (status - 1);
     }
-    status = launch_server(&server, av[1]);
+    status = launch_server(env, &server, av[1]);
     unload_server(&server);
     return status;
 }

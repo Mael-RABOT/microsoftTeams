@@ -32,3 +32,18 @@ int load_server(server_t *server, const unsigned short port)
     }
     return 0;
 }
+
+int load_server_history(const char **env, server_t *server)
+{
+    const char *value = get_env_value(env, "HOME");
+
+    if (value != NULL) {
+        strcpy(server->history_path, value);
+        strcat(server->history_path, "/");
+        strcat(server->history_path, HISTORY_PATH);
+        return 0;
+    } else {
+        printf("Value is null\n");
+        return 84;
+    }
+}

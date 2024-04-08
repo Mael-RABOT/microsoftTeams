@@ -5,6 +5,12 @@
 ## Makefile
 ##
 
+ARCHIVE	=	../libs/libsocket.a \
+			../libs/libarray.a \
+			../libs/libdlloader.a \
+			../libs/liblogging.a \
+			../libs/libcompletion.a
+
 MAIN_SRC    =	src/main.c
 
 COMMAND_SRC	=	src/command/display.c \
@@ -12,7 +18,8 @@ COMMAND_SRC	=	src/command/display.c \
 
 COMMON_SRC	=	../src/load_file.c \
 				../src/usage.c \
-				../src/args.c
+				../src/args.c \
+				../src/get_env.c
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
@@ -23,8 +30,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/load/unload_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
-				src/conn/accept.c \
-				src/completion.c
+				src/conn/accept.c
 
 TEST_SRC    =
 
@@ -43,10 +49,7 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
-					../libs/libdlloader.a ../libs/liblogging.a
-
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lreadline
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
@@ -64,9 +67,8 @@ all:    $(EXE)
 %_test.o:	%.o
 	$(CC)   -c -o $@ $<
 
-$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
+$(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(ARCHIVE)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
-	@strip $(EXE)
 
 debug:	CFLAGS += $(DEBUG)
 debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
@@ -86,7 +88,7 @@ re:    fclean all
 
 unit_tests:	CFLAGS += $(COVERAGE) -DTEST
 unit_tests: LDFLAGS += $(COVERAGE)
-unit_tests: $(FILE_OBJ) $(TEST_OBJ) ../libs/libsocket.a
+unit_tests: $(FILE_OBJ) $(TEST_OBJ) $(ARCHIVE)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
 
 tests_run:    clean unit_tests
