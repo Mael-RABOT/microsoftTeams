@@ -14,6 +14,7 @@
 #define MAX_BODY_LENGTH 512
 #define MAX_USER    64
 
+#include <sys/signal.h>
 #include <sys/select.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -34,6 +35,8 @@
 #include "../libs/completion/include/completion.h"
 #include "../libs/myteams/logging_client.h"
 #include "../libs/myteams/logging_server.h"
+
+#include "command.h"
 
 char **load_file(const char *path);
 void display_usage(const char *path);

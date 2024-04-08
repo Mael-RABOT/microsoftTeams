@@ -35,6 +35,7 @@ int loop(server_t *server)
     while (running) {
         reset_fd_set(server);
         accept_conns(server);
+        loop_command(server);
         read_stdin(server, &running);
     }
     return 0;

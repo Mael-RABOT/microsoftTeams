@@ -16,13 +16,16 @@
 
 void **create_array(unsigned int size);
 bool delete_array(void **array);
+void **realloc_array(void **array, unsigned int size);
+
 unsigned int len_array(void **array);
-bool print_array(void **array, void(*print)(const void *));
-void print_str(const void *str);
 void clear_array(void **array, int size);
 void shift_array(void **array, int index);
 void append_array(void **array, void *ptr);
 void remove_array(void **array, int index);
+
+bool print_array(void **array, void(*print)(const void *));
+void print_str(const void *str);
 
 char *array_to_str(char **array);
 
