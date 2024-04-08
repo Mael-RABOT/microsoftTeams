@@ -53,7 +53,7 @@ static int handle_input(client_t *client, char *input)
             printf("Invalid command.\n");
             return -1;
         case TEXT:
-            printf("Sending text: %s", input);
+            client->socket.send(&client->socket, "%d %s", TEXT, input);
             return 1;
         default:
             printf("Command: %d\n", command_type);
