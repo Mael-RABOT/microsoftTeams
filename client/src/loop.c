@@ -60,20 +60,14 @@ static int call_command(client_t *client, command_type_t type, char *input)
     return normalize_command(client, type, input, args_data);
 }
 
-static int help(void)
-{
-    printf("200: Available commands:\n");
-    printf("/help\n");
-    printf("/login [\"username\"]\n");
-    return 1;
-}
-
 static int handle_input(client_t *client, char *input)
 {
     command_type_t command_type;
 
     if (!strcmp(input, "/exit\n"))
         return 0 * client->socket.send(&client->socket, "%d", EXIT);
+    if (!strcmp(input, "/help\n"))
+        return 1 + 0 * printf(CHELP);
     command_type = get_command_type(input);
     switch (command_type) {
         case ERROR:
