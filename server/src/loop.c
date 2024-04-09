@@ -35,6 +35,7 @@ int loop(server_t *server)
     while (running) {
         reset_fd_set(server);
         accept_conns(server);
+        disconnect(server);
         loop_command(server);
         if (FD_ISSET(0, &server->fd_set))
             read_stdin(server, &running);

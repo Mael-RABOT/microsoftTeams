@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-void help_command(server_t *server, user_t *user)
+void help_command(server_t *server, user_t *user, packet_t *packet)
 {
     user->send(user, "200 Help\n");
 }

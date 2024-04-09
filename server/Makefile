@@ -31,6 +31,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/loop.c \
 				src/stdin.c \
 				src/server.c \
+				src/disconnect.c \
 				src/conn/accept.c \
 				src/loop_command.c \
 				src/command_parsing.c \

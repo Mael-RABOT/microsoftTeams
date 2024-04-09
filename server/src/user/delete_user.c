@@ -12,5 +12,7 @@ void delete_user(user_t *user)
     if (user == NULL) {
         return;
     }
+    if (user->nsock != -1)
+        close(user->nsock);
     free(user);
 }

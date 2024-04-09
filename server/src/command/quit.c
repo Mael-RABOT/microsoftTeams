@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-void quit_command(server_t *server, user_t *user)
+void quit_command(server_t *server, user_t *user, packet_t *packet)
 {
     user->level = DISCONNECTED;
 }

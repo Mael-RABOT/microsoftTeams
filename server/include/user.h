@@ -11,7 +11,6 @@
 
 typedef struct user_s {
     int nsock;
-    char **args;
     socklen_t socklen;
     enum status_e level;
     struct sockaddr_in addr;

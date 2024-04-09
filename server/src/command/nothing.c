@@ -7,7 +7,7 @@
 
 #include "server.h"
 
-void nothing_command(server_t *server, user_t *user)
+void nothing_command(server_t *server, user_t *user, packet_t *packet)
 {
     return;
 }

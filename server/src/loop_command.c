@@ -7,7 +7,20 @@
 
 #include "server.h"
 
-static int execute_command(server_t *server, int i)
+static int execute_command(server_t *server, packet_t *packet, user_t *user)
+{
+    int i = 0;
+
+    while (i < END) {
+        if (packet->type == command_list[i].type) {
+            command_list[i].func(server, user, packet);
+        }
+        i += 1;
+    }
+    return 0;
+}
+
+static int get_command(server_t *server, int i)
 {
     packet_t *packet = NULL;
     unsigned int read_val = 0;
@@ -19,6 +32,7 @@ static int execute_command(server_t *server, int i)
         return 0;
     }
     packet = parse_command(server, command);
+    execute_command(server, packet, user);
     delete_packet(packet);
     return 0;
 }
@@ -29,7 +43,7 @@ int loop_command(server_t *server)
 
     while (server->users[i] != NULL) {
         if (FD_ISSET(server->users[i]->nsock, &server->fd_set)) {
-            execute_command(server, i);
+            get_command(server, i);
         }
         i += 1;
     }

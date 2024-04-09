@@ -12,6 +12,9 @@ void unload_server(server_t *server)
     if (server == NULL) {
         return;
     }
+    if (server->socket.socket_fd != -1) {
+        close(server->socket.socket_fd);
+    }
     if (server->logger != NULL) {
         delete_server_logger(server->logger);
     }

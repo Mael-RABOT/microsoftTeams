@@ -7,11 +7,7 @@
 
 #include "server.h"
 
-void login_command(server_t *server, user_t *user)
+void login_command(server_t *server, user_t *user, packet_t *packet)
 {
-    if (len_array((void **)user->args) != 1) {
-        user->send(user, "400 Invalid number of arguments");
-    }
-    strcpy(user->name, user->args[0]);
     user->level = LOGGED;
 }

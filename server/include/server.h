@@ -37,3 +37,5 @@ void unload_server(server_t *server);
 int accept_conns(server_t *server);
 
 packet_t *parse_command(server_t *server, char *command);
+
+void disconnect(server_t *server);
