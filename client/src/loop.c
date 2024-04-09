@@ -67,14 +67,14 @@ static int handle_input(client_t *client, char *input)
 int loop(client_t *client)
 {
     int running = true;
-    char *input = malloc(256 * sizeof(char));
+    char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
     while (running > 0) {
-        memset(input, 0, 256);
+        memset(input, 0, MAX_BODY_LENGTH);
         write(1, "> ", 2);
-        fgets(input, 256, stdin);
+        fgets(input, MAX_BODY_LENGTH, stdin);
         running = handle_input(client, input);
     }
     free(input);

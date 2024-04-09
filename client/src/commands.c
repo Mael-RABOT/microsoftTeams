@@ -17,7 +17,7 @@ static int get_length(char **array)
 
 static char *allocate_and_fill_new_str(char **array, int length)
 {
-    char *new_str = calloc((length * 256), sizeof(char));
+    char *new_str = calloc((length * MAX_BODY_LENGTH), sizeof(char));
     char *end = new_str;
 
     if (new_str != NULL) {
