@@ -43,6 +43,23 @@ static command_type_t get_command_type(char *input)
     return TEXT;
 }
 
+static vector_2d get_args_data(command_type_t type)
+{
+    for (int i = 0; get_command()[i].input != NULL; i++) {
+        if (get_command()[i].command_type == type)
+            return (vector_2d){
+                get_command()[i].min_args, get_command()[i].max_args};
+    }
+    return (vector_2d){0, 0};
+}
+
+static int call_command(client_t *client, command_type_t type, char *input)
+{
+    vector_2d args_data = get_args_data(type);
+
+    return normalize_command(client, type, input, args_data);
+}
+
 static int help(void)
 {
     printf("200: Available commands:\n");
@@ -56,7 +73,7 @@ static int handle_input(client_t *client, char *input)
     command_type_t command_type;
 
     if (!strcmp(input, "/exit\n"))
-        return 0;
+        return 0 * client->socket.send(&client->socket, "%d", EXIT);
     command_type = get_command_type(input);
     switch (command_type) {
         case ERROR:
@@ -66,7 +83,7 @@ static int handle_input(client_t *client, char *input)
             client->socket.send(&client->socket, "%d %s", TEXT, input);
             return 1;
         default:
-            if (normalize_command(client, command_type, input))
+            if (call_command(client, command_type, input))
                 printf("Invalid arguments.\n");
             return 1;
     }

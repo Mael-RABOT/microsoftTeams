@@ -38,6 +38,11 @@
 
 #include "command.h"
 
+typedef struct vector_2d_s {
+    int x;
+    int y;
+} vector_2d;
+
 char **load_file(const char *path);
 void display_usage(const char *path);
 int check_args(

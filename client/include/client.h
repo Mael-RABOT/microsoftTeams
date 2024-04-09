@@ -30,4 +30,5 @@ int load_client(client_t *client, const unsigned int address,
 void unload_client(client_t *client);
 
 int normalize_command(
-    client_t *client, command_type_t command_type, char *input);
+    client_t *client, command_type_t command_type,
+    char *input, vector_2d args_data);

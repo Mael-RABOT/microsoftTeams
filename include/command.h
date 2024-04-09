@@ -16,6 +16,7 @@ enum status_e {
 };
 
 typedef enum command_type_e {
+    EXIT = -2,
     ERROR = -1,
     TEXT = 0,
     HELP = 1,
