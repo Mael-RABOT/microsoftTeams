@@ -15,56 +15,52 @@ static int get_length(char **array)
     return length;
 }
 
-static char *allocate_and_fill_new_str(char **array, int length)
-{
-    char *new_str = calloc((length * MAX_BODY_LENGTH), sizeof(char));
-    char *end = new_str;
-
-    if (new_str != NULL) {
-        for (int i = 1; i <= length; i++)
-            end += sprintf(end, "%s ", array[i]);
-    }
-    return new_str;
-}
-
-static int check_quotes(char **array, int length, char *new_str)
-{
-    for (int i = 1; i <= length; i++)
-        if (array[i][0] != '\"' || array[i][strlen(array[i])-1] != '\"') {
-            free(new_str);
-            return 1;
-        }
-    return 0;
-}
-
 static void trim_trailing_spaces_and_newlines(char *new_str)
 {
-    while (new_str[strlen(new_str) - 1] == ' '
-        || new_str[strlen(new_str) - 1] == '\n')
-        new_str[strlen(new_str) - 1] = '\0';
+    if (*new_str) {
+        while (new_str[strlen(new_str) - 1] == ' '
+            || new_str[strlen(new_str) - 1] == '\n') {
+            new_str[strlen(new_str) - 1] = '\0';
+        }
+    }
+}
+
+static int get_args_nb(char *input)
+{
+    int nb = 0;
+    int i = 0;
+    bool escape;
+
+    while (input[i] != '\0') {
+        escape = ((i == 0) ? true : input[i - 1] != '\\');
+        if (input[i] == '\"' && escape) {
+            nb++;
+        }
+        i++;
+    }
+    return (nb % 2 != 0 ? -1 : nb / 2);
 }
 
 int normalize_command(
     client_t *client, command_type_t command_type, char *input)
 {
-    char **array = split(input, " ");
-    int length = get_length(array);
     char *new_str;
+    char *original_str;
+    int arg_nb = get_args_nb(input);
+    char *space_ptr;
 
-    if (array[length][strlen(array[length]) - 1] == '\n')
-        array[length][strlen(array[length]) - 1] = '\0';
-    new_str = allocate_and_fill_new_str(array, length);
-    if (new_str == NULL) {
-        printf("Failed to allocate memory.\n");
-        return 0 * (int)delete_array((void **)array);
-    }
-    if (check_quotes(array, length, new_str)) {
-        delete_array((void **)array);
+    if (input)
+        new_str = strdup(input);
+    original_str = new_str;
+    if (new_str == NULL || arg_nb == -1) {
+        free(original_str);
         return 1;
     }
+    space_ptr = strchr(new_str, ' ');
+    new_str += (space_ptr != NULL) ? (int)(space_ptr - new_str) + 1 : 0;
+    new_str = (space_ptr != NULL) ? new_str : "";
     trim_trailing_spaces_and_newlines(new_str);
     client->socket.send(&client->socket, "%d %s", command_type, new_str);
-    free(new_str);
-    delete_array((void **)array);
+    free(original_str);
     return 0;
 }

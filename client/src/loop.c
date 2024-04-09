@@ -10,21 +10,21 @@
 static command_map *get_command(void)
 {
     static command_map map[] = {
-            {"/help", HELP},
-            {"/login", LOGIN},
-            {"/logout", LOGOUT},
-            {"/users", USERS},
-            {"/user", USER},
-            {"/send", SEND},
-            {"/messages", MESSAGES},
-            {"/subscribe", SUBSCRIBE},
-            {"/subscribed", SUBSCRIBED},
-            {"/unsubscribe", UNSUBSCRIBE},
-            {"/use", USE},
-            {"/create", CREATE},
-            {"/list", LIST},
-            {"/info", INFO},
-            {NULL, ERROR}
+            {"/help", HELP, 0, 0},
+            {"/login ", LOGIN, 1, 1},
+            {"/logout", LOGOUT, 0, 0},
+            {"/users", USERS, 0, 0},
+            {"/user ", USER, 1, 1},
+            {"/send ", SEND, 2, 2},
+            {"/messages ", MESSAGES, 1, 1},
+            {"/subscribe ", SUBSCRIBE, 1, 1},
+            {"/subscribed", SUBSCRIBED, 0, 1},
+            {"/unsubscribe ", UNSUBSCRIBE, 1, 1},
+            {"/use", USE, 0, 3},
+            {"/create ", CREATE, 1, 2},
+            {"/list", LIST, 0, 0},
+            {"/info", INFO, 0, 0},
+            {NULL, ERROR, 0, 0}
     };
 
     return map;
@@ -41,6 +41,14 @@ static command_type_t get_command_type(char *input)
     if (input[0] == '/')
         return ERROR;
     return TEXT;
+}
+
+static int help(void)
+{
+    printf("200: Available commands:\n");
+    printf("/help\n");
+    printf("/login [\"username\"]\n");
+    return 1;
 }
 
 static int handle_input(client_t *client, char *input)
@@ -74,7 +82,8 @@ int loop(client_t *client)
     while (running > 0) {
         memset(input, 0, MAX_BODY_LENGTH);
         write(1, "> ", 2);
-        fgets(input, MAX_BODY_LENGTH, stdin);
+        if (!fgets(input, MAX_BODY_LENGTH, stdin))
+            break;
         running = handle_input(client, input);
     }
     free(input);
