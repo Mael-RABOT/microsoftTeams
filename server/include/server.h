@@ -26,6 +26,7 @@ typedef struct server_s {
 
 int server(const int ac, const char **av, const char **env);
 int loop(server_t *server);
+int loop_command(server_t *server);
 
 int read_stdin(server_t *server, int *is_running);
 

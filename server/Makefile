@@ -19,11 +19,13 @@ COMMAND_SRC	=	src/command/display.c \
 COMMON_SRC	=	../src/load_file.c \
 				../src/usage.c \
 				../src/args.c \
+				../src/command.c \
 				../src/get_env.c
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
 				src/loop.c \
+				src/loop_command.c \
 				src/stdin.c \
 				src/server.c \
 				src/load/load_server.c \

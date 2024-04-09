@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../../include/include.h"
-#include "../../libs/command/include/command.h"
+#include "../../include/command.h"
 
 typedef struct client_s {
     socket_t socket;

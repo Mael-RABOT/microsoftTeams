@@ -6,9 +6,9 @@
 ##
 
 FILE_SRC	= src/completion.c \
-			  src/init_completion.c \
+			  src/history/history.c \
+			  src/term.c \
 			  src/completion_manip.c \
-			  src/restore_completion.c
 
 FILE_OBJ    =    $(FILE_SRC:.c=.o)
 

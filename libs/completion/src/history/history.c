@@ -5,7 +5,7 @@
 ** history.c
 */
 
-#include "../../../include/include.h"
+#include "../../../../include/include.h"
 
 const char *get_history_path(void)
 {
@@ -48,7 +48,25 @@ history_t *load_history(void)
     return history;
 }
 
-char *completion_detect_history_up(history_t *history, const char *buf)
+void add_history(const char *line)
+{
+    int history_fd = 0;
+    const char *path = get_history_path();
+
+    if (path == NULL) {
+        return;
+    }
+    history_fd = open(path, O_WRONLY | O_APPEND | O_CREAT, 0664);
+    if (history_fd == -1) {
+        free((void *)path);
+        return;
+    }
+    dprintf(history_fd, "%s\n", line);
+    close(history_fd);
+    free((void *)path);
+}
+
+char *completion_detect_history_up(history_t *history)
 {
     char *line = NULL;
 
@@ -56,13 +74,26 @@ char *completion_detect_history_up(history_t *history, const char *buf)
         return NULL;
     }
     while (history->index >= 0) {
-        if (strncmp(history->array[history->index], buf, strlen(buf)) == 0) {
-            line = strdup(&history->array[history->index][strlen(buf)]);
-            line[strlen(line) - 1] = '\0';
-            history->index -= 1;
-            return line;
-        }
+        line = strdup(history->array[history->index]);
+        line[strlen(line) - 1] = '\0';
         history->index -= 1;
+        return line;
+    }
+    return NULL;
+}
+
+char *completion_detect_history_down(history_t *history)
+{
+    char *line = NULL;
+
+    if (history == NULL || history->array == NULL) {
+        return NULL;
+    }
+    while (history->index < (int)len_array((void **)history->array)) {
+        line = strdup(history->array[history->index]);
+        line[strlen(line) - 1] = '\0';
+        history->index += 1;
+        return line;
     }
     return NULL;
 }

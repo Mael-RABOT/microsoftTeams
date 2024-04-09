@@ -7,17 +7,6 @@
 
 #include "../include/socket.h"
 
-static int socket_accept(struct socket_s *socket, struct sockaddr *addr,
-    socklen_t *len)
-{
-    return accept(socket->socket_fd, addr, len);
-}
-
-static int socket_listen(struct socket_s *socket, int backlog)
-{
-    return listen(socket->socket_fd, backlog);
-}
-
 static int socket_send(struct socket_s *socket, const char *format, ...)
 {
     va_list list;
@@ -27,6 +16,22 @@ static int socket_send(struct socket_s *socket, const char *format, ...)
     read_val = vdprintf(socket->socket_fd, format, list);
     va_end(list);
     return read_val;
+}
+
+static int socket_write(struct socket_s *socket, void *ptr, unsigned int n)
+{
+    return write(socket->socket_fd, ptr, n);
+}
+
+static int socket_listen(struct socket_s *socket, int backlog)
+{
+    return listen(socket->socket_fd, backlog);
+}
+
+static int socket_accept(struct socket_s *socket, struct sockaddr *addr,
+    socklen_t *len)
+{
+    return accept(socket->socket_fd, addr, len);
 }
 
 static int socket_connect(struct socket_s *socket)

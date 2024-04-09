@@ -13,6 +13,12 @@ const input_command_t input_command[MAX_COMMAND] = {
     {"display", display}
 };
 
+void handler(int signum)
+{
+    restore_term();
+    _exit(139);
+}
+
 void debug(void)
 {
     pid_t pid = getpid();
@@ -22,5 +28,7 @@ void debug(void)
 
 int main(const int ac, const char **av, const char **env)
 {
+    debug();
+    signal(11, handler);
     return server(ac, av, env);
 }

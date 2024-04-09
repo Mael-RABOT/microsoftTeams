@@ -7,6 +7,14 @@
 
 #pragma once
 
+#define NO_COMMAND  14
+
+enum status_e {
+    DISCONNECTED,
+    NOT_LOGGED,
+    LOGGED
+};
+
 typedef enum command_type_e {
     ERROR = -1,
     TEXT = 0,
@@ -26,7 +34,14 @@ typedef enum command_type_e {
     INFO
 } command_type_t;
 
-struct command {
+struct command_s {
     command_type_t type;
     int no_args;
+    enum status_e required;
 };
+
+struct packet_s {
+    command_type_t type;
+};
+
+extern struct command_s command_lists[NO_COMMAND];

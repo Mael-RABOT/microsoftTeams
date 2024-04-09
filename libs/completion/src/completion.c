@@ -9,6 +9,8 @@
 
 struct termios old_term;
 char *(*completion_function)(const char *buf);
+unsigned int LINES;
+unsigned int COLS;
 
 static bool get_move(history_t *history, char *line, char character)
 {
@@ -16,13 +18,16 @@ static bool get_move(history_t *history, char *line, char character)
 
     switch (character) {
         case 'A':
-            hline = completion_detect_history_up(history, line);
+            hline = completion_detect_history_up(history);
             if (hline != NULL) {
-                strcat(line, hline);
+                strcpy(line, hline);
             }
             return true;
         case 'B':
-            printf("DOWN\n");
+            hline = completion_detect_history_down(history);
+            if (hline != NULL) {
+                strcpy(line, hline);
+            }
             return true;
         case 'C':
             return false;
@@ -32,29 +37,17 @@ static bool get_move(history_t *history, char *line, char character)
     return false;
 }
 
-static bool detect_move(history_t *history, char *line, char character)
+static void display_line(const char *prompt, history_t *history, char *line)
 {
-    if (character == '\033') {
-        character = fgetc(stdin);
-        if (character == '[') {
-            character = fgetc(stdin);
-            return get_move(history, line, character);
-        }
-    }
-    return false;
-}
-
-static void display_line(history_t *history, char *line)
-{
-    int i = 0;
-    int len = 0;
+    unsigned int i = 0;
 
     printf("\r");
-    while (i < len) {
+    while (i < COLS) {
         printf(" ");
         i += 1;
     }
     printf("\r%s", line);
+    fflush(stdout);
 }
 
 static bool detect_character(char *line, char *character)
@@ -70,33 +63,34 @@ static bool detect_character(char *line, char *character)
     return false;
 }
 
-static void *execute_character(char *line, char *character)
+static bool detect_move(history_t *history, char *line, char character)
 {
-
+    if (character == '\033') {
+        character = fgetc(stdin);
+        if (character == '[') {
+            character = fgetc(stdin);
+            return get_move(history, line, character);
+        }
+    } else {
+        if (detect_character(line, &character) == false) {
+            strncat(line, &character, 1);
+        }
+    }
+    return false;
 }
 
-static void get_input(history_t *history, char *line)
+static void get_input(const char *prompt, history_t *history, char *line)
 {
     char character = 0;
 
     while (character != EOF) {
+        character = fgetc(stdin);
         if (character == '\n') {
             printf("\n");
             return;
         }
-        if (detect_move(history, line, character) == true) {
-            display_line(history, line);
-            strcat(line, history->array[history->index]);
-            character = getc(stdin);
-            continue;
-        }
-        if (detect_character(line, &character) == true) {
-            continue;
-        } else {
-            strncat(line, &character, 1);
-            display_line(history, line);
-            character = fgetc(stdin);
-        }
+        detect_move(history, line, character);
+        display_line(prompt, history, line);
     }
 }
 
@@ -108,8 +102,13 @@ char *my_readline(const char *prompt)
     if (line == NULL) {
         return NULL;
     }
-    history = load_history();
     memset(line, 0, 1024);
-    get_input(history, line);
+    history = load_history();
+    if (history == NULL) {
+        return NULL;
+    }
+    memset(line, 0, 1024);
+    get_input(prompt, history, line);
+    add_history(line);
     return line;
 }
