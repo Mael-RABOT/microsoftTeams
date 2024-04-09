@@ -9,8 +9,6 @@
 
 #include "include.h"
 
-#define NO_COMMAND  14
-
 enum status_e {
     DISCONNECTED,
     NOT_LOGGED,
@@ -18,7 +16,6 @@ enum status_e {
 };
 
 typedef enum command_type_e {
-    EXIT = -2,
     ERROR = -1,
     TEXT = 0,
     HELP = 1,
@@ -34,14 +31,10 @@ typedef enum command_type_e {
     USE,
     CREATE,
     LIST,
-    INFO
+    INFO,
+    EXIT,
+    END
 } command_type_t;
-
-struct command_s {
-    command_type_t type;
-    int no_args;
-    enum status_e required;
-};
 
 typedef struct packet_s {
     command_type_t type;
@@ -50,5 +43,3 @@ typedef struct packet_s {
 
 packet_t *create_packet(void);
 void delete_packet(packet_t *packet);
-
-extern struct command_s command_lists[NO_COMMAND];

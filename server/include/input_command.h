@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define MAX_COMMAND 3
+#define NO_INPUT_COMMAND 3
 
 typedef struct server_s server_t;
 
@@ -16,7 +16,7 @@ typedef struct input_command {
     void (*func)(server_t *server);
 } input_command_t;
 
-extern const input_command_t input_command[MAX_COMMAND];
-
 void display(server_t *server);
 void clear(server_t *server);
+
+extern const input_command_t input_command_list[NO_INPUT_COMMAND];

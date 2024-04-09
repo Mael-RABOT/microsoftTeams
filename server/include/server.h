@@ -10,6 +10,7 @@
 #define HISTORY_PATH    ".myteams_history"
 
 #include "user.h"
+#include "command.h"
 #include "input_command.h"
 #include "../../include/include.h"
 

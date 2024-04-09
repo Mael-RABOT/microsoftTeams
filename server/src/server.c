@@ -24,8 +24,8 @@ char *completion_detect_word(const char *buf)
     int i = 0;
     const char *command = NULL;
 
-    while (i < MAX_COMMAND) {
-        command = input_command[i].name;
+    while (i < NO_INPUT_COMMAND) {
+        command = input_command_list[i].name;
         if (strncmp(command, buf, strlen(buf)) == 0) {
             return strdup(&command[strlen(buf)]);
         }

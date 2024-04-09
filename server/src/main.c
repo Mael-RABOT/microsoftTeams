@@ -13,10 +13,28 @@ const bool completion = true;
 const bool completion = false;
 #endif
 
-const input_command_t input_command[MAX_COMMAND] = {
+const input_command_t input_command_list[NO_INPUT_COMMAND] = {
     {"exit", display},
     {"clear", clear},
     {"display", display}
+};
+
+const struct command_s command_list[] = {
+    {HELP, 0, NOT_LOGGED, nothing_command},
+    {LOGIN, 1, NOT_LOGGED, login_command},
+    {LOGOUT, 1, LOGGED, nothing_command},
+    {USERS, 0, NOT_LOGGED, nothing_command},
+    {USER, 1, LOGGED, nothing_command},
+    {SEND, 2, LOGGED, nothing_command},
+    {MESSAGES, 1, LOGGED, nothing_command},
+    {SUBSCRIBE, 1, LOGGED, nothing_command},
+    {SUBSCRIBED, 1, LOGGED, nothing_command},
+    {UNSUBSCRIBE, 1, LOGGED, nothing_command},
+    {USE, 3, LOGGED, nothing_command},
+    {CREATE, 2, LOGGED, nothing_command},
+    {LIST, 0, LOGGED, nothing_command},
+    {INFO, 0, LOGGED, nothing_command},
+    {EXIT, 0, NOT_LOGGED, quit_command},
 };
 
 void handler(int signum)

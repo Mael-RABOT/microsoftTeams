@@ -35,13 +35,13 @@ static void loop_stdin_command(server_t *server, int *is_running, char *buf)
 {
     int i = 0;
 
-    while (i < MAX_COMMAND) {
+    while (i < NO_INPUT_COMMAND) {
         if (strcmp(buf, "exit") == 0) {
             *is_running = 0;
             return;
         }
-        if (strcmp(buf, input_command[i].name) == 0) {
-            input_command[i].func(server);
+        if (strcmp(buf, input_command_list[i].name) == 0) {
+            input_command_list[i].func(server);
             return;
         }
         i += 1;
@@ -60,9 +60,9 @@ int read_stdin(server_t *server, int *is_running)
     if (check_exit(buf, is_running) == 1) {
         return 0;
     }
-    while (i < MAX_COMMAND) {
-        if (strcmp(buf, input_command[i].name) == 0) {
-            input_command[i].func(server);
+    while (i < NO_INPUT_COMMAND) {
+        if (strcmp(buf, input_command_list[i].name) == 0) {
+            input_command_list[i].func(server);
         }
         i += 1;
     }
