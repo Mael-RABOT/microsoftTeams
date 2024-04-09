@@ -38,28 +38,9 @@ static command_type_t get_command_type(char *input)
         if (strstr(input, map[i].input) != NULL)
             return (map[i].command_type);
     }
+    if (input[0] == '/')
+        return ERROR;
     return TEXT;
-}
-
-static void normalize_command(
-    client_t *client, command_type_t command_type, char *input)
-{
-    char **array = split(input, " ");
-    int length;
-    char *new_str;
-
-    for (length = 0; array[length + 1] != NULL; length++);
-    new_str = malloc((length * 256) * sizeof(char));
-    if (new_str == NULL)
-        return (void)printf("Failed to allocate memory.\n");
-    new_str[0] = '\0';
-    for (int i = 1; i <= length; i++) {
-        strcat(new_str, "\"");
-        strcat(new_str, array[i]);
-        strcat(new_str, "\" ");
-    }
-    new_str[strlen(new_str) - 1] = '\0';
-    client->socket.send(&client->socket, "%d %s", command_type, new_str);
 }
 
 static int handle_input(client_t *client, char *input)
@@ -72,12 +53,13 @@ static int handle_input(client_t *client, char *input)
     switch (command_type) {
         case ERROR:
             printf("Invalid command.\n");
-            return -1;
+            return 1;
         case TEXT:
             client->socket.send(&client->socket, "%d %s", TEXT, input);
             return 1;
         default:
-            normalize_command(client, command_type, input);
+            if (normalize_command(client, command_type, input))
+                printf("Invalid arguments.\n");
             return 1;
     }
 }
