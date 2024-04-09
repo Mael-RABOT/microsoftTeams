@@ -18,6 +18,8 @@ typedef struct client_s {
 typedef struct command_map_s {
     char *input;
     command_type_t command_type;
+    int min_args;
+    int max_args;
 } command_map;
 
 int client(const int ac, const char **av);

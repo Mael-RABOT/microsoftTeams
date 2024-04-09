@@ -32,5 +32,6 @@ int client(const int ac, const char **av)
         return (status - 1);
     }
     status = launch_client(&client, av[1], av[2]);
+    unload_client(&client);
     return status;
 }
