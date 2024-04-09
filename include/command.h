@@ -7,7 +7,7 @@
 
 #pragma once
 
-#define NO_COMMAND  14
+#include "include.h"
 
 enum status_e {
     DISCONNECTED,
@@ -16,7 +16,6 @@ enum status_e {
 };
 
 typedef enum command_type_e {
-    EXIT = -2,
     ERROR = -1,
     TEXT = 0,
     HELP = 1,
@@ -32,17 +31,15 @@ typedef enum command_type_e {
     USE,
     CREATE,
     LIST,
-    INFO
+    INFO,
+    EXIT,
+    END
 } command_type_t;
 
-struct command_s {
+typedef struct packet_s {
     command_type_t type;
-    int no_args;
-    enum status_e required;
-};
+    char **args;
+} packet_t;
 
-struct packet_s {
-    command_type_t type;
-};
-
-extern struct command_s command_lists[NO_COMMAND];
+packet_t *create_packet(void);
+void delete_packet(packet_t *packet);

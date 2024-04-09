@@ -11,7 +11,7 @@ void append_array(void **array, void *ptr)
 {
     int i = 0;
 
-    if (array == NULL) {
+    if (array == NULL || ptr == NULL) {
         return;
     }
     i = len_array(array);

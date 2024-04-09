@@ -7,16 +7,21 @@
 
 #pragma once
 
-#define MAX_COMMAND 3
+#include "../../include/command.h"
 
 typedef struct server_s server_t;
+typedef struct user_s user_t;
 
-typedef struct input_command {
-    const char *name;
-    void (*func)(server_t *server);
-} input_command_t;
+typedef struct command_s {
+    command_type_t type;
+    int no_args;
+    enum status_e required;
+    void (*func)(server_t *server, user_t *user, packet_t *packet);
+} command_t;
 
-extern const input_command_t input_command[MAX_COMMAND];
+void nothing_command(server_t *server, user_t *user, packet_t *packet);
+void help_command(server_t *server, user_t *user, packet_t *packet);
+void login_command(server_t *server, user_t *user, packet_t *packet);
+void quit_command(server_t *server, user_t *user, packet_t *packet);
 
-void display(server_t *server);
-void clear(server_t *server);
+extern const struct command_s command_list[];

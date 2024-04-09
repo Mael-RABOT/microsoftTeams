@@ -11,10 +11,10 @@
 
 #include "user.h"
 #include "command.h"
+#include "input_command.h"
 #include "../../include/include.h"
 
-char *completion_detect_word(const char *buf);
-char *my_readline(const char *prompt);
+extern const bool completion;
 
 typedef struct server_s {
     fd_set fd_set;
@@ -35,3 +35,7 @@ int load_server_history(const char **env, server_t *server);
 void unload_server(server_t *server);
 
 int accept_conns(server_t *server);
+
+packet_t *parse_command(server_t *server, char *command);
+
+void disconnect(server_t *server);

@@ -13,8 +13,12 @@ ARCHIVE	=	../libs/libsocket.a \
 
 MAIN_SRC    =	src/main.c
 
-COMMAND_SRC	=	src/command/display.c \
-				src/command/clear.c
+COMMAND_SRC	=	src/input_command/display.c \
+				src/input_command/clear.c \
+				src/command/help.c \
+				src/command/login.c \
+				src/command/quit.c \
+				src/command/nothing.c
 
 COMMON_SRC	=	../src/load_file.c \
 				../src/usage.c \
@@ -25,14 +29,16 @@ COMMON_SRC	=	../src/load_file.c \
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
 				src/loop.c \
-				src/loop_command.c \
 				src/stdin.c \
 				src/server.c \
+				src/disconnect.c \
+				src/conn/accept.c \
+				src/loop_command.c \
+				src/command_parsing.c \
 				src/load/load_server.c \
-				src/load/unload_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
-				src/conn/accept.c
+				src/load/unload_server.c
 
 TEST_SRC    =
 
