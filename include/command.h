@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include "include.h"
+
 #define NO_COMMAND  14
 
 enum status_e {
@@ -41,8 +43,12 @@ struct command_s {
     enum status_e required;
 };
 
-struct packet_s {
+typedef struct packet_s {
     command_type_t type;
-};
+    char **args;
+} packet_t;
+
+packet_t *create_packet(void);
+void delete_packet(packet_t *packet);
 
 extern struct command_s command_lists[NO_COMMAND];

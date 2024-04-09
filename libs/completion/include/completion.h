@@ -19,6 +19,7 @@ extern unsigned int COLS;
 extern struct termios old_term;
 extern char *(*completion_function)(const char *buf);
 
+char *my_readline(const char *prompt);
 void init_term(void);
 void restore_term(void);
 void complete(char *line);

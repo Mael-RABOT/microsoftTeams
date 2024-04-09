@@ -7,6 +7,12 @@
 
 #include "server.h"
 
+#ifdef COMPLETION
+const bool completion = true;
+#else
+const bool completion = false;
+#endif
+
 const input_command_t input_command[MAX_COMMAND] = {
     {"exit", display},
     {"clear", clear},

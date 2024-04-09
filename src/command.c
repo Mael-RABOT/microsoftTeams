@@ -23,3 +23,25 @@ struct command_s command_lists[NO_COMMAND] = {
     {LIST, 0, LOGGED},
     {INFO, 0, LOGGED}
 };
+
+packet_t *create_packet(void)
+{
+    packet_t *packet = malloc(sizeof(packet_t));
+
+    if (packet == NULL) {
+        return NULL;
+    }
+    memset(packet, 0, sizeof(packet_t));
+    return packet;
+}
+
+void delete_packet(packet_t *packet)
+{
+    if (packet == NULL) {
+        return;
+    }
+    if (packet->args != NULL) {
+        delete_array((void **)packet->args);
+    }
+    free(packet);
+}

@@ -7,21 +7,9 @@
 
 #include "server.h"
 
-static int parse_command(server_t *server, char *command)
-{
-    int type = 0;
-    char line[MAX_BODY_LENGTH] = {0};
-    int status = sscanf(command, "%d %s", &type, line);
-
-    if (status == -1) {
-        return 84;
-    }
-    printf("%d - %s\n", type, line);
-    return 0;
-}
-
 static int execute_command(server_t *server, int i)
 {
+    packet_t *packet = NULL;
     unsigned int read_val = 0;
     user_t *user = server->users[i];
     char command[MAX_BODY_LENGTH] = {0};
@@ -30,7 +18,8 @@ static int execute_command(server_t *server, int i)
     if (read_val == 0) {
         return 0;
     }
-    parse_command(server, command);
+    packet = parse_command(server, command);
+    delete_packet(packet);
     return 0;
 }
 
