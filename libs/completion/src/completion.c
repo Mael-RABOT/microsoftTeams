@@ -19,15 +19,13 @@ static bool get_move(history_t *history, char *line, char character)
     switch (character) {
         case 'A':
             hline = completion_detect_history_up(history);
-            if (hline != NULL) {
+            if (hline != NULL)
                 strcpy(line, hline);
-            }
             return true;
         case 'B':
             hline = completion_detect_history_down(history);
-            if (hline != NULL) {
+            if (hline != NULL)
                 strcpy(line, hline);
-            }
             return true;
         case 'C':
             return false;
