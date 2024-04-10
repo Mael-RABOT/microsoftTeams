@@ -36,6 +36,24 @@ typedef enum command_type_e {
     END
 } command_type_t;
 
+typedef enum codes_e {
+    OK = 200,
+    CREATED = 201,
+    CONNECTED = 220,
+
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    NOT_FOUND = 404,
+    ALREADY_EXIST = 409,
+    UNKNOW_USER = 410,
+    UNKNOW_TEAM = 411,
+    UNKNOW_CHANNEL = 412,
+    UNKNOW_THREAD = 413,
+
+    INTERNAL_ERROR = 500,
+    NOT_IMPLEMENTED = 501,
+} codes_t;
+
 typedef struct packet_s {
     command_type_t type;
     char **args;
