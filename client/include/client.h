@@ -50,4 +50,4 @@ void unload_client(client_t *client);
 
 int normalize_command(
     client_t *client, command_type_t command_type,
-    char *input, vector_2d args_data);
+    char *input, vector_2d_t args_data);

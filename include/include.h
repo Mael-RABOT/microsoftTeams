@@ -12,9 +12,12 @@
 #define MAX_NAME_LENGTH 32
 #define MAX_DESCRIPTION_LENGTH  255
 #define MAX_BODY_LENGTH 512
+#define MAX_RESPONSE_LENGTH 255
 
 #define MAX_USER    64
 
+#include <uuid/uuid.h>
+#include <sys/queue.h>
 #include <sys/signal.h>
 #include <sys/select.h>
 #include <fcntl.h>
@@ -42,7 +45,7 @@
 typedef struct vector_2d_s {
     int x;
     int y;
-} vector_2d;
+} vector_2d_t;
 
 char **load_file(const char *path);
 void display_usage(const char *path);

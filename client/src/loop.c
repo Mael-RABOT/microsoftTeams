@@ -43,19 +43,19 @@ static command_type_t get_command_type(char *input)
     return TEXT;
 }
 
-static vector_2d get_args_data(command_type_t type)
+static vector_2d_t get_args_data(command_type_t type)
 {
     for (int i = 0; get_command()[i].input != NULL; i++) {
         if (get_command()[i].command_type == type)
-            return (vector_2d){
+            return (vector_2d_t){
                 get_command()[i].min_args, get_command()[i].max_args};
     }
-    return (vector_2d){0, 0};
+    return (vector_2d_t){0, 0};
 }
 
 static int call_command(client_t *client, command_type_t type, char *input)
 {
-    vector_2d args_data = get_args_data(type);
+    vector_2d_t args_data = get_args_data(type);
 
     return normalize_command(client, type, input, args_data);
 }

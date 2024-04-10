@@ -23,6 +23,24 @@ static int socket_write(struct socket_s *socket, void *ptr, unsigned int n)
     return write(socket->socket_fd, ptr, n);
 }
 
+static int socket_read(struct socket_s *socket, void *ptr, unsigned int n)
+{
+    return read(socket->socket_fd, ptr, n);
+}
+
+static char *socket_recv(struct socket_s *socket)
+{
+    int read_val = 0;
+    char *buf = malloc(256);
+
+    if (buf == NULL) {
+        return NULL;
+    }
+    read_val = read(socket->socket_fd, buf, 255);
+    buf[read_val] = '\0';
+    return buf;
+}
+
 static int socket_listen(struct socket_s *socket, int backlog)
 {
     return listen(socket->socket_fd, backlog);
@@ -48,6 +66,9 @@ void init_socket(socket_t *socket)
     memset(socket, 0, sizeof(socket_t));
     socket->socket_fd = -1;
     socket->send = socket_send;
+    socket->write = socket_write;
+    socket->read = socket_read;
+    socket->recv = socket_recv;
     socket->listen = socket_listen;
     socket->accept = socket_accept;
     socket->connect = socket_connect;

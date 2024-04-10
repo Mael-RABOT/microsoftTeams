@@ -23,6 +23,8 @@ typedef struct socket_s {
     socklen_t addrlen;
     int (*send)(struct socket_s *socket, const char *format, ...);
     int (*write)(struct socket_s *socket, void *ptr, unsigned int n);
+    int (*read)(struct socket_s *socket, void *ptr, unsigned int n);
+    char *(*recv)(struct socket_s *socket);
     int (*listen)(struct socket_s *socket, int backlog);
     int (*accept)(struct socket_s *socket, struct sockaddr *addr,
         socklen_t *len);

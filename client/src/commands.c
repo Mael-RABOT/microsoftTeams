@@ -41,14 +41,14 @@ static int get_args_nb(char *input)
     return (nb % 2 != 0 ? -1 : nb / 2);
 }
 
-static bool check_args_nb(int arg_nb, vector_2d args_data)
+static bool check_args_nb(int arg_nb, vector_2d_t args_data)
 {
     return (arg_nb >= args_data.x && arg_nb <= args_data.y);
 }
 
 int normalize_command(
     client_t *client, command_type_t command_type,
-    char *input, vector_2d args_data)
+    char *input, vector_2d_t args_data)
 {
     char *new_str;
     char *original_str;
