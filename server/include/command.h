@@ -22,6 +22,7 @@ typedef struct command_s {
 void nothing_command(server_t *server, user_t *user, packet_t *packet);
 void help_command(server_t *server, user_t *user, packet_t *packet);
 void login_command(server_t *server, user_t *user, packet_t *packet);
+void logout_command(server_t *server, user_t *user, packet_t *packet);
 void quit_command(server_t *server, user_t *user, packet_t *packet);
 
 extern const struct command_s command_list[];

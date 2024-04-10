@@ -15,6 +15,7 @@ typedef struct user_s {
     enum status_e level;
     struct sockaddr_in addr;
     char name[MAX_NAME_LENGTH];
+    uuid_t uuid;
     int (*send)(struct user_s *user, const char *format, ...);
 } user_t;
 

@@ -18,6 +18,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/input_command/clear.c \
 				src/command/help.c \
 				src/command/login.c \
+				src/command/logout.c \
 				src/command/quit.c \
 				src/command/nothing.c
 
@@ -55,10 +56,10 @@ CC    =    gcc
 DEBUG	=	-g3 -DDEBUG
 INCLUDE	=	-Iinclude
 NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
-CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
+CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -luuid -lqueue
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion

@@ -16,6 +16,8 @@
 
 #define MAX_USER    64
 
+#define USER_FILE   "./data/users.txt"
+
 #include <uuid/uuid.h>
 #include <sys/queue.h>
 #include <sys/signal.h>

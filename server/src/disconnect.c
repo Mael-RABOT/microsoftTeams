@@ -14,7 +14,7 @@ void disconnect(server_t *server)
 
     while (server->users[i] != NULL) {
         user = server->users[i];
-        if (user->level == DISCONNECTED) {
+        if (user->level == NOT_CONNECTED) {
             delete_user(user);
             shift_array((void **)server->users, i);
         }

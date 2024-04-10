@@ -22,7 +22,7 @@ const input_command_t input_command_list[NO_INPUT_COMMAND] = {
 const struct command_s command_list[] = {
     {HELP, 0, NOT_LOGGED, nothing_command},
     {LOGIN, 1, NOT_LOGGED, login_command},
-    {LOGOUT, 1, LOGGED, nothing_command},
+    {LOGOUT, 1, LOGGED, logout_command},
     {USERS, 0, NOT_LOGGED, nothing_command},
     {USER, 1, LOGGED, nothing_command},
     {SEND, 2, LOGGED, nothing_command},
