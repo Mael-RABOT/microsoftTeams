@@ -20,6 +20,7 @@
 #include <sys/queue.h>
 #include <sys/signal.h>
 #include <sys/select.h>
+#include <sys/queue.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,6 +40,7 @@
 #include "../libs/completion/include/completion.h"
 #include "../libs/myteams/logging_client.h"
 #include "../libs/myteams/logging_server.h"
+#include "../libs/queue/include/queue.h"
 
 #include "command.h"
 

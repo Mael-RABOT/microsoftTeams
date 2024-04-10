@@ -44,7 +44,7 @@ static void display_line(const char *prompt, history_t *history, char *line)
         printf(" ");
         i += 1;
     }
-    printf("\r%s", line);
+    printf("\r%s%s", prompt, line);
     fflush(stdout);
 }
 
