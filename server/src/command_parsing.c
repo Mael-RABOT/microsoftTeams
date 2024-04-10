@@ -13,7 +13,7 @@ static int get_args_nb(char *input)
     int idx = 0;
 
     while (input[idx] != '\0') {
-        if (input[idx] == '#')
+        if (input[idx] == '"')
             nb++;
         idx++;
     }
