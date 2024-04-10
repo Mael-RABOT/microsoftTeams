@@ -32,6 +32,7 @@
 typedef struct client_s {
     socket_t socket;
     client_logger_t *logger;
+    fd_set read_fds;
 } client_t;
 
 typedef struct command_map_s {

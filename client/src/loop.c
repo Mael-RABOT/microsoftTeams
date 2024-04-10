@@ -83,20 +83,37 @@ static int handle_input(client_t *client, char *input)
     }
 }
 
-int loop(client_t *client)
+static int handle_stdin(client_t *client)
 {
-    int running = true;
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
+    int status;
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
-    while (running > 0) {
-        memset(input, 0, MAX_BODY_LENGTH);
-        write(1, "> ", 2);
-        if (!fgets(input, MAX_BODY_LENGTH, stdin))
-            break;
-        running = !handle_input(client, input);
+    if (!fgets(input, MAX_BODY_LENGTH, stdin)) {
+        free(input);
+        return 1;
     }
+    status = handle_input(client, input);
     free(input);
+    return status;
+}
+
+int loop(client_t *client)
+{
+    int running = true;
+
+    while (running) {
+        FD_ZERO(&client->read_fds);
+        FD_SET(0, &client->read_fds);
+        FD_SET(client->socket.socket_fd, &client->read_fds);
+        if (select(client->socket.socket_fd + 1, &client->read_fds,
+            NULL, NULL, NULL) == -1)
+            return -1 + 0 * fprintf(stderr, "Failed to select.\n");
+        if (FD_ISSET(0, &client->read_fds))
+            running = !handle_stdin(client);
+        if (FD_ISSET(client->socket.socket_fd, &client->read_fds))
+            running = !response_handler(client, ERROR);
+    }
     return running;
 }

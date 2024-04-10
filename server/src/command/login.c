@@ -28,8 +28,7 @@ static int get_uuid(user_t *user)
 
 void create_uuid(user_t *user)
 {
-    FILE *file;
-    file = fopen(USER_FILE, "a");
+    FILE *file = fopen(USER_FILE, "a");
     char uuid_str[37];
     char *str = malloc(37 + strlen(user->name) + 3);
 

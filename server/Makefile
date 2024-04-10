@@ -19,6 +19,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/command/help.c \
 				src/command/login.c \
 				src/command/logout.c \
+				src/command/send.c \
 				src/command/quit.c \
 				src/command/nothing.c
 
@@ -59,7 +60,8 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -luuid -lqueue
+LIB	=	-L../libs/ -lsocket -larray -llogging \
+		-ldlloader -lcompletion -luuid -lqueue
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion
