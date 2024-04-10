@@ -9,7 +9,8 @@ ARCHIVE	=	../libs/libsocket.a \
 			../libs/libarray.a \
 			../libs/libdlloader.a \
 			../libs/liblogging.a \
-			../libs/libcompletion.a
+			../libs/libcompletion.a \
+			../libs/libqueue.a
 
 MAIN_SRC    =	src/main.c
 
@@ -57,7 +58,7 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -ansi -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
 LDFLAGS    =    $(LIB)
 
 COVERAGE    =    --coverage -lcriterion

@@ -37,8 +37,9 @@ int loop(server_t *server)
         accept_conns(server);
         disconnect(server);
         loop_command(server);
-        if (FD_ISSET(0, &server->fd_set))
+        if (FD_ISSET(0, &server->fd_set)) {
             read_stdin(server, &running);
+        }
     }
     return 0;
 }

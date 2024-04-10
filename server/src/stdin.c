@@ -68,7 +68,8 @@ int read_stdin(server_t *server, int *is_running)
     }
     return 0;
 }
-/*int read_stdin(server_t *server, int *is_running)
+/*
+int read_stdin(server_t *server, int *is_running)
 {
     char *buf = my_readline("> ");
 
