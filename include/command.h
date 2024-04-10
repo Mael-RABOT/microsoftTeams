@@ -39,6 +39,7 @@ typedef enum command_type_e {
 typedef enum codes_e {
     OK = 200,
     CREATED = 201,
+    MESSAGE_RECEIVED = 202,
     CONNECTED = 220,
     DISCONNECTED = 221,
 

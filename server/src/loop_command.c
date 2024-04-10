@@ -7,13 +7,21 @@
 
 #include "server.h"
 
+static void perm_checker(
+    server_t *server, packet_t *packet, user_t *user, int i)
+{
+    if (command_list[i].required > user->level)
+        return (void)dprintf(user->nsock, "%d Not logged in\n", BAD_REQUEST);
+    command_list[i].func(server, user, packet);
+}
+
 static int execute_command(server_t *server, packet_t *packet, user_t *user)
 {
     int i = 0;
 
     while (i < END) {
         if (packet->type == command_list[i].type) {
-            command_list[i].func(server, user, packet);
+            perm_checker(server, packet, user, i);
         }
         i += 1;
     }
@@ -29,7 +37,7 @@ static int get_command(server_t *server, int i)
 
     read_val = read(user->nsock, command, 512);
     if (read_val == 0) {
-        return 0;
+        return 1;
     }
     packet = parse_command(server, command);
     execute_command(server, packet, user);
