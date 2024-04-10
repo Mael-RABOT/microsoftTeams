@@ -10,7 +10,7 @@
 #include "include.h"
 
 enum status_e {
-    DISCONNECTED,
+    NOT_CONNECTED,
     NOT_LOGGED,
     LOGGED
 };
@@ -40,6 +40,7 @@ typedef enum codes_e {
     OK = 200,
     CREATED = 201,
     CONNECTED = 220,
+    DISCONNECTED = 221,
 
     BAD_REQUEST = 400,
     UNAUTHORIZED = 401,
