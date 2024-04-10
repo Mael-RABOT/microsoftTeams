@@ -28,7 +28,9 @@ static void accept_conn(server_t *server)
     user->socklen = sizeof(struct sockaddr_in);
     user->nsock = server->socket.accept(&server->socket,
         (struct sockaddr *)&user->addr, &user->socklen);
+    user->level = NOT_LOGGED;
     append_array((void **)server->users, user);
+    dprintf(user->nsock, "220 User connected\n");
 }
 
 int accept_conns(server_t *server)
