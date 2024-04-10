@@ -20,6 +20,6 @@ void push_front(head_t *head, void *data);
 void push_back(head_t *head, void *data);
 void *front(head_t *head);
 void *back(head_t *head);
-void *at(head_t *head, int index);
+void *at_queue(head_t *head, int index);
 void insert(head_t *head, void *data, int index);
 unsigned int size(head_t *head);

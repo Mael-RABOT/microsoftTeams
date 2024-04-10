@@ -23,6 +23,7 @@ dlloader_t *create_dlloader(const char *path)
     }
     dlloader->handler = dlopen(path, RTLD_LAZY);
     if (dlloader->handler == NULL) {
+        free(dlloader);
         return NULL;
     }
     dlloader->load = load;

@@ -7,6 +7,14 @@
 
 #pragma once
 
-typedef struct channel_s {
+#include "thread.h"
 
+typedef struct channel_s {
+    uuid_t uuid;
+    queue_t *threads;
+    void (*save)(struct channel_s *channel);
+    void (*restore)(struct channel_s *channel);
 } channel_t;
+
+channel_t *create_channel(void);
+void delete_channel(channel_t *channel);

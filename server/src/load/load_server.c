@@ -30,6 +30,10 @@ int load_server(server_t *server, const unsigned short port)
     if (server->socket.listen(&server->socket, port) == -1) {
         return 84;
     }
+    server->teams = create_queue();
+    if (server->teams == NULL) {
+        return 84;
+    }
     return 0;
 }
 

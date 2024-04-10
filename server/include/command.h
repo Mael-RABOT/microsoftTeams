@@ -19,6 +19,7 @@ typedef struct command_s {
     void (*func)(server_t *server, user_t *user, packet_t *packet);
 } command_t;
 
+void create_command(server_t *server, user_t *user, packet_t *packet);
 void nothing_command(server_t *server, user_t *user, packet_t *packet);
 void help_command(server_t *server, user_t *user, packet_t *packet);
 void login_command(server_t *server, user_t *user, packet_t *packet);

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "../../include/include.h"
+#include "team.h"
 
 typedef struct user_s {
     int nsock;
@@ -17,6 +18,11 @@ typedef struct user_s {
     char name[MAX_NAME_LENGTH];
     uuid_t uuid;
     int (*send)(struct user_s *user, const char *format, ...);
+    struct {
+        team_t *team;
+        channel_t *channel;
+        thread_t *thread;
+    } context;
 } user_t;
 
 user_t *create_user(void);

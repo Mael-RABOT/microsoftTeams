@@ -14,6 +14,8 @@
 #define MAX_BODY_LENGTH 512
 #define MAX_RESPONSE_LENGTH 255
 
+#define NEW(t)   create_ ## t()
+
 #define MAX_USER    64
 
 #define USER_FILE   "./data/users.txt"

@@ -18,6 +18,7 @@ extern const bool completion;
 
 typedef struct server_s {
     fd_set fd_set;
+    queue_t *teams;
     socket_t socket;
     server_logger_t *logger;
     user_t *users[MAX_USER + 1];

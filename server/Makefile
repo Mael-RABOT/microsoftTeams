@@ -17,6 +17,7 @@ MAIN_SRC    =	src/main.c
 COMMAND_SRC	=	src/input_command/display.c \
 				src/input_command/clear.c \
 				src/command/help.c \
+				src/command/create.c \
 				src/command/login.c \
 				src/command/logout.c \
 				src/command/send.c \
@@ -31,6 +32,12 @@ COMMON_SRC	=	../src/load_file.c \
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
+				src/team/create_team.c \
+				src/team/delete_team.c \
+				src/channel/create_channel.c \
+				src/channel/delete_channel.c \
+				src/thread/create_thread.c \
+				src/thread/delete_thread.c \
 				src/loop.c \
 				src/stdin.c \
 				src/server.c \
@@ -60,9 +67,8 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging \
-		-ldlloader -lcompletion -luuid -lqueue
-LDFLAGS    =    $(LIB)
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
+LDFLAGS    =    $(LIB) -luuid
 
 COVERAGE    =    --coverage -lcriterion
 

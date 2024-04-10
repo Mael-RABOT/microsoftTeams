@@ -20,7 +20,7 @@ queue_t *create_queue(void)
     queue->push_back = &push_back;
     queue->front = &front;
     queue->back = &back;
-    queue->at = &at;
+    queue->at = &at_queue;
     queue->insert = &insert;
     queue->size = &size;
     return queue;

@@ -17,6 +17,6 @@ void insert(struct head_s *head, void *data, int index)
     } else {
         tmp_node = get(head, index - 1);
         new_node->next = tmp_node->next;
-        tmp_node ->next = new_node;
+        tmp_node->next = new_node;
     }
 }

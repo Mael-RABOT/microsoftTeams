@@ -7,7 +7,7 @@
 
 #include "../include/head.h"
 
-void *at(head_t *head, int index)
+void *at_queue(head_t *head, int index)
 {
     node_t *tmp_node = get(head, index);
 

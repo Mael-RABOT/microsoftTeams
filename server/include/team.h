@@ -7,9 +7,14 @@
 
 #pragma once
 
-#include "../../include/include.h"
 #include "channel.h"
 
 typedef struct team_s {
-    channel_t **channels;
+    uuid_t uuid;
+    queue_t *channels;
+    void (*save)(struct team_s *team);
+    void (*restore)(struct team_s *team);
 } team_t;
+
+team_t *create_team(void);
+void delete_team(team_t *team);
