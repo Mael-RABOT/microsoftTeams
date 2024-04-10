@@ -44,7 +44,7 @@ socket_t *create_client(const int address, const unsigned short port)
     if (socket == NULL) {
         return NULL;
     }
-    if (init_client(socket, address, port) == -1) {
+    if (init_client(socket, address, port) == 84) {
         delete_socket(socket);
         return NULL;
     }

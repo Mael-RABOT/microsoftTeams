@@ -7,9 +7,9 @@
 
 #include "client.h"
 
-static command_map *get_command(void)
+static command_map_t *get_command(void)
 {
-    static command_map map[] = {
+    static command_map_t map[] = {
             {"/help", HELP, 0, 0},
             {"/login ", LOGIN, 1, 1},
             {"/logout", LOGOUT, 0, 0},
@@ -32,7 +32,7 @@ static command_map *get_command(void)
 
 static command_type_t get_command_type(char *input)
 {
-    command_map *map = get_command();
+    command_map_t *map = get_command();
 
     for (int i = 0; map[i].input != NULL; i++) {
         if (strstr(input, map[i].input) != NULL)
@@ -87,6 +87,7 @@ int loop(client_t *client)
 {
     int running = true;
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
+    char *response;
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
@@ -96,6 +97,9 @@ int loop(client_t *client)
         if (!fgets(input, MAX_BODY_LENGTH, stdin))
             break;
         running = handle_input(client, input);
+        response = client->socket.recv(&client->socket);
+        write(1, response, strlen(response));
+        free(response);
     }
     free(input);
     return running;

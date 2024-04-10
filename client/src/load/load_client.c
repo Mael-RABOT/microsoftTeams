@@ -31,5 +31,6 @@ int load_client(client_t *client, const unsigned int address,
     if (client->socket.connect(&client->socket) == -1) {
         return 84;
     }
+    printf("%s", client->socket.recv(&client->socket));
     return 0;
 }

@@ -39,7 +39,7 @@ typedef struct command_map_s {
     command_type_t command_type;
     int min_args;
     int max_args;
-} command_map;
+} command_map_t;
 
 int client(const int ac, const char **av);
 int loop(client_t *client);
