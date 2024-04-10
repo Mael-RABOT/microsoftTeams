@@ -15,6 +15,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/client.c \
 				src/loop.c \
 				src/commands.c \
+				src/response_handler.c \
 				src/load/load_client.c \
 				src/load/unload_client.c
 

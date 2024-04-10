@@ -51,7 +51,7 @@ typedef enum codes_e {
     UNKNOW_THREAD = 413,
 
     INTERNAL_ERROR = 500,
-    NOT_IMPLEMENTED = 501,
+    NOT_IMPLEMENTED = 501
 } codes_t;
 
 typedef struct packet_s {

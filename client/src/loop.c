@@ -65,21 +65,21 @@ static int handle_input(client_t *client, char *input)
     command_type_t command_type;
 
     if (!strcmp(input, "/exit\n"))
-        return 0 * client->socket.send(&client->socket, "%d", EXIT);
+        return 1 + 0 * client->socket.send(&client->socket, "%d", EXIT);
     if (!strcmp(input, "/help\n"))
-        return 1 + 0 * printf(CHELP);
+        return 0 * printf(CHELP);
     command_type = get_command_type(input);
     switch (command_type) {
         case ERROR:
             printf("Invalid command.\n");
-            return 1;
+            return 0;
         case TEXT:
-            client->socket.send(&client->socket, "%d %s", TEXT, input);
-            return 1;
+            printf("Invalid command.\n");
+            return 0;
         default:
             if (call_command(client, command_type, input))
                 printf("Invalid arguments.\n");
-            return 1;
+            return response_handler(client, command_type);
     }
 }
 
@@ -87,7 +87,6 @@ int loop(client_t *client)
 {
     int running = true;
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
-    char *response;
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
@@ -96,10 +95,7 @@ int loop(client_t *client)
         write(1, "> ", 2);
         if (!fgets(input, MAX_BODY_LENGTH, stdin))
             break;
-        running = handle_input(client, input);
-        response = client->socket.recv(&client->socket);
-        write(1, response, strlen(response));
-        free(response);
+        running = !handle_input(client, input);
     }
     free(input);
     return running;
