@@ -9,7 +9,7 @@
 
 int reset_fd_set(server_t *server)
 {
-    int i = 0;
+    unsigned int i = 0;
     int tmp_fd = 0;
     struct timeval timeval;
     int last_fd = server->socket.socket_fd;
@@ -18,8 +18,8 @@ int reset_fd_set(server_t *server)
     FD_ZERO(&server->fd_set);
     FD_SET(0, &server->fd_set);
     FD_SET(server->socket.socket_fd, &server->fd_set);
-    while (server->users[i] != NULL) {
-        tmp_fd = server->users[i]->nsock;
+    while (i < server->users->size(server->users)) {
+        tmp_fd = ((user_t *)server->users->at(server->users, i))->nsock;
         FD_SET(tmp_fd, &server->fd_set);
         last_fd = (last_fd > tmp_fd) ? last_fd : tmp_fd;
         i += 1;

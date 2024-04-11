@@ -18,6 +18,7 @@ typedef struct head_s {
     void *(*back)(struct head_s *head);
     void *(*at)(struct head_s *head, int index);
     void (*insert)(struct head_s *head, void *data, int index);
+    void (*foreach)(struct head_s *head, void (*func)(void *arg));
     unsigned int (*size)(struct head_s *head);
 } head_t;
 

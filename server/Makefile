@@ -18,6 +18,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/input_command/clear.c \
 				src/command/help.c \
 				src/command/create.c \
+				src/command/use.c \
 				src/command/login.c \
 				src/command/logout.c \
 				src/command/send.c \

@@ -9,20 +9,27 @@
 
 static void display_team(server_t *server)
 {
+    char uuid[64];
     unsigned int i = 0;
 
     while (i < server->teams->size(server->teams)) {
-        printf("New team\n");
+        uuid_unparse(server->teams->at(server->teams, i), uuid);
+        printf("Team: %s\n", uuid);
         i += 1;
     }
 }
 
 void display(server_t *server)
 {
-    int i = 0;
+    unsigned int i = 0;
+    user_t *user = NULL;
 
-    printf("Connected user(s): %d\n", len_array((void **)server->users));
-    while (server->users[i] != NULL) {
+    printf("Connected user(s): %d\n", server->users->size(server->users));
+    while (i < server->users->size(server->users)) {
+        user = server->users->at(server->users, i);
+        printf("\tContext:\n");
+        if (user->context.team != NULL)
+            printf("\t\tTeam: %d\n", user->context.team->uuid);
         i += 1;
     }
     display_team(server);

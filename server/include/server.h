@@ -19,8 +19,8 @@ extern const bool completion;
 typedef struct server_s {
     fd_set fd_set;
     queue_t *teams;
+    queue_t *users;
     socket_t socket;
     server_logger_t *logger;
-    user_t *users[MAX_USER + 1];
     char history_path[PATH_MAX];
 } server_t;

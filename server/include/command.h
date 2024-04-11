@@ -14,12 +14,12 @@ typedef struct user_s user_t;
 
 typedef struct command_s {
     command_type_t type;
-    int no_args;
     enum status_e required;
     void (*func)(server_t *server, user_t *user, packet_t *packet);
 } command_t;
 
 void create_command(server_t *server, user_t *user, packet_t *packet);
+void use_command(server_t *server, user_t *user, packet_t *packet);
 void nothing_command(server_t *server, user_t *user, packet_t *packet);
 void help_command(server_t *server, user_t *user, packet_t *packet);
 void login_command(server_t *server, user_t *user, packet_t *packet);

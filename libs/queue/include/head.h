@@ -23,3 +23,4 @@ void *back(head_t *head);
 void *at_queue(head_t *head, int index);
 void insert(head_t *head, void *data, int index);
 unsigned int size(head_t *head);
+void foreach(head_t *head, void (*func)(void *arg));

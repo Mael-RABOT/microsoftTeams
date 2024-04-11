@@ -20,7 +20,9 @@ static int execute_command(server_t *server, packet_t *packet, user_t *user)
     int i = 0;
 
     while (i < END) {
+        printf("FUNCTION\n");
         if (packet->type == command_list[i].type) {
+            printf("EXECUTION\n");
             perm_checker(server, packet, user, i);
         }
         i += 1;
@@ -32,8 +34,8 @@ static int get_command(server_t *server, int i)
 {
     packet_t *packet = NULL;
     unsigned int read_val = 0;
-    user_t *user = server->users[i];
     char command[MAX_BODY_LENGTH] = {0};
+    user_t *user = server->users->at(server->users, i);
 
     read_val = read(user->nsock, command, 512);
     if (read_val == 0) {
@@ -47,10 +49,12 @@ static int get_command(server_t *server, int i)
 
 int loop_command(server_t *server)
 {
-    int i = 0;
+    unsigned int i = 0;
+    user_t *user = NULL;
 
-    while (server->users[i] != NULL) {
-        if (FD_ISSET(server->users[i]->nsock, &server->fd_set)) {
+    while (i < server->users->size(server->users)) {
+        user = server->users->at(server->users, i);
+        if (FD_ISSET(user->nsock,  &server->fd_set)) {
             get_command(server, i);
         }
         i += 1;

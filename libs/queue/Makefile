@@ -7,6 +7,7 @@
 
 FILE_SRC    =	src/at_queue.c \
 				src/back.c \
+				src/foreach.c \
 				src/create_node.c \
 				src/front.c \
 				src/get.c \

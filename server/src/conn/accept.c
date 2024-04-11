@@ -29,13 +29,13 @@ static void accept_conn(server_t *server)
     user->nsock = server->socket.accept(&server->socket,
         (struct sockaddr *)&user->addr, &user->socklen);
     user->level = NOT_LOGGED;
-    append_array((void **)server->users, user);
+    server->users->push_back(server->users, user);
     dprintf(user->nsock, "220 User connected\n");
 }
 
 int accept_conns(server_t *server)
 {
-    int index = len_array((void **)server->users);
+    int index = server->users->size(server->users);
 
     if (FD_ISSET(server->socket.socket_fd, &server->fd_set)) {
         if (index > MAX_USER) {

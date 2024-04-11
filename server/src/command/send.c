@@ -10,22 +10,18 @@
 void send_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t target_uuid;
-    bool found = false;
+    user_t *dest_user = NULL;
 
     if (uuid_parse(packet->args[0], target_uuid) == -1) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
         return;
     }
-    for (int i = 0; server->users[i] != NULL; i++) {
-        if (uuid_compare(server->users[i]->uuid, target_uuid) == 0
-            && server->users[i]->level >= LOGGED) {
-            dprintf(server->users[i]->nsock, "%d: %s\n", OK, packet->args[1]);
-            found = true;
-        }
-    }
-    if (!found) {
+    dest_user = get_resource(server->users, offsetof(user_t, uuid),
+        target_uuid, (bool (*)(void *, void *))uuid_strict_compare);
+    if (dest_user == NULL) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
-        return;
+    } else {
+        dprintf(dest_user->nsock, "%d: %s\n", OK, packet->args[1]);
     }
     dprintf(user->nsock, "%d: %s\n", OK, "OK");
 }

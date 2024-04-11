@@ -21,14 +21,6 @@ static bool init_socket_conn(socket_t *new_socket)
 
 static bool set_socket_option(socket_t *socket, const unsigned short port)
 {
-    int opt = 1;
-    int status = setsockopt(socket->socket_fd, SOL_SOCKET,
-        SO_REUSEPORT, &opt, sizeof(opt));
-
-    if (status) {
-        perror("Failed to setup socket option");
-        return false;
-    }
     socket->address.sin_family = AF_INET;
     socket->address.sin_addr.s_addr = INADDR_ANY;
     socket->address.sin_port = htons(port);
@@ -54,9 +46,7 @@ int init_server(socket_t *socket, const unsigned short port)
     if (init_socket_conn(socket) == false) {
         return 84;
     }
-    if (set_socket_option(socket, port) == false) {
-        return 84;
-    }
+    set_socket_option(socket, port);
     if (bind_socket(socket) == false) {
         return 84;
     }

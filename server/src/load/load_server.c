@@ -31,9 +31,7 @@ int load_server(server_t *server, const unsigned short port)
         return 84;
     }
     server->teams = create_queue();
-    if (server->teams == NULL) {
-        return 84;
-    }
+    server->users = create_queue();
     return 0;
 }
 

@@ -9,11 +9,11 @@
 
 void disconnect(server_t *server)
 {
-    int i = 0;
+    unsigned int i = 0;
     user_t *user = NULL;
 
-    while (server->users[i] != NULL) {
-        user = server->users[i];
+    while (i < server->users->size(server->users)) {
+        user = server->users->at(server->users, i);
         if (user->level == NOT_CONNECTED) {
             delete_user(user);
             shift_array((void **)server->users, i);

@@ -15,5 +15,6 @@ node_t *create_node(void *data)
         return NULL;
     }
     node->data = data;
+    node->next = NULL;
     return node;
 }

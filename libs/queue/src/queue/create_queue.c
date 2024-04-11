@@ -23,5 +23,6 @@ queue_t *create_queue(void)
     queue->at = &at_queue;
     queue->insert = &insert;
     queue->size = &size;
+    queue->foreach = &foreach;
     return queue;
 }

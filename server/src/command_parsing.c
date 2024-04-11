@@ -43,7 +43,7 @@ static char **get_args(char *line)
     int i = 0;
     char *arg = NULL;
     int size = get_args_nb(line);
-    char **args = (char **)create_array(size);
+    char **args = (char **)create_array(size + 1);
 
     if (args == NULL) {
         return NULL;
