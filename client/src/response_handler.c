@@ -25,10 +25,6 @@ int response_handler(client_t *client, command_type_t type)
     if (response == NULL)
         return 1;
     code = atoi(response);
-    if (code == 0) {
-        free(response);
-        return 1;
-    }
     write(1, response, strlen(response));
     free(response);
     return 0;
