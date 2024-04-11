@@ -5,7 +5,7 @@
 ** create.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static void create_resource(queue_t *dest, void **context, void *(*func)())
 {

@@ -5,7 +5,7 @@
 ** unload_server.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 void unload_server(server_t *server)
 {

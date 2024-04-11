@@ -5,7 +5,7 @@
 ** server.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static int launch_server(const char **env, server_t *server,
     const char *input_port)

@@ -8,18 +8,23 @@
 
 all: client server
 
+FLAGS	=
+LIBFLAGS	=
+
 client:
-	@make -C libs --no-print-dir
-	@make -C client
+	@make -C libs $(LIBFLAGS) --no-print-dir
+	@make -C client $(FLAGS)
 
 server:
-	@make -C libs --no-print-dir
-	@make -C server
+	@make -C libs $(LIBFLAGS) --no-print-dir
+	@make -C server $(FLAGS)
 
-debug:
-	@make -C libs debug --no-print-dir
-	@make -C ./client debug
-	@make -C ./server debug
+debug:	FLAGS += debug
+debug:	LIBFLAGS += debug
+debug: client server
+
+completion:	FLAGS += completion
+completion: client server
 
 clean:
 	@make -C libs clean --no-print-dir

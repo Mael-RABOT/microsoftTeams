@@ -33,6 +33,7 @@ COMMON_SRC	=	../src/load_file.c \
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
+				src/get_resource.c \
 				src/team/create_team.c \
 				src/team/delete_team.c \
 				src/channel/create_channel.c \
@@ -90,8 +91,10 @@ $(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(ARCHIVE)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
-	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+debug:	all
+
+completion:	CFLAGS += -DCOMPLETION
+completion:	all
 
 clean:
 	rm -rf $(MAIN_OBJ) $(TEST_OBJ) $(FILE_OBJ)

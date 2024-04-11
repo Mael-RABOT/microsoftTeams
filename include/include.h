@@ -25,6 +25,7 @@
 #include <sys/signal.h>
 #include <sys/select.h>
 #include <sys/queue.h>
+#include <stddef.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>

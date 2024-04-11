@@ -5,7 +5,7 @@
 ** create_team.c
 */
 
-#include "team.h"
+#include "prototype.h"
 
 team_t *create_team(void)
 {

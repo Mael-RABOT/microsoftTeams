@@ -5,6 +5,13 @@
 ## Makefile
 ##
 
+ARCHIVE	=	../libs/libsocket.a \
+			../libs/libarray.a \
+			../libs/libdlloader.a \
+			../libs/liblogging.a \
+			../libs/libcompletion.a \
+			../libs/libqueue.a
+
 MAIN_SRC    =	src/main.c
 
 COMMON_SRC	=	../src/load_file.c \
@@ -36,11 +43,8 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB_DEPENDENCY	=	../libs/libsocket.a ../libs/libarray.a \
-					../libs/libdlloader.a ../libs/liblogging.a
-
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader
-LDFLAGS    =    $(LIB)
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
+LDFLAGS    =    $(LIB) -luuid
 
 COVERAGE    =    --coverage -lcriterion
 
@@ -58,11 +62,12 @@ all:    $(EXE)
 
 $(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
-	@strip $(EXE)
 
 debug:	CFLAGS += $(DEBUG)
-debug:	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
-	$(CC) -o $(EXE) $(FILE_OBJ) $(MAIN_OBJ) $(LDFLAGS)
+debug:	all
+
+completion:	CFLAGS	+=	-DCOMPLETION
+completion:	all
 
 clean:
 	rm -rf $(MAIN_OBJ) $(TEST_OBJ) $(FILE_OBJ)

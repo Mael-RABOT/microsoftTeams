@@ -5,7 +5,7 @@
 ** display.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static void display_team(server_t *server)
 {

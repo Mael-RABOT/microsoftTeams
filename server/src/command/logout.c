@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 void logout_command(server_t *server, user_t *user, packet_t *packet)
 {

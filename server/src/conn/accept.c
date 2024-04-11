@@ -5,7 +5,7 @@
 ** accept.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static void refuse_conn(server_t *server)
 {

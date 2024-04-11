@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static int get_uuid(user_t *user)
 {

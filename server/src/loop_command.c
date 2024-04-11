@@ -5,7 +5,7 @@
 ** loop_command.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static void perm_checker(
     server_t *server, packet_t *packet, user_t *user, int i)

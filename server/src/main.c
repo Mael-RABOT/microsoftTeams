@@ -5,7 +5,8 @@
 ** main.c
 */
 
-#include "server.h"
+#include "channel.h"
+#include "prototype.h"
 
 #ifdef COMPLETION
 const bool completion = true;

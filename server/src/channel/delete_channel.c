@@ -5,7 +5,7 @@
 ** delete_channel.c
 */
 
-#include "channel.h"
+#include "prototype.h"
 
 void delete_channel(channel_t *channel)
 {

@@ -24,19 +24,3 @@ typedef struct server_s {
     user_t *users[MAX_USER + 1];
     char history_path[PATH_MAX];
 } server_t;
-
-int server(const int ac, const char **av, const char **env);
-int loop(server_t *server);
-int loop_command(server_t *server);
-
-int read_stdin(server_t *server, int *is_running);
-
-int load_server(server_t *server, const unsigned short port);
-int load_server_history(const char **env, server_t *server);
-void unload_server(server_t *server);
-
-int accept_conns(server_t *server);
-
-packet_t *parse_command(server_t *server, char *command);
-
-void disconnect(server_t *server);

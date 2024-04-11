@@ -5,8 +5,7 @@
 ** stdin.c
 */
 
-#include "server.h"
-#include <stdio.h>
+#include "prototype.h"
 
 static int check_exit(const char *buf, int *is_running)
 {

@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 int reset_fd_set(server_t *server)
 {

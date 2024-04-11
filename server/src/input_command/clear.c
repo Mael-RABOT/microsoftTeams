@@ -5,7 +5,7 @@
 ** clear.
 */
 
-#include "server.h"
+#include "prototype.h"
 
 void clear(server_t *server)
 {

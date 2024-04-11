@@ -5,7 +5,7 @@
 ** delete_user.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 void delete_user(user_t *user)
 {

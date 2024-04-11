@@ -5,7 +5,7 @@
 ** delete_thread.c
 */
 
-#include "thread.h"
+#include "prototype.h"
 
 void delete_thread(thread_t *thread)
 {

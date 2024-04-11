@@ -5,7 +5,7 @@
 ** user.c
 */
 
-#include "server.h"
+#include "prototype.h"
 
 static int user_send(struct user_s *user, const char *format, ...)
 {
