@@ -22,6 +22,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/command/logout.c \
 				src/command/send.c \
 				src/command/quit.c \
+				src/command/users.c \
 				src/command/nothing.c
 
 COMMON_SRC	=	../src/load_file.c \

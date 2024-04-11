@@ -26,5 +26,6 @@ void login_command(server_t *server, user_t *user, packet_t *packet);
 void logout_command(server_t *server, user_t *user, packet_t *packet);
 void quit_command(server_t *server, user_t *user, packet_t *packet);
 void send_command(server_t *server, user_t *user, packet_t *packet);
+void users_command(server_t *server, user_t *user, packet_t *packet);
 
 extern const struct command_s command_list[];

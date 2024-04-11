@@ -23,7 +23,7 @@ const struct command_s command_list[] = {
     {HELP, 0, NOT_LOGGED, nothing_command},
     {LOGIN, 1, NOT_LOGGED, login_command},
     {LOGOUT, 1, LOGGED, logout_command},
-    {USERS, 0, NOT_LOGGED, nothing_command},
+    {USERS, 0, NOT_LOGGED, users_command},
     {USER, 1, LOGGED, nothing_command},
     {SEND, 2, LOGGED, send_command},
     {MESSAGES, 1, LOGGED, nothing_command},
