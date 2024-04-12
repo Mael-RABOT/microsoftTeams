@@ -24,6 +24,7 @@ static command_map_t *get_command(void)
             {"/create ", CREATE, 1, 2},
             {"/list", LIST, 0, 0},
             {"/info", INFO, 0, 0},
+            {"/broadcast ", BROADCAST, 1, 1},
             {NULL, ERROR, 0, 0}
     };
 

@@ -33,6 +33,7 @@ typedef enum command_type_e {
     LIST,
     INFO,
     EXIT,
+    BROADCAST,
     END
 } command_type_t;
 

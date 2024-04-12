@@ -36,6 +36,7 @@ const struct command_s command_list[] = {
     {LIST, LOGGED, nothing_command},
     {INFO, LOGGED, nothing_command},
     {EXIT, NOT_LOGGED, quit_command},
+    {BROADCAST, LOGGED, broadcast_command},
 };
 
 void handler(int signum)
