@@ -13,6 +13,7 @@ void users_command(server_t *server, user_t *user, packet_t *packet)
 
     if (!users)
         return;
+    user->send(user, "200: Here is the list of users :\n");
     for (int i = 0; users[i] != NULL; i++)
         user->send(user, users[i]);
     free(users);
