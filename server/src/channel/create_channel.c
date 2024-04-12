@@ -14,7 +14,8 @@ channel_t *create_channel(void)
     if (channel == NULL) {
         return NULL;
     }
-    channel->threads = NEW(queue);
+    memset(channel, 0, sizeof(channel_t));
+    channel->threads = create_queue();
     if (channel->threads == NULL) {
         free(channel);
         return NULL;
