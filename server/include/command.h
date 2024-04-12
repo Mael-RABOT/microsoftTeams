@@ -30,5 +30,6 @@ void users_command(server_t *server, user_t *user, packet_t *packet);
 void message_command(server_t *server, user_t *user, packet_t *packet);
 void broadcast_command(server_t *server, user_t *user, packet_t *packet);
 void info_command(server_t *server, user_t *user, packet_t *packet);
+void list_command(server_t *server, user_t *user, packet_t *packet);
 
 extern const struct command_s command_list[];
