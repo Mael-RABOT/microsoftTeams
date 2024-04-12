@@ -22,6 +22,7 @@ int response_handler(client_t *client, command_type_t type)
     char *response = client->socket.recv(&client->socket);
     int code;
 
+    (void)code;
     if (response == NULL)
         return 1;
     code = atoi(response);

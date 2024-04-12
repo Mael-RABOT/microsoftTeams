@@ -23,13 +23,15 @@ void display(server_t *server)
 {
     unsigned int i = 0;
     user_t *user = NULL;
+    char uuid[37];
 
     printf("Connected user(s): %d\n", server->users->size(server->users));
     while (i < server->users->size(server->users)) {
         user = server->users->at(server->users, i);
         printf("\tContext:\n");
+        uuid_unparse(user->uuid, uuid);
         if (user->context.team != NULL)
-            printf("\t\tTeam: %d\n", user->context.team->uuid);
+            printf("\t\tTeam: %s\n", uuid);
         i += 1;
     }
     display_team(server);
