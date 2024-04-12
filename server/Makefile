@@ -25,6 +25,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/command/broadcast.c \
 				src/command/send.c \
 				src/command/quit.c \
+				src/command/info.c \
 				src/command/users.c \
 				src/command/nothing.c
 
