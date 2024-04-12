@@ -36,6 +36,13 @@ static void display_team(server_t *server)
     }
 }
 
+static void display_line(const char *title, uuid_t uuid)
+{
+    printf("\t%s: ", title);
+    display_uuid(uuid);
+    printf("\n");
+}
+
 static void display_user(server_t *server)
 {
     unsigned int i = 0;
@@ -45,19 +52,13 @@ static void display_user(server_t *server)
         user = server->users->at(server->users, i);
         printf("User: \n");
         if (user->context.team != NULL) {
-            printf("\tTeam: ");
-            display_uuid(user->context.team->uuid);
-            printf("\n");
+            display_line("Team", user->context.team->uuid);
         }
         if (user->context.channel != NULL) {
-            printf("\tChannel: ");
-            display_uuid(user->context.channel->uuid);
-            printf("\n");
+            display_line("Channel", user->context.channel->uuid);
         }
         if (user->context.thread != NULL) {
-            printf("\tThread: ");
-            display_uuid(user->context.channel->uuid);
-            printf("\n");
+            display_line("Thread", user->context.thread->uuid);
         }
         i += 1;
     }

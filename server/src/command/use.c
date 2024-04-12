@@ -10,9 +10,10 @@
 static void use_thread(user_t *user, const char *arg)
 {
     uuid_t uuid;
+    void *resource = NULL;
 
     uuid_parse(arg, uuid);
-    void *resource = get_resource(user->context.channel->threads,
+    resource = get_resource(user->context.channel->threads,
         offsetof(thread_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
@@ -27,9 +28,10 @@ static void use_thread(user_t *user, const char *arg)
 static void use_channel(user_t *user, const char *arg)
 {
     uuid_t uuid;
+    void *resource = NULL;
 
     uuid_parse(arg, uuid);
-    void *resource = get_resource(user->context.team->channels,
+    resource = get_resource(user->context.team->channels,
         offsetof(channel_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
@@ -44,9 +46,10 @@ static void use_channel(user_t *user, const char *arg)
 static void use_team(server_t *server, user_t *user, const char *arg)
 {
     uuid_t uuid;
+    void *resource = NULL;
 
     uuid_parse(arg, uuid);
-    void *resource = get_resource(server->teams, offsetof(team_t, uuid),
+    resource = get_resource(server->teams, offsetof(team_t, uuid),
         uuid, (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
         user->send(user, "404 Cannot find resource\n");
