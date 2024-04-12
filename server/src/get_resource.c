@@ -23,7 +23,7 @@ void *get_resource(queue_t *queue, unsigned int offset, void *cmp_arg,
         return NULL;
     }
     while (i < queue->size(queue)) {
-        if (cmp_func(&queue->at(queue, i)[offset], cmp_arg) == true) {
+        if (cmp_func(&((char *)queue->at(queue, i))[offset], cmp_arg) == true) {
             return queue->at(queue, i);
         }
         i += 1;

@@ -31,7 +31,8 @@ COMMON_SRC	=	../src/load_file.c \
 				../src/usage.c \
 				../src/args.c \
 				../src/command.c \
-				../src/get_env.c
+				../src/get_env.c \
+				../src/display.c
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \

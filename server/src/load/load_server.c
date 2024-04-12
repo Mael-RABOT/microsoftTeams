@@ -20,6 +20,8 @@ static int load_log_library(server_t *server)
 int load_server(server_t *server, const unsigned short port)
 {
     memset(server, 0, sizeof(server_t));
+    server->teams = create_queue();
+    server->users = create_queue();
     if (init_server(&server->socket, port) == 84) {
         close(server->socket.socket_fd);
         return 84;
@@ -30,8 +32,6 @@ int load_server(server_t *server, const unsigned short port)
     if (server->socket.listen(&server->socket, port) == -1) {
         return 84;
     }
-    server->teams = create_queue();
-    server->users = create_queue();
     return 0;
 }
 
