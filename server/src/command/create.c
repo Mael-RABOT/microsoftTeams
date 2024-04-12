@@ -7,6 +7,14 @@
 
 #include "prototype.h"
 
+static void send_uuid(user_t *user, uuid_t uuid, const char *format)
+{
+    char line[64];
+
+    uuid_unparse(uuid, line);
+    user->send(user, "%s%s\n", format, line);
+}
+
 static void create_server_team(server_t *server, user_t *user,
     packet_t *packet)
 {
@@ -24,7 +32,7 @@ static void create_server_team(server_t *server, user_t *user,
     strcpy(team->name, packet->args[0]);
     strcpy(team->desc, packet->args[1]);
     server->teams->push_back(server->teams, team);
-    user->send(user, "200 Ok\n");
+    send_uuid(user, team->uuid, "Team: ");
 }
 
 static void create_server_channel(team_t *team, user_t *user, packet_t *packet)
@@ -43,7 +51,7 @@ static void create_server_channel(team_t *team, user_t *user, packet_t *packet)
     strcpy(channel->name, packet->args[0]);
     strcpy(channel->desc, packet->args[1]);
     team->channels->push_back(team->channels, channel);
-    user->send(user, "200 Ok\n");
+    send_uuid(user, channel->uuid, "Channel: ");
 }
 
 static void create_server_thread(channel_t *channel, user_t *user,
@@ -68,7 +76,7 @@ static void create_server_thread(channel_t *channel, user_t *user,
     strcpy(message, packet->args[1]);
     channel->threads->push_back(channel->threads, thread);
     thread->messages->push_back(thread->messages, message);
-    user->send(user, "200 Ok\n");
+    send_uuid(user, thread->uuid, "Thread: ");
 }
 
 static void create_server_message(thread_t *thread, user_t *user,

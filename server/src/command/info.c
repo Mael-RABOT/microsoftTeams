@@ -26,7 +26,7 @@ static void info_team(user_t *user)
         user->context.team->name, uuid);
 }
 
-static void info_channel( user_t *user)
+static void info_channel(user_t *user)
 {
     char uuid[37];
 
@@ -49,6 +49,7 @@ static void info_thread(user_t *user)
 void info_command(server_t *server, user_t *user, packet_t *packet)
 {
     context_t context = get_context(user);
+
     switch (context) {
         case NO_CONTEXT:
             return info_user(user);

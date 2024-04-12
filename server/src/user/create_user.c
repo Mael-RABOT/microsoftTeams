@@ -13,7 +13,7 @@ static int user_send(struct user_s *user, const char *format, ...)
     int read_val = 0;
 
     va_start(list, format);
-    read_val = dprintf(user->nsock, format, list);
+    read_val = vdprintf(user->nsock, format, list);
     va_end(list);
     return read_val;
 }
