@@ -60,18 +60,28 @@ static void use_team(server_t *server, user_t *user, const char *arg)
     return;
 }
 
+static void reset_context(user_t *user)
+{
+    user->context.team = NULL;
+    user->context.channel = NULL;
+    user->context.thread = NULL;
+}
+
 void use_command(server_t *server, user_t *user, packet_t *packet)
 {
     if (len_array((void **)packet->args) == 1) {
+        reset_context(user);
         use_team(server, user, packet->args[0]);
         return;
     }
     if (len_array((void **)packet->args) == 2) {
+        reset_context(user);
         use_team(server, user, packet->args[0]);
         use_channel(user, packet->args[1]);
         return;
     }
     if (len_array((void **)packet->args) == 3) {
+        reset_context(user);
         use_team(server, user, packet->args[0]);
         use_channel(user, packet->args[1]);
         use_thread(user, packet->args[2]);
