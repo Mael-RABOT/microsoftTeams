@@ -69,22 +69,13 @@ static void reset_context(user_t *user)
 
 void use_command(server_t *server, user_t *user, packet_t *packet)
 {
-    if (len_array((void **)packet->args) == 1) {
-        reset_context(user);
+    reset_context(user);
+    if (len_array((void **)packet->args) == 0)
+        return (void)dprintf(user->nsock, "%d: Context reset\n", OK);
+    if (len_array((void **)packet->args) >= 1)
         use_team(server, user, packet->args[0]);
-        return;
-    }
-    if (len_array((void **)packet->args) == 2) {
-        reset_context(user);
-        use_team(server, user, packet->args[0]);
+    if (len_array((void **)packet->args) >= 2)
         use_channel(user, packet->args[1]);
-        return;
-    }
-    if (len_array((void **)packet->args) == 3) {
-        reset_context(user);
-        use_team(server, user, packet->args[0]);
-        use_channel(user, packet->args[1]);
+    if (len_array((void **)packet->args) >= 3)
         use_thread(user, packet->args[2]);
-        return;
-    }
 }

@@ -34,7 +34,7 @@ const struct command_s command_list[] = {
     {USE, LOGGED, use_command},
     {CREATE, LOGGED, create_command},
     {LIST, LOGGED, nothing_command},
-    {INFO, LOGGED, nothing_command},
+    {INFO, LOGGED, info_command},
     {EXIT, NOT_LOGGED, quit_command},
     {BROADCAST, LOGGED, broadcast_command},
 };
