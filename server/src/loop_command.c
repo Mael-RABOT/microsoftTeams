@@ -20,9 +20,7 @@ static int execute_command(server_t *server, packet_t *packet, user_t *user)
     int i = 0;
 
     while (i < END) {
-        printf("FUNCTION\n");
         if (packet->type == command_list[i].type) {
-            printf("EXECUTION\n");
             perm_checker(server, packet, user, i);
         }
         i += 1;

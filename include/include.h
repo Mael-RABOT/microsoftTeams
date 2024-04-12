@@ -60,3 +60,4 @@ int check_args(
     const int ac, const char **av, const int no_arg, const char *path);
 const char *get_env_pair(const char **env, const char *key);
 const char *get_env_value(const char **env, const char *key);
+void display_uuid(uuid_t uuid);

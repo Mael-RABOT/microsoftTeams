@@ -7,32 +7,65 @@
 
 #include "prototype.h"
 
+static void display_channel(server_t *server, team_t *team)
+{
+    unsigned int i = 0;
+    channel_t *channel = NULL;
+
+    while (i < team->channels->size(team->channels)) {
+        channel = team->channels->at(team->channels, i);
+        printf("    Channel: ");
+        display_uuid(channel->uuid);
+        printf("\n");
+        i += 1;
+    }
+}
+
 static void display_team(server_t *server)
 {
-    char uuid[64];
     unsigned int i = 0;
+    team_t *team = NULL;
 
     while (i < server->teams->size(server->teams)) {
-        uuid_unparse(server->teams->at(server->teams, i), uuid);
-        printf("Team: %s\n", uuid);
+        team = server->teams->at(server->teams, i);
+        printf("Team: ");
+        display_uuid(team->uuid);
+        printf("\n");
+        display_channel(server, team);
+        i += 1;
+    }
+}
+
+static void display_user(server_t *server)
+{
+    unsigned int i = 0;
+    user_t *user = NULL;
+
+    while (i < server->users->size(server->users)) {
+        user = server->users->at(server->users, i);
+        printf("User: \n");
+        if (user->context.team != NULL) {
+            printf("\tTeam: ");
+            display_uuid(user->context.team->uuid);
+            printf("\n");
+        }
+        if (user->context.channel != NULL) {
+            printf("\tChannel: ");
+            display_uuid(user->context.channel->uuid);
+            printf("\n");
+        }
+        if (user->context.thread != NULL) {
+            printf("\tThread: ");
+            display_uuid(user->context.channel->uuid);
+            printf("\n");
+        }
         i += 1;
     }
 }
 
 void display(server_t *server)
 {
-    unsigned int i = 0;
-    user_t *user = NULL;
-    char uuid[37];
-
     printf("Connected user(s): %d\n", server->users->size(server->users));
-    while (i < server->users->size(server->users)) {
-        user = server->users->at(server->users, i);
-        printf("\tContext:\n");
-        uuid_unparse(user->uuid, uuid);
-        if (user->context.team != NULL)
-            printf("\t\tTeam: %s\n", uuid);
-        i += 1;
-    }
+    display_user(server);
     display_team(server);
 }
