@@ -30,7 +30,7 @@ static void accept_conn(server_t *server)
         (struct sockaddr *)&user->addr, &user->socklen);
     user->level = NOT_LOGGED;
     server->users->push_back(server->users, user);
-    dprintf(user->nsock, "220 User connected\n");
+    dprintf(user->nsock, "%d: User connected\n", CONNECTED);
 }
 
 int accept_conns(server_t *server)

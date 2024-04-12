@@ -78,7 +78,7 @@ static int handle_input(client_t *client, char *input)
             return 0;
         default:
             if (call_command(client, command_type, input))
-                printf("Invalid arguments.\n");
+                return 0 * printf("Invalid arguments.\n");
             return response_handler(client, command_type);
     }
 }

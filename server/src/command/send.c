@@ -74,7 +74,8 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
     if (dest_user == NULL) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
     } else {
-        dprintf(dest_user->nsock, "%d: %s\n", OK, packet->args[1]);
+        dprintf(
+            dest_user->nsock, "%d: %s\n", MESSAGE_RECEIVED, packet->args[1]);
     }
     save_message(packet->args[1], user->uuid, target_uuid);
     dprintf(user->nsock, "%d: %s\n", OK, "OK");
