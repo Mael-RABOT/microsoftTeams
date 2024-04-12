@@ -15,6 +15,11 @@ thread_t *create_thread(void)
         return NULL;
     }
     memset(thread, 0, sizeof(thread_t));
+    thread->messages = create_queue();
+    if (thread->messages == NULL) {
+        free(thread);
+        return NULL;
+    }
     uuid_generate(thread->uuid);
     return thread;
 }

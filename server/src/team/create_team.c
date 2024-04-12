@@ -15,7 +15,7 @@ team_t *create_team(void)
         return NULL;
     }
     memset(team, 0, sizeof(team_t));
-    team->channels = NEW(queue);
+    team->channels = create_queue();
     if (team->channels == NULL) {
         free(team);
         return NULL;

@@ -41,8 +41,6 @@ const struct command_s command_list[] = {
 
 void handler(int signum)
 {
-    restore_term();
-    _exit(139);
 }
 
 void debug(void)
@@ -55,6 +53,5 @@ void debug(void)
 int main(const int ac, const char **av, const char **env)
 {
     debug();
-    signal(11, handler);
     return server(ac, av, env);
 }
