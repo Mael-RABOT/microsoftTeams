@@ -18,6 +18,8 @@ static int get_uuid(user_t *user)
         line = split(data[i], " \n");
         if (strcmp(line[0], user->name) == 0) {
             uuid_parse(line[1], user->uuid);
+            delete_array((void **)line);
+            delete_array((void **)data);
             return 0;
         }
         delete_array((void **)line);
