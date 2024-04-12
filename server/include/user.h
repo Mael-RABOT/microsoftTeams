@@ -10,6 +10,13 @@
 #include "../../include/include.h"
 #include "team.h"
 
+typedef enum context_e {
+    NO_CONTEXT,
+    TEAM,
+    CHANNEL,
+    THREAD,
+} context_t;
+
 typedef struct user_s {
     int nsock;
     socklen_t socklen;
@@ -27,3 +34,4 @@ typedef struct user_s {
 
 user_t *create_user(void);
 void delete_user(user_t *user);
+context_t get_context(user_t *user);

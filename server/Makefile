@@ -53,6 +53,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/load/load_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
+				src/user/get_context.c \
 				src/load/unload_server.c
 
 TEST_SRC    =
