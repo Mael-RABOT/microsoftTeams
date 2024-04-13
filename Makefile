@@ -5,7 +5,6 @@
 ## Makefile
 ##
 
-
 all: client server
 
 FLAGS	=
@@ -46,4 +45,4 @@ unit_tests:
 
 tests_run:    unit_tests
 
-.PHONY: all clean re fclean tests_run client server debug
+.PHONY: all clean re fclean tests_run client server debug completion

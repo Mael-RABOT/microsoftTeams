@@ -14,6 +14,7 @@ typedef struct team_s {
     char name[MAX_NAME_LENGTH];
     char desc[MAX_DESCRIPTION_LENGTH];
     queue_t *channels;
+    queue_t *subscribed;
     void (*save)(struct team_s *team);
     void (*restore)(struct team_s *team);
 } team_t;
