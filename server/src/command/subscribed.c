@@ -7,11 +7,26 @@
 
 #include "prototype.h"
 
-void display_subscribed(void *arg)
+static void display_subscribed(void *arg)
 {
     user_t *user = (user_t *)arg;
 
     user->send(user, "200 %s is subsribed\n", user->name);
+}
+
+static void get_user_team(server_t *server, user_t *user)
+{
+    unsigned int i = 0;
+    team_t *team = NULL;
+
+    user->send(user, "200 List of subscribed team: \n");
+    while (i < server->teams->size(server->teams)) {
+        team = server->teams->at(server->teams, i);
+        if (team->subscribed->contains(team->subscribed, user)) {
+            user->send(user, "%s\n", team->name);
+        }
+        i += 1;
+    }
 }
 
 void subscribed_command(server_t *server, user_t *user, packet_t *packet)
@@ -25,8 +40,10 @@ void subscribed_command(server_t *server, user_t *user, packet_t *packet)
             (bool (*)(void *, void *))uuid_strict_compare);
         if (team != NULL) {
             team->subscribed->foreach(team->subscribed, display_subscribed);
+        } else {
+            user->send(user, "400 Cannot find team!\n");
         }
     } else {
-
+        get_user_team(server, user);
     }
 }

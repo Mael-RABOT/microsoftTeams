@@ -15,6 +15,8 @@ FILE_SRC    =	src/at_queue.c \
 				src/push_back.c \
 				src/push_front.c \
 				src/size.c \
+				src/in_queue.c \
+				src/remove.c \
 				src/queue/create_queue.c \
 				src/queue/delete_queue.c
 
