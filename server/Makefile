@@ -28,6 +28,9 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/command/info.c \
 				src/command/list.c \
 				src/command/users.c \
+				src/command/subscribed.c \
+				src/command/subscribe.c \
+				src/command/unsubscribe.c \
 				src/command/nothing.c
 
 COMMON_SRC	=	../src/load_file.c \
