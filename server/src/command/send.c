@@ -64,7 +64,9 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t target_uuid;
     user_t *dest_user = NULL;
+    char uuid_str[37];
 
+    uuid_unparse(user->uuid, uuid_str);
     if (uuid_parse(packet->args[0], target_uuid) == -1) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
         return;
@@ -75,7 +77,8 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
     } else {
         dprintf(
-            dest_user->nsock, "%d: %s\n", MESSAGE_RECEIVED, packet->args[1]);
+            dest_user->nsock, "%d: %s: %s\n",
+                MESSAGE_RECEIVED, uuid_str, packet->args[1]);
     }
     save_message(packet->args[1], user->uuid, target_uuid);
     dprintf(user->nsock, "%d: %s\n", OK, "OK");

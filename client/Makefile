@@ -24,7 +24,11 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/commands.c \
 				src/response_handler.c \
 				src/load/load_client.c \
-				src/load/unload_client.c
+				src/load/unload_client.c \
+				src/response_handler/login.c \
+				src/response_handler/logout.c \
+				src/response_handler/send.c \
+				src/response_handler/create.c \
 
 TEST_SRC    =
 

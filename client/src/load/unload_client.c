@@ -15,4 +15,6 @@ void unload_client(client_t *client)
     if (client->logger != NULL) {
         delete_client_logger(client->logger);
     }
+    free(client->username);
+    free(client->user_uuid);
 }

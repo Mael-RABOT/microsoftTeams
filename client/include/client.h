@@ -33,6 +33,9 @@ typedef struct client_s {
     socket_t socket;
     client_logger_t *logger;
     fd_set read_fds;
+    command_type_t command_type;
+    char *username;
+    char *user_uuid;
 } client_t;
 
 typedef struct command_map_s {
@@ -41,6 +44,11 @@ typedef struct command_map_s {
     int min_args;
     int max_args;
 } command_map_t;
+
+typedef struct response_handler_s {
+    command_type_t type;
+    void (*handler)(client_t *client, codes_t code, char *response);
+} response_handler_t;
 
 int client(const int ac, const char **av);
 int loop(client_t *client);

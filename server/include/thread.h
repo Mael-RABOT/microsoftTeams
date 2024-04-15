@@ -15,6 +15,7 @@ typedef struct thread_s {
     char name[MAX_NAME_LENGTH];
     void (*save)(struct thread_s *thread);
     void (*restore)(struct thread_s *thread);
+    time_t timestamp;
 } thread_t;
 
 thread_t *create_thread(void);
