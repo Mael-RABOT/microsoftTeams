@@ -9,11 +9,11 @@
 
 static char *create_filename(char *uuid1, char *uuid2)
 {
-    char *filename = malloc(74 + 12 + 1);
+    char *filename = malloc(74 + 16 + 1);
 
     if (!filename)
         return NULL;
-    sprintf(filename, "./data/%s#%s", uuid1, uuid2);
+    sprintf(filename, "./data/%s#%s.txt", uuid1, uuid2);
     return filename;
 }
 
