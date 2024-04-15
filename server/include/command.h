@@ -34,5 +34,6 @@ void list_command(server_t *server, user_t *user, packet_t *packet);
 void subscribed_command(server_t *server, user_t *user, packet_t *packet);
 void subscribe_command(server_t *server, user_t *user, packet_t *packet);
 void unsubscribe_command(server_t *server, user_t *user, packet_t *packet);
+void user_command(server_t *server, user_t *user, packet_t *packet);
 
 extern const struct command_s command_list[];
