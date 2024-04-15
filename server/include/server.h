@@ -20,6 +20,7 @@ typedef struct server_s {
     fd_set fd_set;
     queue_t *teams;
     queue_t *users;
+    queue_t *accounts;
     socket_t socket;
     server_logger_t *logger;
     char history_path[PATH_MAX];

@@ -13,6 +13,8 @@ void delete_team(team_t *team)
         return;
     }
     if (team->channels != NULL) {
+        team->channels->foreach(team->channels,
+            (void (*)(void *))delete_channel);
         delete_queue(team->channels);
     }
     free(team);

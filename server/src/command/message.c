@@ -46,7 +46,7 @@ static char **prepare_data(user_t *user, uuid_t receiver_uuid)
     char sender_uuid_str[37];
     char receiver_uuid_str[37];
 
-    uuid_unparse(user->uuid, sender_uuid_str);
+    uuid_unparse(user->account->uuid, sender_uuid_str);
     uuid_unparse(receiver_uuid, receiver_uuid_str);
     filename = get_filename(sender_uuid_str, receiver_uuid_str);
     if (!filename)

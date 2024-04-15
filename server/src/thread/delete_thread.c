@@ -12,5 +12,10 @@ void delete_thread(thread_t *thread)
     if (thread == NULL) {
         return;
     }
+    if (thread->messages != NULL) {
+        thread->messages->foreach(thread->messages,
+            (void (*)(void *))free);
+        delete_queue(thread->messages);
+    }
     free(thread);
 }

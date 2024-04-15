@@ -27,7 +27,8 @@ static void create_server_team(server_t *server, user_t *user,
     strcpy(team->desc, packet->args[1]);
     server->teams->push_back(server->teams, team);
     user->send(user, "201: Team:%s:%s:%s\n", uuid_str, team->name, team->desc);
-    server->logger->team_created(team->uuid_str, team->name, user->uuid_str);
+    server->logger->team_created(team->uuid_str, team->name,
+        user->account->uuid_str);
 }
 
 static void create_server_channel(server_t *server, team_t *team, user_t *user,
@@ -79,7 +80,9 @@ static void create_server_thread(server_t *server, channel_t *channel,
     channel->threads->push_back(channel->threads, thread);
     thread->messages->push_back(thread->messages, message);
     user->send(user, "201: Thread:%s:%s:%ld:%s:%s\n", thread->uuid_str,
-        user->uuid_str, thread->timestamp, thread->name, message);
+        user->account->uuid_str, thread->timestamp, thread->name, message);
+    server->logger->thread_created(channel->uuid_str, thread->uuid_str,
+        user->account->uuid_str, thread->name, packet->args[1]);
 }
 
 static void create_server_message(server_t *server, thread_t *thread,
@@ -96,23 +99,25 @@ static void create_server_message(server_t *server, thread_t *thread,
     thread->messages->push_back(thread->messages, message);
     user->send(user, "201 Ok\n");
     server->logger->reply_created(thread->uuid_str, user->account->uuid_str,
-        thread->name, packet->args[1]);
+        packet->args[0]);
 }
 
 void create_command(server_t *server, user_t *user, packet_t *packet)
 {
-    if (user->context.team == NULL) {
+    if (user->account->context.team == NULL) {
         create_server_team(server, user, packet);
         return;
     }
-    if (user->context.channel == NULL) {
-        create_server_channel(server, user->context.team, user, packet);
+    if (user->account->context.channel == NULL) {
+        create_server_channel(server, user->account->context.team, user,
+            packet);
         return;
     }
-    if (user->context.thread == NULL) {
-        create_server_thread(server, user->context.channel, user, packet);
+    if (user->account->context.thread == NULL) {
+        create_server_thread(server, user->account->context.channel, user,
+            packet);
         return;
     }
-    create_server_message(server, user->context.thread, user, packet);
+    create_server_message(server, user->account->context.thread, user, packet);
     return;
 }

@@ -28,7 +28,5 @@ user_t *create_user(void)
     }
     memset(user, 0, sizeof(user_t));
     user->send = user_send;
-    uuid_generate(user->uuid);
-    uuid_unparse(user->uuid, user->uuid_str);
     return user;
 }

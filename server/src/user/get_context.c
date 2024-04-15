@@ -9,13 +9,13 @@
 
 context_t get_context(user_t *user)
 {
-    if (user->context.team == NULL) {
+    if (user->account->context.team == NULL) {
         return NO_CONTEXT;
     }
-    if (user->context.channel == NULL) {
+    if (user->account->context.channel == NULL) {
         return TEAM;
     }
-    if (user->context.thread == NULL) {
+    if (user->account->context.thread == NULL) {
         return CHANNEL;
     }
     return THREAD;

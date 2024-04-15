@@ -64,22 +64,20 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t target_uuid;
     user_t *dest_user = NULL;
-    char uuid_str[37];
 
-    uuid_unparse(user->uuid, uuid_str);
     if (uuid_parse(packet->args[0], target_uuid) == -1) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
         return;
     }
-    dest_user = get_resource(server->users, offsetof(user_t, uuid),
-        target_uuid, (bool (*)(void *, void *))uuid_strict_compare);
+    dest_user = get_resource(server->users, offsetof(user_t, account),
+        target_uuid, (bool (*)(void *, void *))account_compare);
     if (dest_user == NULL) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
     } else {
         dprintf(
             dest_user->nsock, "%d: %s: %s\n",
-                MESSAGE_RECEIVED, uuid_str, packet->args[1]);
+                MESSAGE_RECEIVED, user->account->uuid_str, packet->args[1]);
     }
-    save_message(packet->args[1], user->uuid, target_uuid);
+    save_message(packet->args[1], user->account->uuid, target_uuid);
     dprintf(user->nsock, "%d: %s\n", OK, "OK");
 }

@@ -11,39 +11,40 @@ static void info_user(user_t *user)
 {
     char uuid[37];
 
-    uuid_unparse(user->uuid, uuid);
+    uuid_unparse(user->account->uuid, uuid);
     dprintf(user->nsock,
-        "%d: User name: %s\n     User uuid: %s\n", OK, user->name, uuid);
+        "%d: User name: %s\n     User uuid: %s\n", OK, user->account->name,
+        uuid);
 }
 
 static void info_team(user_t *user)
 {
     char uuid[37];
 
-    uuid_unparse(user->context.team->uuid, uuid);
+    uuid_unparse(user->account->context.team->uuid, uuid);
     dprintf(user->nsock,
         "%d: Team name: %s\n     Team uuid: %s\n", OK,
-        user->context.team->name, uuid);
+        user->account->context.team->name, uuid);
 }
 
 static void info_channel(user_t *user)
 {
     char uuid[37];
 
-    uuid_unparse(user->context.channel->uuid, uuid);
+    uuid_unparse(user->account->context.channel->uuid, uuid);
     dprintf(user->nsock,
         "%d: Channel name: %s\n     Channel uuid: %s\n", OK,
-        user->context.channel->name, uuid);
+        user->account->context.channel->name, uuid);
 }
 
 static void info_thread(user_t *user)
 {
     char uuid[37];
 
-    uuid_unparse(user->context.thread->uuid, uuid);
+    uuid_unparse(user->account->context.thread->uuid, uuid);
     dprintf(user->nsock,
         "%d: Thread name: %s\n     Thread uuid: %s\n", OK,
-        user->context.thread->name, uuid);
+        user->account->context.thread->name, uuid);
 }
 
 void info_command(server_t *server, user_t *user, packet_t *packet)

@@ -15,7 +15,8 @@
 #include <stdio.h>
 
 void **create_array(unsigned int size);
-bool delete_array(void **array);
+void delete_array(void **array);
+void delete_array_ptr(void **array, void (*func)(void *arg));
 void **realloc_array(void **array, unsigned int size);
 
 unsigned int len_array(void **array);

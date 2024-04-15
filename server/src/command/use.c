@@ -13,14 +13,14 @@ static void use_thread(user_t *user, const char *arg)
     void *resource = NULL;
 
     uuid_parse(arg, uuid);
-    resource = get_resource(user->context.channel->threads,
+    resource = get_resource(user->account->context.channel->threads,
         offsetof(thread_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
         user->send(user, "404 Cannot find resource\n");
     } else {
         user->send(user, "200 Context set\n");
-        user->context.thread = resource;
+        user->account->context.thread = resource;
     }
     return;
 }
@@ -31,14 +31,14 @@ static void use_channel(user_t *user, const char *arg)
     void *resource = NULL;
 
     uuid_parse(arg, uuid);
-    resource = get_resource(user->context.team->channels,
+    resource = get_resource(user->account->context.team->channels,
         offsetof(channel_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
-        user->send(user, "404 Cannot find resource\n");
+        user->send(user, "%d Cannot find resource\n");
     } else {
         user->send(user, "200 Context set\n");
-        user->context.channel = resource;
+        user->account->context.channel = resource;
     }
     return;
 }
@@ -52,19 +52,19 @@ static void use_team(server_t *server, user_t *user, const char *arg)
     resource = get_resource(server->teams, offsetof(team_t, uuid),
         uuid, (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
-        user->send(user, "404 Cannot find resource\n");
+        user->send(user, "%d Cannot find resource\n");
     } else {
         user->send(user, "200 Context set\n");
-        user->context.team = resource;
+        user->account->context.team = resource;
     }
     return;
 }
 
 static void reset_context(user_t *user)
 {
-    user->context.team = NULL;
-    user->context.channel = NULL;
-    user->context.thread = NULL;
+    user->account->context.team = NULL;
+    user->account->context.channel = NULL;
+    user->account->context.thread = NULL;
 }
 
 void use_command(server_t *server, user_t *user, packet_t *packet)
