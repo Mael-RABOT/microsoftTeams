@@ -21,5 +21,6 @@ channel_t *create_channel(void)
         return NULL;
     }
     uuid_generate(channel->uuid);
+    uuid_unparse(channel->uuid, channel->uuid_str);
     return channel;
 }

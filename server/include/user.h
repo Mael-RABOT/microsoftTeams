@@ -19,11 +19,12 @@ typedef enum context_e {
 
 typedef struct user_s {
     int nsock;
+    uuid_t uuid;
+    char uuid_str[64];
     socklen_t socklen;
     enum status_e level;
     struct sockaddr_in addr;
     char name[MAX_NAME_LENGTH];
-    uuid_t uuid;
     int (*send)(struct user_s *user, const char *format, ...);
     struct {
         team_t *team;

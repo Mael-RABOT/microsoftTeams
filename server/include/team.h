@@ -11,6 +11,7 @@
 
 typedef struct team_s {
     uuid_t uuid;
+    char uuid_str[64];
     char name[MAX_NAME_LENGTH];
     char desc[MAX_DESCRIPTION_LENGTH];
     queue_t *channels;

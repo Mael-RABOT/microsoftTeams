@@ -11,6 +11,7 @@
 
 typedef struct thread_s {
     uuid_t uuid;
+    char uuid_str[64];
     queue_t *messages;
     char name[MAX_NAME_LENGTH];
     void (*save)(struct thread_s *thread);
