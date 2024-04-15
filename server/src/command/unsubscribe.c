@@ -16,7 +16,8 @@ static void unsubscribe_user(team_t *team, user_t *user)
         tmp_user = team->subscribed->at(team->subscribed, i);
         if (tmp_user == user) {
             team->subscribed->remove(team->subscribed, i);
-            user->send(user, "200, You have unsubscribe from team\n");
+            user->send(user, "200: You have unsubscribe from team: %s\n",
+                team->name);
             return;
         }
         i += 1;

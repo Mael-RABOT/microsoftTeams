@@ -30,7 +30,7 @@ const struct command_s command_list[] = {
     {MESSAGES, LOGGED, message_command},
     {SUBSCRIBE, LOGGED, subscribe_command},
     {SUBSCRIBED, LOGGED, subscribed_command},
-    {UNSUBSCRIBE, LOGGED, nothing_command},
+    {UNSUBSCRIBE, LOGGED, unsubscribe_command},
     {USE, LOGGED, use_command},
     {CREATE, LOGGED, create_command},
     {INFO, LOGGED, info_command},

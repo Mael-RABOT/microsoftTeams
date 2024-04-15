@@ -32,10 +32,11 @@ static void get_user_team(server_t *server, user_t *user)
 void subscribed_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t uuid;
+    team_t *team = NULL;
 
     if (len_array((void **)packet->args) == 1) {
         uuid_parse(packet->args[0], uuid);
-        team_t *team = (team_t *)get_resource(server->teams,
+        team = (team_t *)get_resource(server->teams,
             offsetof(team_t, uuid), uuid,
             (bool (*)(void *, void *))uuid_strict_compare);
         if (team != NULL) {

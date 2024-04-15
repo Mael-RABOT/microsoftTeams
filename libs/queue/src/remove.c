@@ -15,5 +15,8 @@ void remove_node(struct head_s *head, unsigned int index)
     if (head == NULL || node == NULL || node->next == NULL) {
         return;
     }
-    node->next = node->next->next;
+    if (index == 0)
+        head->head = head->head->next;
+    else
+        node->next = node->next->next;
 }
