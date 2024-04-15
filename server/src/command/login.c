@@ -65,5 +65,5 @@ void login_command(server_t *server, user_t *user, packet_t *packet)
     if (get_uuid(user) == 1)
         create_uuid(user);
     uuid_unparse(user->uuid, uuid_str);
-    dprintf(user->nsock, "200: Your uuid is '%s'\n", uuid_str);
+    dprintf(user->nsock, "%d: %s: %s\n", OK, user->name, uuid_str);
 }

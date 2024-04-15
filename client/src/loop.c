@@ -14,7 +14,7 @@ static command_map_t *get_command(void)
             {"/login ", LOGIN, 1, 1},
             {"/logout", LOGOUT, 0, 0},
             {"/users", USERS, 0, 0},
-            {"/user ", USER, 1, 1},
+            {"/user", USER, 1, 1},
             {"/send ", SEND, 2, 2},
             {"/messages ", MESSAGES, 1, 1},
             {"/subscribe ", SUBSCRIBE, 1, 1},
@@ -70,6 +70,7 @@ static int handle_input(client_t *client, char *input)
     if (!strcmp(input, "/help\n"))
         return 0 * printf(CHELP);
     command_type = get_command_type(input);
+    client->command_type = command_type;
     switch (command_type) {
         case ERROR:
             printf("Invalid command.\n");
