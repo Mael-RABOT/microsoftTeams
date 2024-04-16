@@ -21,5 +21,6 @@ thread_t *create_thread(void)
         return NULL;
     }
     uuid_generate(thread->uuid);
+    uuid_unparse(thread->uuid, thread->uuid_str);
     return thread;
 }

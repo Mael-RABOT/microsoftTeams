@@ -51,14 +51,14 @@ static void display_user(server_t *server)
     while (i < server->users->size(server->users)) {
         user = server->users->at(server->users, i);
         printf("User: \n");
-        if (user->context.team != NULL) {
-            display_line("Team", user->context.team->uuid);
+        if (user->account->context.team != NULL) {
+            display_line("Team", user->account->context.team->uuid);
         }
-        if (user->context.channel != NULL) {
-            display_line("Channel", user->context.channel->uuid);
+        if (user->account->context.channel != NULL) {
+            display_line("Channel", user->account->context.channel->uuid);
         }
-        if (user->context.thread != NULL) {
-            display_line("Thread", user->context.thread->uuid);
+        if (user->account->context.thread != NULL) {
+            display_line("Thread", user->account->context.thread->uuid);
         }
         i += 1;
     }

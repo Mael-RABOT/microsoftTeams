@@ -11,13 +11,16 @@
 void push_back(head_t *head, void *data)
 {
     node_t *node = NULL;
-    int index = head->size(head) - 1;
     node_t *last_node = NULL;
+    int index = head->size(head) - 1;
 
     if (head == NULL) {
         return;
     }
     node = create_node(data);
+    if (node == NULL) {
+        return;
+    }
     if (index < 0) {
         head->head = node;
     } else {

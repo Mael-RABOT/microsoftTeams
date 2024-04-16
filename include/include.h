@@ -61,3 +61,4 @@ int check_args(
 const char *get_env_pair(const char **env, const char *key);
 const char *get_env_value(const char **env, const char *key);
 void display_uuid(uuid_t uuid);
+void free_n(int no_arg, ...);

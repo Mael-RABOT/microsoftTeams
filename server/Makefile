@@ -39,7 +39,8 @@ COMMON_SRC	=	../src/load_file.c \
 				../src/args.c \
 				../src/command.c \
 				../src/get_env.c \
-				../src/display.c
+				../src/display.c \
+				../src/free.c
 
 FILE_SRC    =	$(COMMON_SRC) \
 				$(COMMAND_SRC) \
@@ -50,6 +51,8 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/channel/delete_channel.c \
 				src/thread/create_thread.c \
 				src/thread/delete_thread.c \
+				src/account/create_account.c \
+				src/account/delete_account.c \
 				src/loop.c \
 				src/stdin.c \
 				src/server.c \
@@ -57,12 +60,12 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/conn/accept.c \
 				src/loop_command.c \
 				src/command_parsing.c \
-				src/load/load_server.c \
 				src/user/create_user.c \
 				src/user/delete_user.c \
 				src/user/get_context.c \
-				src/load/unload_server.c
-
+				src/load/load_server.c \
+				src/load/unload_server.c \
+				src/load/load_account.c
 TEST_SRC    =
 
 FILE_OBJ    =    $(FILE_SRC:.c=.o)

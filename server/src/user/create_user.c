@@ -6,6 +6,7 @@
 */
 
 #include "prototype.h"
+#include <uuid/uuid.h>
 
 static int user_send(struct user_s *user, const char *format, ...)
 {

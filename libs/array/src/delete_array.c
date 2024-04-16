@@ -7,16 +7,30 @@
 
 #include "../include/array.h"
 
-bool delete_array(void **array)
+void delete_array_ptr(void **array, void (*func)(void *arg))
 {
     unsigned int i = 0;
 
     if (array == NULL)
-        return false;
+        return;
+    while (array[i] != NULL) {
+        func(array[i]);
+        i += 1;
+    }
+    free(array);
+    return;
+}
+
+void delete_array(void **array)
+{
+    unsigned int i = 0;
+
+    if (array == NULL)
+        return;
     while (array[i] != NULL) {
         free(array[i]);
         i += 1;
     }
     free(array);
-    return true;
+    return;
 }

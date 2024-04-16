@@ -11,10 +11,9 @@ int reset_fd_set(server_t *server)
 {
     unsigned int i = 0;
     int tmp_fd = 0;
-    struct timeval timeval;
+    struct timeval timeval = {0};
     int last_fd = server->socket.socket_fd;
 
-    memset(&timeval, 0, sizeof(struct timeval));
     FD_ZERO(&server->fd_set);
     FD_SET(0, &server->fd_set);
     FD_SET(server->socket.socket_fd, &server->fd_set);
@@ -35,8 +34,8 @@ int loop(server_t *server)
     while (running) {
         reset_fd_set(server);
         accept_conns(server);
-        disconnect(server);
         loop_command(server);
+        disconnect(server);
         if (FD_ISSET(0, &server->fd_set)) {
             read_stdin(server, &running);
         }

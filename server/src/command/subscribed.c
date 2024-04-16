@@ -11,7 +11,7 @@ static void display_subscribed(void *arg)
 {
     user_t *user = (user_t *)arg;
 
-    user->send(user, "200 %s is subsribed\n", user->name);
+    user->send(user, "200 %s is subsribed\n", user->account->name);
 }
 
 static void get_user_team(server_t *server, user_t *user)

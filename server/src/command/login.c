@@ -7,63 +7,37 @@
 
 #include "prototype.h"
 
-static int get_uuid(user_t *user)
+static account_t *find_account(queue_t *queue, char uuid[64])
 {
-    char **data = load_file(USER_FILE);
-    char **line = NULL;
+    unsigned int i = 0;
+    account_t *account = NULL;
 
-    if (!data)
-        return 1;
-    for (int i = 0; data[i] != NULL; i++) {
-        line = split(data[i], " \n");
-        if (strcmp(line[0], user->name) == 0) {
-            uuid_parse(line[1], user->uuid);
-            delete_array((void **)line);
-            delete_array((void **)data);
-            return 0;
+    while (i < queue->size(queue)) {
+        account = queue->at(queue, i);
+        if (strcmp(account->name, uuid) == 0) {
+            return account;
         }
-        delete_array((void **)line);
+        i += 1;
     }
-    delete_array((void **)data);
-    return 1;
-}
-
-void create_uuid(user_t *user)
-{
-    FILE *file = fopen(USER_FILE, "a");
-    char uuid_str[37];
-    char *str = malloc(37 + strlen(user->name) + 3);
-
-    if (file == NULL) {
-        if (str)
-            free(str);
-        return;
-    }
-    if (!str) {
-        fclose(file);
-        return;
-    }
-    uuid_generate(user->uuid);
-    uuid_unparse(user->uuid, uuid_str);
-    sprintf(str, "%s %s\n", user->name, uuid_str);
-    fwrite(str, 1, strlen(str), file);
-    fclose(file);
-    free(str);
+    account = create_account();
+    queue->push_back(queue, account);
+    return account;
 }
 
 void login_command(server_t *server, user_t *user, packet_t *packet)
 {
-    char uuid_str[37];
-
     if (user->level >= LOGGED)
         return (void)dprintf(
             user->nsock, "%d Already logged in\n", BAD_REQUEST);
     if (len_array((void **)packet->args) < 1)
         return (void)dprintf(user->nsock, "%d Bad arguments\n", BAD_REQUEST);
+    user->account = find_account(server->accounts, packet->args[0]);
+    if (user->account == NULL) {
+        user->send(user, "%d: Failed to attribute account\n");
+        return;
+    }
     user->level = LOGGED;
-    strcpy(user->name, packet->args[0]);
-    if (get_uuid(user) == 1)
-        create_uuid(user);
-    uuid_unparse(user->uuid, uuid_str);
-    dprintf(user->nsock, "%d: %s: %s\n", OK, user->name, uuid_str);
+    strcpy(user->account->name, packet->args[0]);
+    dprintf(user->nsock, "%d: %s: %s\n", OK, user->account->name,
+        user->account->uuid_str);
 }

@@ -13,6 +13,8 @@ void delete_channel(channel_t *channel)
         return;
     }
     if (channel->threads != NULL) {
+        channel->threads->foreach(channel->threads,
+            (void (*)(void *))delete_thread);
         delete_queue(channel->threads);
     }
     free(channel);

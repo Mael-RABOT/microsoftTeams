@@ -14,6 +14,13 @@ bool uuid_strict_compare(uuid_t *left, uuid_t *right)
     return status == 0;
 }
 
+bool account_compare(account_t *left, uuid_t *right)
+{
+    int status = uuid_compare(left->uuid, *right);
+
+    return status == 0;
+}
+
 void *get_resource(queue_t *queue, unsigned int offset, void *cmp_arg,
     bool (*cmp_func)(void *left, void *right))
 {

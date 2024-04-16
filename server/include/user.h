@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../../include/include.h"
-#include "team.h"
+#include "account.h"
 
 typedef enum context_e {
     NO_CONTEXT,
@@ -19,17 +19,11 @@ typedef enum context_e {
 
 typedef struct user_s {
     int nsock;
+    account_t *account;
     socklen_t socklen;
     enum status_e level;
     struct sockaddr_in addr;
-    char name[MAX_NAME_LENGTH];
-    uuid_t uuid;
     int (*send)(struct user_s *user, const char *format, ...);
-    struct {
-        team_t *team;
-        channel_t *channel;
-        thread_t *thread;
-    } context;
 } user_t;
 
 user_t *create_user(void);

@@ -22,5 +22,6 @@ team_t *create_team(void)
         return NULL;
     }
     uuid_generate(team->uuid);
+    uuid_unparse(team->uuid, team->uuid_str);
     return team;
 }
