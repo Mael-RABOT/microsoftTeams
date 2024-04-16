@@ -10,7 +10,8 @@ LIB	=	socket \
 		completion \
 		dlloader \
 		logging \
-		queue
+		queue \
+		buffer
 
 all:
 	@$(foreach X, $(LIB), make -C $X --print-dir;)

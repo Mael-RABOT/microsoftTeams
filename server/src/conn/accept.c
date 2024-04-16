@@ -37,7 +37,7 @@ int accept_conns(server_t *server)
 {
     int index = server->users->size(server->users);
 
-    if (FD_ISSET(server->socket.socket_fd, &server->fd_set)) {
+    if (FD_ISSET(server->socket.socket_fd, &server->read_fds)) {
         if (index > MAX_USER) {
             refuse_conn(server);
         } else {

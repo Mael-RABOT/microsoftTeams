@@ -52,7 +52,7 @@ int loop_command(server_t *server)
 
     while (i < server->users->size(server->users)) {
         user = server->users->at(server->users, i);
-        if (FD_ISSET(user->nsock, &server->fd_set)) {
+        if (FD_ISSET(user->nsock, &server->read_fds)) {
             get_command(server, i);
         }
         i += 1;

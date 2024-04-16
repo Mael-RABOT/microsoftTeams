@@ -23,6 +23,8 @@ typedef struct user_s {
     socklen_t socklen;
     enum status_e level;
     struct sockaddr_in addr;
+    buffer_t *sending_buffer;
+    buffer_t *reading_buffer;
     int (*send)(struct user_s *user, const char *format, ...);
 } user_t;
 

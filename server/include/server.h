@@ -17,7 +17,8 @@
 extern const bool completion;
 
 typedef struct server_s {
-    fd_set fd_set;
+    fd_set read_fds;
+    fd_set write_fds;
     queue_t *teams;
     queue_t *users;
     queue_t *accounts;

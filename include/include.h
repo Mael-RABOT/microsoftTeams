@@ -46,6 +46,7 @@
 #include "../libs/myteams/logging_client.h"
 #include "../libs/myteams/logging_server.h"
 #include "../libs/queue/include/queue.h"
+#include "../libs/buffer/include/buffer.h"
 
 #include "command.h"
 

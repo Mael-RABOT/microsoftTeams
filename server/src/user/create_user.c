@@ -12,9 +12,14 @@ static int user_send(struct user_s *user, const char *format, ...)
 {
     va_list list;
     int read_val = 0;
+    char *string = malloc(MAX_BODY_LENGTH);
 
+    if (string == NULL) {
+        return 0;
+    }
     va_start(list, format);
-    read_val = vdprintf(user->nsock, format, list);
+    read_val = vsprintf(string, format, list);
+    user->sending_buffer->append(user->sending_buffer, string);
     va_end(list);
     return read_val;
 }
