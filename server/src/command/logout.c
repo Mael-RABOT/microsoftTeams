@@ -13,5 +13,6 @@ void logout_command(server_t *server, user_t *user, packet_t *packet)
         return (void)dprintf(
             user->nsock, "%d Not logged in\n", BAD_REQUEST);
     user->level = NOT_LOGGED;
-    dprintf(user->nsock, "%s: %s\n", "221", "Disconnected");
+    server->logger->user_logged_out(user->account->uuid_str);
+    dprintf(user->nsock, "%d: %s\n", DISCONNECTED, "Disconnected");
 }
