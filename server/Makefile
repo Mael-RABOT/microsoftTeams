@@ -58,6 +58,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/send.c \
 				src/stdin.c \
 				src/server.c \
+				src/reset_fds.c \
 				src/disconnect.c \
 				src/conn/accept.c \
 				src/loop_command.c \

@@ -33,6 +33,7 @@ typedef struct client_s {
     socket_t socket;
     client_logger_t *logger;
     fd_set read_fds;
+    fd_set write_fds;
     command_type_t command_type;
     char *username;
     char *user_uuid;

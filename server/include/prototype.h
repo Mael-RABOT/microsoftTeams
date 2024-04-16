@@ -19,6 +19,8 @@ int server(const int ac, const char **av, const char **env);
 int loop(server_t *server);
 int loop_command(server_t *server);
 
+void reset_fds(server_t *server);
+
 int read_stdin(server_t *server, int *is_running);
 
 int load_server(server_t *server, const unsigned short port);
