@@ -38,6 +38,17 @@ static char *get_arg(int *i, char *line)
     return NULL;
 }
 
+static bool detect_arg_start(char *line, int *i)
+{
+    while (line[*i] != ' ') {
+        if (line[*i] == '\0') {
+            return false;
+        }
+        *i += 1;
+    }
+    return true;
+}
+
 static char **get_args(char *line)
 {
     int i = 0;
@@ -45,12 +56,10 @@ static char **get_args(char *line)
     int size = get_args_nb(line);
     char **args = (char **)create_array(size + 1);
 
-    if (args == NULL) {
+    if (args == NULL)
         return NULL;
-    }
-    while (line[i] != ' ') {
-        i += 1;
-    }
+    if (detect_arg_start(line, &i) == false)
+        return args;
     while (line[i] != '\0') {
         if (line[i] == '"') {
             arg = get_arg(&i, line);

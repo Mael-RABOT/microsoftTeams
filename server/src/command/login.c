@@ -14,7 +14,7 @@ static account_t *find_account(queue_t *queue, char uuid[64])
 
     while (i < queue->size(queue)) {
         account = queue->at(queue, i);
-        if (strcmp(account->uuid_str, uuid) == 0) {
+        if (strcmp(account->name, uuid) == 0) {
             return account;
         }
         i += 1;
@@ -22,27 +22,6 @@ static account_t *find_account(queue_t *queue, char uuid[64])
     account = create_account();
     queue->push_back(queue, account);
     return account;
-}
-
-static int get_uuid(user_t *user)
-{
-    char **data = load_file(USER_FILE);
-    char **line = NULL;
-
-    if (!data)
-        return 1;
-    for (int i = 0; data[i] != NULL; i++) {
-        line = split(data[i], " \n");
-        if (strcmp(line[0], user->account->name) == 0) {
-            uuid_parse(line[1], user->account->uuid);
-            delete_array((void **)line);
-            delete_array((void **)data);
-            return 0;
-        }
-        delete_array((void **)line);
-    }
-    delete_array((void **)data);
-    return 1;
 }
 
 void login_command(server_t *server, user_t *user, packet_t *packet)

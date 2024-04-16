@@ -15,9 +15,10 @@ void disconnect(server_t *server)
     while (i < server->users->size(server->users)) {
         user = server->users->at(server->users, i);
         if (user->level == NOT_CONNECTED) {
+            server->users->remove(server->users, i);
             delete_user(user);
-            shift_array((void **)server->users, i);
+        } else {
+            i += 1;
         }
-        i += 1;
     }
 }

@@ -18,7 +18,8 @@ void unload_server(server_t *server)
     delete_server_logger(server->logger);
     server->teams->foreach(server->teams, (void (*)(void *))delete_team);
     server->users->foreach(server->users, (void (*)(void *))delete_user);
-    server->users->foreach(server->accounts, (void (*)(void *))delete_account);
+    server->accounts->foreach(server->accounts,
+        (void (*)(void *))delete_account);
     delete_queue(server->teams);
     delete_queue(server->users);
     delete_queue(server->accounts);

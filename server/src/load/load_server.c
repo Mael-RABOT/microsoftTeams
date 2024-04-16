@@ -37,7 +37,7 @@ int load_server(server_t *server, const unsigned short port)
     memset(server, 0, sizeof(server_t));
     server->teams = create_queue();
     server->users = create_queue();
-    server->accounts = create_queue();
+    server->accounts = load_accounts();
     if (init_server(&server->socket, port) == 84) {
         close(server->socket.socket_fd);
         return 84;

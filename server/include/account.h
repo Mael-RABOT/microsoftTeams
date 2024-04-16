@@ -27,4 +27,4 @@ typedef struct account_s {
 
 account_t *create_account(void);
 void delete_account(account_t *account);
-account_t **load_accounts(struct server_s *server);
+queue_t *load_accounts(void);

@@ -26,6 +26,7 @@ static char **load_in_array(FILE *file, unsigned int no_line)
 {
     int index = 0;
     unsigned long len = 0;
+    unsigned int line_size = 0;
     char *line = NULL;
     char **array = (char **)create_array(no_line + 1);
 
@@ -33,6 +34,8 @@ static char **load_in_array(FILE *file, unsigned int no_line)
         return NULL;
     }
     while (getline(&line, &len, file) != -1) {
+        line_size = strlen(line);
+        line[line_size - 1] = '\0';
         array[index] = strdup(line);
         array[index + 1] = NULL;
         index += 1;

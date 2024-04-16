@@ -7,7 +7,7 @@
 
 #include "prototype.h"
 
-static account_t* load_account(const char *line)
+static account_t *load_account(const char *line)
 {
     char **array = split(line, " ");
     account_t *account = create_account();
@@ -24,7 +24,7 @@ static account_t* load_account(const char *line)
     return account;
 }
 
-static void parse_account_array(char **array, account_t **accounts)
+static void parse_account_array(char **array, queue_t *queue)
 {
     int i = 0;
     account_t *account = NULL;
@@ -32,21 +32,21 @@ static void parse_account_array(char **array, account_t **accounts)
     while (array[i] != NULL) {
         account = load_account(array[i]);
         if (account != NULL) {
-            accounts[i] = account;
+            queue->push_back(queue, account);
         }
         i += 1;
     }
 }
 
-account_t **load_accounts(server_t *server)
+queue_t *load_accounts(void)
 {
     char **array = (char **)load_file("./data/users.txt");
-    account_t **accounts = (account_t **)create_array(len_array((void **)array) + 1);
+    queue_t *queue = create_queue();
 
-    if (array == NULL || accounts == NULL) {
+    if (array == NULL || queue == NULL) {
         delete_array((void **)array);
     }
-    parse_account_array(array, accounts);
+    parse_account_array(array, queue);
     delete_array((void **)array);
-    return accounts;
+    return queue;
 }
