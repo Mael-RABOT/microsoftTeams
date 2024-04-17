@@ -5,7 +5,7 @@
 ** reset_fds.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static int reset_write_fds(server_t *server)
 {
@@ -32,6 +32,7 @@ static int reset_read_fds(server_t *server)
     int last_fd = server->socket.socket_fd;
 
     FD_ZERO(&server->write_fds);
+    FD_SET(server->socket.socket_fd, &server->read_fds);
     while (i < server->users->size(server->users)) {
         tmp_fd = ((user_t *)server->users->at(server->users, i))->nsock;
         FD_SET(tmp_fd, &server->write_fds);

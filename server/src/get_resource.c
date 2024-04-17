@@ -5,7 +5,7 @@
 ** get_team.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 bool uuid_strict_compare(uuid_t *left, uuid_t *right)
 {

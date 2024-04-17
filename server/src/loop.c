@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 int loop(server_t *server)
 {

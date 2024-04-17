@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 void login_handler(client_t *client, codes_t code, char *response)
 {

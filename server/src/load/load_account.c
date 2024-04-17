@@ -5,7 +5,7 @@
 ** load_account.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static account_t *load_account(const char *line)
 {

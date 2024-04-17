@@ -5,7 +5,7 @@
 ** create_channel.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 channel_t *create_channel(void)
 {

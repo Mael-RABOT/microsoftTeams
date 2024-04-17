@@ -34,6 +34,8 @@ typedef struct client_s {
     client_logger_t *logger;
     fd_set read_fds;
     fd_set write_fds;
+    buffer_t *sending_buffer;
+    buffer_t *reading_buffer;
     command_type_t command_type;
     char *username;
     char *user_uuid;

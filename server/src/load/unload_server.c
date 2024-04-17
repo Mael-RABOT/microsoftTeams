@@ -5,7 +5,16 @@
 ** unload_server.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
+
+static void unload_queue(queue_t *queue, void (*func)(void *))
+{
+    if (queue == NULL) {
+        return;
+    }
+    queue->foreach(queue, func);
+    delete_queue(queue);
+}
 
 void unload_server(server_t *server)
 {
@@ -16,11 +25,7 @@ void unload_server(server_t *server)
         close(server->socket.socket_fd);
     }
     delete_server_logger(server->logger);
-    server->teams->foreach(server->teams, (void (*)(void *))delete_team);
-    server->users->foreach(server->users, (void (*)(void *))delete_user);
-    server->accounts->foreach(server->accounts,
-        (void (*)(void *))delete_account);
-    delete_queue(server->teams);
-    delete_queue(server->users);
-    delete_queue(server->accounts);
+    unload_queue(server->teams, (void (*)(void *))delete_team);
+    unload_queue(server->users, (void (*)(void *))delete_user);
+    unload_queue(server->accounts, (void (*)(void *))delete_account);
 }

@@ -5,7 +5,7 @@
 ** create_team.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 team_t *create_team(void)
 {

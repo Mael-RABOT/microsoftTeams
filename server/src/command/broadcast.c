@@ -5,7 +5,7 @@
 ** help.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void broadcast_command(server_t *server, user_t *user, packet_t *packet)
 {

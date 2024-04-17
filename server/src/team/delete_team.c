@@ -5,7 +5,7 @@
 ** delete_team.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void delete_team(team_t *team)
 {

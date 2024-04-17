@@ -5,7 +5,7 @@
 ** send.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void send_user_buffer(user_t *user)
 {

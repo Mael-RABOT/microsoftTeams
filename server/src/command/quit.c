@@ -5,7 +5,7 @@
 ** quit.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void quit_command(server_t *server, user_t *user, packet_t *packet)
 {

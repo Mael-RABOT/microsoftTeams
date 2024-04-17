@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static char *create_filename(char *uuid1, char *uuid2)
 {
@@ -74,9 +74,10 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
     if (dest_user == NULL) {
         dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
     } else {
-        dprintf(
-            dest_user->nsock, "%d: %s: %s\n",
-                MESSAGE_RECEIVED, user->account->uuid_str, packet->args[1]);
+        dprintf(dest_user->nsock, "%d: %s: %s\n", MESSAGE_RECEIVED,
+            user->account->uuid_str, packet->args[1]);
+        server->logger->private_message_sended(user->account->uuid_str,
+            dest_user->account->uuid_str, packet->args[1]);
     }
     save_message(packet->args[1], user->account->uuid, target_uuid);
     dprintf(user->nsock, "%d: %s\n", OK, "OK");

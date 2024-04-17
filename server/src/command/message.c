@@ -5,7 +5,7 @@
 ** help.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static char *create_filename(char *uuid1, char *uuid2)
 {

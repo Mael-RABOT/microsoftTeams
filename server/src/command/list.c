@@ -5,7 +5,7 @@
 ** help.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static void list_teams(server_t *server, user_t *user)
 {

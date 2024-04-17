@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 void send_handler(client_t *client, codes_t code, char *response)
 {

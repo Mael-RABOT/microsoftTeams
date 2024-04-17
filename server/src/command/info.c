@@ -5,7 +5,7 @@
 ** help.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static void info_user(user_t *user)
 {

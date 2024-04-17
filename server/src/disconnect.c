@@ -5,7 +5,7 @@
 ** disconnect
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void disconnect(server_t *server)
 {

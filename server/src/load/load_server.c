@@ -5,7 +5,7 @@
 ** load_server.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static int load_log_library(server_t *server)
 {

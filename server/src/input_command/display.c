@@ -5,7 +5,7 @@
 ** display.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void display_channel(server_t *server, team_t *team)
 {

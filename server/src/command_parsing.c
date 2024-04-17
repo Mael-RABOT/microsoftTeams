@@ -5,7 +5,7 @@
 ** command_parsing.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static int get_args_nb(char *input)
 {

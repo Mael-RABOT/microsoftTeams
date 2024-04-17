@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static command_map_t *get_command(void)
 {
@@ -73,8 +73,6 @@ static int handle_input(client_t *client, char *input)
     client->command_type = command_type;
     switch (command_type) {
         case ERROR:
-            printf("Invalid command.\n");
-            return 0;
         case TEXT:
             printf("Invalid command.\n");
             return 0;
@@ -106,12 +104,7 @@ int loop(client_t *client)
     int running = true;
 
     while (running) {
-        FD_ZERO(&client->read_fds);
-        FD_SET(0, &client->read_fds);
-        FD_SET(client->socket.socket_fd, &client->read_fds);
-        if (select(client->socket.socket_fd + 1, &client->read_fds,
-            NULL, NULL, NULL) == -1)
-            return -1 + 0 * fprintf(stderr, "Failed to select.\n");
+        reset_fds(client);
         if (FD_ISSET(0, &client->read_fds))
             running = !handle_stdin(client);
         if (FD_ISSET(client->socket.socket_fd, &client->read_fds))

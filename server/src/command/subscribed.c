@@ -5,7 +5,7 @@
 ** subscribed.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void display_subscribed(void *arg)
 {

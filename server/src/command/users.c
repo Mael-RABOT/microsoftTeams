@@ -5,7 +5,7 @@
 ** users.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 void users_command(server_t *server, user_t *user, packet_t *packet)
 {

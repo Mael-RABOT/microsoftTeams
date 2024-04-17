@@ -2,10 +2,9 @@
 ** EPITECH PROJECT, 2024
 ** B-NWP-400-LYN-4-1-myteams-mael.rabot
 ** File description:
-** loop.c
-*/
+** loop.c */
 
-#include "prototypes.h"
+#include "client_prototype.h"
 
 static response_handler_t handlers[] = {
     {LOGIN, login_handler},

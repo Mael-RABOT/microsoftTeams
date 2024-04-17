@@ -22,6 +22,7 @@ COMMON_SRC	=	../src/load_file.c \
 FILE_SRC    =	$(COMMON_SRC) \
 				src/client.c \
 				src/loop.c \
+				src/reset_fds.c \
 				src/commands.c \
 				src/response_handler.c \
 				src/load/load_client.c \

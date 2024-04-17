@@ -6,7 +6,7 @@
 */
 
 #include "channel.h"
-#include "prototype.h"
+#include "server_prototype.h"
 
 #ifdef COMPLETION
 const bool completion = true;

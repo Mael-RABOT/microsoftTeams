@@ -5,7 +5,7 @@
 ** load_client.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static int load_log_library(client_t *client)
 {
@@ -15,21 +15,6 @@ static int load_log_library(client_t *client)
     } else {
         return 0;
     }
-}
-
-int load_chars(client_t *client)
-{
-    client->username = NULL;
-    client->user_uuid = NULL;
-    return 0;
-}
-
-static void load_fd(client_t *client)
-{
-    FD_ZERO(&client->read_fds);
-    FD_SET(0, &client->read_fds);
-    FD_SET(client->socket.socket_fd, &client->read_fds);
-    client->command_type = ERROR;
 }
 
 int load_client(client_t *client, const unsigned int address,
@@ -46,7 +31,5 @@ int load_client(client_t *client, const unsigned int address,
     if (client->socket.connect(&client->socket) == -1) {
         return 84;
     }
-    load_fd(client);
-    load_chars(client);
     return 0;
 }

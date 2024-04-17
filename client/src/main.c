@@ -5,7 +5,7 @@
 ** main.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 int main(const int ac, const char **av)
 {

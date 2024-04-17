@@ -5,7 +5,7 @@
 ** create.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void create_server_team(server_t *server, user_t *user,
     packet_t *packet)

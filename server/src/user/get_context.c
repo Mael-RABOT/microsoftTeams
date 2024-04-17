@@ -5,7 +5,7 @@
 ** get_context
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 context_t get_context(user_t *user)
 {

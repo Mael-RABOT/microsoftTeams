@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static account_t *setup_account(server_t *server, packet_t *packet)
 {
