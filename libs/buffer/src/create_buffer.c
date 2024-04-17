@@ -23,5 +23,6 @@ buffer_t *create_buffer(void)
     buffer->add_write_nozzle = &add_write_nozzle;
     buffer->append = &append_buffer;
     buffer->set_delimiter = &set_delimiter;
+    buffer->is_ready = &is_ready;
     return buffer;
 }

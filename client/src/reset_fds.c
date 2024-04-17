@@ -26,10 +26,11 @@ void reset_fds(client_t *client)
 {
     int last_fd = 0;
     int tmp_fd = 0;
+    struct timeval timeval = {0, 0};
 
     tmp_fd = reset_write_fds(client);
     last_fd = (last_fd > tmp_fd) ? last_fd : tmp_fd;
     tmp_fd = reset_read_fds(client);
     last_fd = (last_fd > tmp_fd) ? last_fd : tmp_fd;
-    select(last_fd + 1, &client->read_fds, &client->write_fds, NULL, NULL);
+    select(last_fd + 1, &client->read_fds, &client->write_fds, NULL, &timeval);
 }

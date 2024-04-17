@@ -107,7 +107,8 @@ int loop(client_t *client)
         reset_fds(client);
         if (FD_ISSET(0, &client->read_fds))
             running = !handle_stdin(client);
-        if (FD_ISSET(client->socket.socket_fd, &client->read_fds))
+        read_buffer(client);
+        if (client->reading_buffer->is_ready(client->reading_buffer))
             running = !response_handler(client, ERROR);
     }
     return running;

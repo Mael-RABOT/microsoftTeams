@@ -9,10 +9,13 @@
 
 #define _GNU_SOURCE
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-#define BUFFER_SIZE 4016
+#define BUFFER_SIZE 4096
+#define BUF_POS(x)  (x % BUFFER_SIZE)
 
 typedef struct buffer_s {
     unsigned int read_nozzle;
@@ -25,6 +28,7 @@ typedef struct buffer_s {
     void (*add_write_nozzle)(struct buffer_s *buffer, unsigned int pos);
     void (*append)(struct buffer_s *buffer, char *string);
     void (*set_delimiter)(struct buffer_s *buffer, char *delimiter);
+    bool (*is_ready)(struct buffer_s *buffer);
 } buffer_t;
 
 buffer_t *create_buffer(void);
