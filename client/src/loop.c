@@ -79,14 +79,14 @@ static int handle_input(client_t *client, char *input)
         default:
             if (call_command(client, command_type, input))
                 return 0 * printf("Invalid arguments.\n");
-            return response_handler(client, command_type);
+            return 0;
     }
 }
 
 static int handle_stdin(client_t *client)
 {
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
-    int status;
+    int status = 0;
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
@@ -105,11 +105,14 @@ int loop(client_t *client)
 
     while (running) {
         reset_fds(client);
-        if (FD_ISSET(0, &client->read_fds))
+        if (FD_ISSET(0, &client->read_fds)) {
             running = !handle_stdin(client);
+        }
         read_buffer(client);
-        if (client->reading_buffer->is_ready(client->reading_buffer))
-            running = !response_handler(client, ERROR);
+        if (client->reading_buffer->is_ready(client->reading_buffer)) {
+            printf(">%s<\n", client->reading_buffer->buffer);
+            running = !response_handler(client, client->command_type);
+        }
     }
     return running;
 }

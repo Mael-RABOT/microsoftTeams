@@ -7,19 +7,18 @@
 
 #include "../include/buffer.h"
 
-static bool is_found(buffer_t *buffer, unsigned int pos)
+bool is_found(buffer_t *buffer, unsigned int pos)
 {
     unsigned int i = 0;
 
     while (buffer->delimiter[i] != '\0') {
-        if (BUF_POS(buffer->read_nozzle + i) == BUF_POS(buffer->write_nozzle)) {
+        if (BUF_POS(pos + i) == BUF_POS(buffer->write_nozzle)) {
             return false;
         }
         if (buffer->buffer[pos + i] != buffer->delimiter[i]) {
             return false;
         }
-        i += 1;
-        i %= BUFFER_SIZE;
+        i = BUF_POS(i + 1);
     }
     return true;
 }
@@ -31,13 +30,15 @@ bool is_ready(buffer_t *buffer)
     if (buffer == NULL) {
         return false;
     }
+    if (buffer->read_nozzle == buffer->write_nozzle)
+        return false;
     pos = buffer->read_nozzle;
     while (pos != buffer->write_nozzle) {
         if (is_found(buffer, pos)) {
+            printf("Found\n");
             return true;
         }
-        pos += 1;
-        pos %= BUFFER_SIZE;
+        pos = BUF_POS(pos + 1);
     }
     return false;
 }

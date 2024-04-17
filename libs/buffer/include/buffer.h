@@ -29,6 +29,7 @@ typedef struct buffer_s {
     void (*append)(struct buffer_s *buffer, char *string);
     void (*set_delimiter)(struct buffer_s *buffer, char *delimiter);
     bool (*is_ready)(struct buffer_s *buffer);
+    char *(*extract)(struct buffer_s *buffer);
 } buffer_t;
 
 buffer_t *create_buffer(void);

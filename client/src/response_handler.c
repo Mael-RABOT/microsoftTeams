@@ -62,7 +62,7 @@ static void handler(
 
 int response_handler(client_t *client, command_type_t type)
 {
-    char *response = client->socket.recv(&client->socket);
+    char *response = client->reading_buffer->extract(client->reading_buffer);
     char *data = NULL;
     int code;
     int len;
@@ -74,7 +74,6 @@ int response_handler(client_t *client, command_type_t type)
     len = nbr_len(code);
     data = response + (len + 2);
     handler(client, type, code, data);
-    write(1, response, strlen(response));
-    write(1, "\n", 1);
+    printf("%s\n", response);
     return (free(response), 0);
 }

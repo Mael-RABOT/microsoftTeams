@@ -17,3 +17,5 @@ void add_read_nozzle(buffer_t *buffer, unsigned int pos);
 void append_buffer(buffer_t *buffer, char *string);
 void set_delimiter(buffer_t *buffer, char *delimiter);
 bool is_ready(buffer_t *buffer);
+char *extract(buffer_t *buffer);
+bool is_found(buffer_t *buffer, unsigned int pos);

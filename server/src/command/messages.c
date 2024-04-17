@@ -84,7 +84,7 @@ static void print_history(user_t *user, uuid_t receiver_uuid)
     print_data(user, data);
 }
 
-void message_command(server_t *server, user_t *user, packet_t *packet)
+void messages_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t target_uuid;
 

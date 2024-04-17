@@ -20,7 +20,6 @@ static void read_client_buffer(client_t *client)
 void read_buffer(client_t *client)
 {
     if (FD_ISSET(client->socket.socket_fd, &client->read_fds)) {
-        printf("new thing in bound\n");
         read_client_buffer(client);
     }
 }

@@ -12,13 +12,10 @@ static int user_send(struct user_s *user, const char *format, ...)
 {
     va_list list;
     int read_val = 0;
-    char *string = malloc(sizeof(char) * MAX_BODY_LENGTH);
+    char *string = NULL;
 
-    if (string == NULL) {
-        return 0;
-    }
     va_start(list, format);
-    read_val = vsprintf(string, format, list);
+    read_val = vasprintf(&string, format, list);
     user->sending_buffer->append(user->sending_buffer, string);
     va_end(list);
     free(string);

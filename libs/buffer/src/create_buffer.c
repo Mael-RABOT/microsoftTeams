@@ -24,5 +24,6 @@ buffer_t *create_buffer(void)
     buffer->append = &append_buffer;
     buffer->set_delimiter = &set_delimiter;
     buffer->is_ready = &is_ready;
+    buffer->extract = &extract;
     return buffer;
 }
