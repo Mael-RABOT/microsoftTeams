@@ -10,7 +10,8 @@ FILE_SRC    =	src/create_buffer.c \
 				src/set_nozzle.c \
 				src/add_nozzle.c \
 				src/clear_buffer.c \
-				src/append_buffer.c
+				src/append_buffer.c \
+				src/delimiter.c
 
 FILE_OBJ    =    $(FILE_SRC:.c=.o)
 

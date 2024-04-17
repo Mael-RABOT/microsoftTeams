@@ -11,13 +11,15 @@
 #include "server.h"
 
 bool uuid_strict_compare(uuid_t *left, uuid_t *right);
-bool account_compare(account_t *left, uuid_t *right);
+bool account_compare(account_t **left, uuid_t *right);
 void *get_resource(queue_t *queue, unsigned int offset, void *cmp_arg,
     bool (*cmp_func)(void *left, void *right));
 
 int server(const int ac, const char **av, const char **env);
 int loop(server_t *server);
 int loop_command(server_t *server);
+
+void send_buffer(server_t *server);
 
 void reset_fds(server_t *server);
 

@@ -16,10 +16,12 @@ buffer_t *create_buffer(void)
         return NULL;
     }
     memset(buffer, 0, sizeof(buffer_t));
+    buffer->delimiter = strdup("\r\n");
     buffer->set_read_nozzle = &set_read_nozzle;
     buffer->set_write_nozzle = &set_write_nozzle;
     buffer->add_read_nozzle = &add_read_nozzle;
     buffer->add_write_nozzle = &add_write_nozzle;
     buffer->append = &append_buffer;
+    buffer->set_delimiter = &set_delimiter;
     return buffer;
 }

@@ -7,15 +7,31 @@
 
 #include "server_prototype.h"
 
+static unsigned int get_next_pos(buffer_t *buffer)
+{
+    unsigned int i = buffer->read_nozzle;
+
+    while (i < BUFFER_SIZE) {
+        if (i == buffer->write_nozzle) {
+            break;
+        }
+        i += 1;
+    }
+    return i;
+}
+
 static void send_user_buffer(user_t *user)
 {
     unsigned int read_size = 0;
-    unsigned int pos = user->sending_buffer->read_nozzle;
-    unsigned int to_write = BUFFER_SIZE - pos;
+    unsigned int src = user->sending_buffer->read_nozzle;
+    unsigned int dest = get_next_pos(user->sending_buffer);
+    unsigned int to_write = dest - src;
 
-    read_size = write(user->nsock, &user->sending_buffer->buffer[pos],
-        to_write);
-    user->sending_buffer->add_read_nozzle(user->sending_buffer, read_size);
+    if (to_write > 0) {
+        read_size = write(user->nsock, &user->sending_buffer->buffer[src],
+            to_write);
+        user->sending_buffer->add_read_nozzle(user->sending_buffer, read_size);
+    }
 }
 
 void send_buffer(server_t *server)

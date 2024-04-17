@@ -14,5 +14,7 @@ void delete_user(user_t *user)
     }
     if (user->nsock != -1)
         close(user->nsock);
+    delete_buffer(user->sending_buffer);
+    delete_buffer(user->reading_buffer);
     free(user);
 }

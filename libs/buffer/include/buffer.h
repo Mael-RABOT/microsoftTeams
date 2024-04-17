@@ -18,11 +18,13 @@ typedef struct buffer_s {
     unsigned int read_nozzle;
     unsigned int write_nozzle;
     char buffer[BUFFER_SIZE];
+    char *delimiter;
     void (*set_read_nozzle)(struct buffer_s *buffer, unsigned int pos);
     void (*set_write_nozzle)(struct buffer_s *buffer, unsigned int pos);
     void (*add_read_nozzle)(struct buffer_s *buffer, unsigned int pos);
     void (*add_write_nozzle)(struct buffer_s *buffer, unsigned int pos);
     void (*append)(struct buffer_s *buffer, char *string);
+    void (*set_delimiter)(struct buffer_s *buffer, char *delimiter);
 } buffer_t;
 
 buffer_t *create_buffer(void);

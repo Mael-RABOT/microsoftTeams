@@ -39,10 +39,9 @@ static account_t *find_account(server_t *server, user_t *user,
 void login_command(server_t *server, user_t *user, packet_t *packet)
 {
     if (user->level >= LOGGED)
-        return (void)dprintf(
-            user->nsock, "%d Already logged in\n", BAD_REQUEST);
+        return (void)user->send(user, "%d Already logged in\n", BAD_REQUEST);
     if (len_array((void **)packet->args) < 1)
-        return (void)dprintf(user->nsock, "%d Bad arguments\n", BAD_REQUEST);
+        return (void)user->send(user, "%d Bad arguments\n", BAD_REQUEST);
     user->account = find_account(server, user, packet);
     if (user->account == NULL) {
         user->send(user, "%d: Failed to attribute account\n");
@@ -50,6 +49,6 @@ void login_command(server_t *server, user_t *user, packet_t *packet)
     }
     user->level = LOGGED;
     server->logger->user_logged_in(user->account->uuid_str);
-    dprintf(user->nsock, "%d: %s: %s\n", OK, user->account->name,
+    user->send(user, "%d: %s: %s\n", OK, user->account->name,
         user->account->uuid_str);
 }

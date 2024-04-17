@@ -17,5 +17,6 @@ void delete_team(team_t *team)
             (void (*)(void *))delete_channel);
         delete_queue(team->channels);
     }
+    delete_queue(team->subscribed);
     free(team);
 }

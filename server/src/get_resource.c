@@ -14,9 +14,9 @@ bool uuid_strict_compare(uuid_t *left, uuid_t *right)
     return status == 0;
 }
 
-bool account_compare(account_t *left, uuid_t *right)
+bool account_compare(account_t **left, uuid_t *right)
 {
-    int status = uuid_compare(left->uuid, *right);
+    int status = uuid_compare((*left)->uuid, *right);
 
     return status == 0;
 }

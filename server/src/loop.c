@@ -14,6 +14,7 @@ int loop(server_t *server)
     while (running) {
         reset_fds(server);
         accept_conns(server);
+        send_buffer(server);
         loop_command(server);
         disconnect(server);
         if (FD_ISSET(0, &server->read_fds)) {

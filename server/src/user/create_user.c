@@ -12,7 +12,7 @@ static int user_send(struct user_s *user, const char *format, ...)
 {
     va_list list;
     int read_val = 0;
-    char *string = malloc(MAX_BODY_LENGTH);
+    char *string = malloc(sizeof(char) * MAX_BODY_LENGTH);
 
     if (string == NULL) {
         return 0;
@@ -21,6 +21,7 @@ static int user_send(struct user_s *user, const char *format, ...)
     read_val = vsprintf(string, format, list);
     user->sending_buffer->append(user->sending_buffer, string);
     va_end(list);
+    free(string);
     return read_val;
 }
 
@@ -33,5 +34,11 @@ user_t *create_user(void)
     }
     memset(user, 0, sizeof(user_t));
     user->send = user_send;
+    user->sending_buffer = create_buffer();
+    user->reading_buffer = create_buffer();
+    if (user->sending_buffer == NULL || user->reading_buffer == NULL) {
+        delete_user(user);
+        return NULL;
+    }
     return user;
 }

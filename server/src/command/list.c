@@ -11,10 +11,10 @@ static void list_teams(server_t *server, user_t *user)
 {
     team_t *team;
 
-    dprintf(user->nsock, "%d: %s\n", OK, "List of teams:");
+    user->send(user, "%d: %s\n", OK, "List of teams:");
     for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
         team = server->teams->at(server->teams, i);
-        dprintf(user->nsock, "     %s\n", team->name);
+        user->send(user, "     %s\n", team->name);
     }
 }
 
@@ -25,7 +25,7 @@ static void loop_channel(user_t *user, channel_t *channel)
 
     for (unsigned int k = 0; k < size; k++) {
         thread = channel->threads->at(channel->threads, k);
-        dprintf(user->nsock, "     %s\n", thread->name);
+        user->send(user, "     %s\n", thread->name);
     }
 }
 
@@ -34,13 +34,13 @@ static void list_channels(server_t *server, user_t *user)
     team_t *team;
     channel_t *channel;
 
-    dprintf(user->nsock, "%d: %s\n", OK, "List of channels:");
+    user->send(user, "%d: %s\n", OK, "List of channels:");
     for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
         team = server->teams->at(server->teams, i);
         for (unsigned int j = 0;
                 j < team->channels->size(team->channels); j++) {
             channel = team->channels->at(team->channels, j);
-            dprintf(user->nsock, "     %s\n", channel->name);
+            user->send(user, "     %s\n", channel->name);
         }
     }
 }
@@ -50,7 +50,7 @@ static void list_thread(server_t *server, user_t *user)
     team_t *team;
     channel_t *channel;
 
-    dprintf(user->nsock, "%d: %s\n", OK, "List of threads:");
+    user->send(user, "%d: %s\n", OK, "List of threads:");
     for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
         team = server->teams->at(server->teams, i);
         for (unsigned int j = 0;
@@ -63,9 +63,8 @@ static void list_thread(server_t *server, user_t *user)
 
 static void list_reply(server_t *server, user_t *user)
 {
-    dprintf(user->nsock, "%d: %s\n", OK, "List of reply:");
-    dprintf(user->nsock,
-        "%d: %s\n", NOT_IMPLEMENTED, "Not implemented yet");
+    user->send(user, "%d: %s\n", OK, "List of reply:");
+    user->send(user, "%d: %s\n", NOT_IMPLEMENTED, "Not implemented yet");
 }
 
 void list_command(server_t *server, user_t *user, packet_t *packet)

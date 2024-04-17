@@ -15,3 +15,4 @@ void set_read_nozzle(buffer_t *buffer, unsigned int pos);
 void add_write_nozzle(buffer_t *buffer, unsigned int pos);
 void add_read_nozzle(buffer_t *buffer, unsigned int pos);
 void append_buffer(buffer_t *buffer, char *string);
+void set_delimiter(buffer_t *buffer, char *delimiter);
