@@ -29,5 +29,8 @@ void create_handler(client_t *client, codes_t code, char *response)
         client_event_channel_created(data[1], data[2], data[3]);
     if (strcmp(data[0], "Thread") == 0)
         handle_thread_creation(client, data);
+    if (strcmp(data[0], "Reply") == 0)
+        client_event_thread_reply_received(
+            data[1], data[2], data[3], data[4]);
     delete_array((void **)data);
 }

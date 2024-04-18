@@ -7,60 +7,20 @@
 
 #include "server_prototype.h"
 
-static void write_team(user_t *user, user_t *user_info)
-{
-    if (user_info->account->context.team == NULL)
-        user->send(user, "team: no team\n");
-    else {
-        user->send(user, "team: %s (%s)\n",
-            user_info->account->context.team->name,
-            user_info->account->context.team->uuid_str);
-    }
-}
-
-static void write_channel(user_t *user, user_t *user_info)
-{
-    char str_uuid[37];
-
-    if (user_info->account->context.channel == NULL)
-        user->send(user, "channel: no channel\n");
-    else {
-        uuid_unparse(user_info->account->context.channel->uuid, str_uuid);
-        user->send(user, "channel: %s (%s)\n",
-        user_info->account->context.channel->name, str_uuid);
-    }
-}
-
-static void write_thread(user_t *user, user_t *user_info)
-{
-    char str_uuid[37];
-
-    if (user_info->account->context.thread == NULL)
-        user->send(user, "thread: no thread\n");
-    else {
-        uuid_unparse(user_info->account->context.thread->uuid, str_uuid);
-        user->send(user, "thread: %s (%s)\n",
-        user_info->account->context.thread->name, str_uuid);
-    }
-}
-
 void user_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t uuid;
-    user_t *user_info;
+    account_t *tmp;
 
-    uuid_parse(packet->args[0], uuid);
-    user_info = get_resource
-        (server->users, offsetof(user_t, account), uuid, (bool (*)
-        (void *, void *))account_compare);
-    if (user_info == NULL) {
-        user->send(user, "%d: %s\n", UNKNOWN_USER, packet->args[0]);
+    if (!server->accounts)
         return;
+    uuid_parse(packet->args[0], uuid);
+    for (unsigned int i = 0; i < server->accounts->size(server->accounts);
+    i++) {
+        tmp = server->accounts->at(server->accounts, i);
+        if (uuid_compare(tmp->uuid, uuid) == 0) {
+            user->send(user, "%d: %s#%s#%d\n", USER_PRINT, tmp->uuid_str,
+                tmp->name, (tmp->is_connected) ? 1 : 0);
+        }
     }
-    user->send(user, "%d: Here is the user information: \n", OK);
-    user->send(user, "name: %s\n", user_info->account->name);
-    write_team(user, user_info);
-    write_channel(user, user_info);
-    write_thread(user, user_info);
-    return;
 }

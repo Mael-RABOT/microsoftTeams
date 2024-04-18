@@ -9,15 +9,15 @@
 
 static int reset_write_fds(client_t *client)
 {
-    FD_ZERO(&client->read_fds);
-    FD_SET(0, &client->read_fds);
-    FD_SET(client->socket.socket_fd, &client->read_fds);
+    FD_ZERO(&client->write_fds);
+    FD_SET(client->socket.socket_fd, &client->write_fds);
     return client->socket.socket_fd;
 }
 
 static int reset_read_fds(client_t *client)
 {
-    FD_ZERO(&client->write_fds);
+    FD_ZERO(&client->read_fds);
+    FD_SET(0, &client->read_fds);
     FD_SET(client->socket.socket_fd, &client->read_fds);
     return client->socket.socket_fd;
 }
