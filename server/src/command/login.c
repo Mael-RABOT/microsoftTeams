@@ -51,6 +51,8 @@ static account_t *find_account(server_t *server, user_t *user,
 
 void login_command(server_t *server, user_t *user, packet_t *packet)
 {
+    user_t *tmp_user;
+
     if (user->level >= LOGGED)
         return (void)user->send(user, "%d Already logged in\n", BAD_REQUEST);
     if (len_array((void **)packet->args) < 1)
@@ -63,6 +65,9 @@ void login_command(server_t *server, user_t *user, packet_t *packet)
     user->level = LOGGED;
     user->account->is_connected = true;
     server_event_user_logged_in(user->account->uuid_str);
-    user->send(user, "%d: %s: %s\n", OK, user->account->name,
-        user->account->uuid_str);
+    for (unsigned int i = 0; i < server->users->size(server->users); i++) {
+        tmp_user = server->users->at(server->users, i);
+        tmp_user->send(tmp_user, "%d: %s: %s\n", OK, user->account->name,
+            user->account->uuid_str);
+    }
 }
