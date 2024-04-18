@@ -61,6 +61,7 @@ void login_command(server_t *server, user_t *user, packet_t *packet)
         return;
     }
     user->level = LOGGED;
+    user->account->is_connected = true;
     server->logger->user_logged_in(user->account->uuid_str);
     user->send(user, "%d: %s: %s\n", OK, user->account->name,
         user->account->uuid_str);

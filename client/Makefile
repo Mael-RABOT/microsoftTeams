@@ -33,7 +33,8 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/response_handler/send.c \
 				src/response_handler/create.c \
 				src/response_handler/messages.c \
-				src/response_handler/unknown.c
+				src/response_handler/unknown.c \
+				src/response_handler/users.c \
 
 TEST_SRC    =
 

@@ -17,6 +17,7 @@ typedef struct account_s {
     char name[MAX_NAME_LENGTH];
     uuid_t uuid;
     char uuid_str[64];
+    bool is_connected;
     struct {
         team_t *team;
         channel_t *channel;
