@@ -110,7 +110,6 @@ int loop(client_t *client)
         }
         read_buffer(client);
         if (client->reading_buffer->is_ready(client->reading_buffer)) {
-            printf(">%s<\n", client->reading_buffer->buffer);
             running = !response_handler(client, client->command_type);
         }
     }

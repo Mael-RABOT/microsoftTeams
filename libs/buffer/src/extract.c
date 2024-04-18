@@ -34,14 +34,14 @@ static char *fill_string(buffer_t *buffer, unsigned int size)
     }
     memset(string, 0, size);
     while (pos != buffer->write_nozzle) {
-        if (is_found(buffer, pos)) {
-            printf("ending on %d\n", buffer->buffer[pos]);
+        if (is_found(buffer, pos) == true) {
+            buffer->add_read_nozzle(buffer, 1);
             break;
         }
         string[i] = buffer->buffer[pos];
         string[i + 1] = '\0';
         buffer->add_read_nozzle(buffer, 1);
-        i = BUF_POS(i + 1);
+        i += 1;
         pos = BUF_POS(pos + 1);
     }
     return string;
@@ -59,5 +59,4 @@ char *extract(buffer_t *buffer)
         return NULL;
     }
     return fill_string(buffer, size);
-
 }

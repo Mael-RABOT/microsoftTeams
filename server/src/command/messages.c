@@ -67,7 +67,7 @@ static void print_data(user_t *user, char **data)
         line = split(data[i], "#");
         if (len_array((void **)line) != 3)
             continue;
-        user->send(user, "%s to %s: %s", line[0], line[1], line[2]);
+        user->send(user, "%s to %s: %s\n", line[0], line[1], line[2]);
         delete_array((void **)line);
     }
     delete_array((void **)data);

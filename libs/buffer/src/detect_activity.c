@@ -15,10 +15,10 @@ bool is_found(buffer_t *buffer, unsigned int pos)
         if (BUF_POS(pos + i) == BUF_POS(buffer->write_nozzle)) {
             return false;
         }
-        if (buffer->buffer[pos + i] != buffer->delimiter[i]) {
+        if (buffer->buffer[BUF_POS(pos + i)] != buffer->delimiter[i]) {
             return false;
         }
-        i = BUF_POS(i + 1);
+        i += 1;
     }
     return true;
 }
@@ -35,7 +35,6 @@ bool is_ready(buffer_t *buffer)
     pos = buffer->read_nozzle;
     while (pos != buffer->write_nozzle) {
         if (is_found(buffer, pos)) {
-            printf("Found\n");
             return true;
         }
         pos = BUF_POS(pos + 1);
