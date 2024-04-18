@@ -18,6 +18,7 @@ int load_client(client_t *client, const unsigned int address,
     if (client->socket.connect(&client->socket) == -1) {
         return 84;
     }
+    client->debugging = false;
     client->reading_buffer = create_buffer();
     client->sending_buffer = create_buffer();
     return 0;

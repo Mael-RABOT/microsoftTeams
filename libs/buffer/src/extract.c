@@ -27,7 +27,7 @@ static char *fill_string(buffer_t *buffer, unsigned int size)
 {
     unsigned int i = 0;
     unsigned int pos = buffer->read_nozzle;
-    char *string = malloc(sizeof(char) * size);
+    char *string = malloc(sizeof(char) * size + 1);
 
     if (string == NULL) {
         return NULL;

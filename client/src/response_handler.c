@@ -57,6 +57,8 @@ static int special_case(client_t *client, int code, char *data)
         return (client_error_already_exist(), 1);
     if (code == USERS_LIST)
         return (users_handler(client, code, data), 1);
+    if (code >= USER_PRINT && code <= THREAD_PRINT)
+        return (info_handler(client, code, data), 1);
     return 0;
 }
 
@@ -84,6 +86,7 @@ int response_handler(client_t *client, command_type_t type)
     len = nbr_len(code);
     data = response + (len + 2);
     handler(client, type, code, data);
-    printf("%s\n", response);
+    if (client->debugging)
+        printf("%s\n", response);
     return (free(response), 0);
 }

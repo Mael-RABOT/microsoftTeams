@@ -45,6 +45,10 @@ typedef enum codes_e {
     USERS_LIST = 204,
     CONNECTED = 220,
     DISCONNECTED = 221,
+    USER_PRINT = 240,
+    TEAM_PRINT = 241,
+    CHANNEL_PRINT = 242,
+    THREAD_PRINT = 243,
 
     BAD_REQUEST = 400,
     UNAUTHORIZED = 401,

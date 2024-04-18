@@ -19,3 +19,4 @@ void reset_fds(client_t *client);
 void unknown_handler(client_t *client, codes_t code, char *response);
 void messages_handler(client_t *client, codes_t code, char *response);
 void users_handler(client_t *client, codes_t code, char *response);
+void info_handler(client_t *client, codes_t code, char *response);

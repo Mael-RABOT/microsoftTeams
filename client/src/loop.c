@@ -61,14 +61,27 @@ static int call_command(client_t *client, command_type_t type, char *input)
     return normalize_command(client, type, input, args_data);
 }
 
-static int handle_input(client_t *client, char *input)
+static int client_command(client_t *client, char *input)
 {
-    command_type_t command_type;
-
     if (!strcmp(input, "/exit\n"))
         return 1 + 0 * client->socket.send(&client->socket, "%d", EXIT);
     if (!strcmp(input, "/help\n"))
         return 0 * printf(CHELP);
+    if (!strcmp(input, "/debug\n")) {
+        printf("Setting debugging mode to %s\n",
+            client->debugging ? "false" : "true");
+        client->debugging = !client->debugging;
+        return 0;
+    }
+    return 0;
+}
+
+static int handle_input(client_t *client, char *input)
+{
+    command_type_t command_type;
+
+    if (client_command(client, input))
+        return 1;
     command_type = get_command_type(input);
     client->command_type = command_type;
     switch (command_type) {
@@ -86,10 +99,10 @@ static int handle_input(client_t *client, char *input)
 static int handle_stdin(client_t *client)
 {
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
-    int status = 0;
+    int status;
 
     if (input == NULL)
-        return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
+        return -1 + 0 * printf("Failed to allocate memory.\n");
     if (!fgets(input, MAX_BODY_LENGTH, stdin)) {
         free(input);
         return 1;

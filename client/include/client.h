@@ -38,6 +38,7 @@ typedef struct client_s {
     command_type_t command_type;
     char *username;
     char *user_uuid;
+    bool debugging;
 } client_t;
 
 typedef struct command_map_s {
