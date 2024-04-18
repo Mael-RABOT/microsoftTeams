@@ -23,6 +23,5 @@ typedef struct server_s {
     queue_t *users;
     queue_t *accounts;
     socket_t socket;
-    server_logger_t *logger;
     char history_path[PATH_MAX];
 } server_t;

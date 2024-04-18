@@ -16,7 +16,7 @@ void login_handler(client_t *client, codes_t code, char *response)
     data = split(response, ": ");
     if (!data || len_array((void **)data) < 2)
         return;
-    client->logger->client_event_logged_in(data[1], data[0]);
+    client_event_logged_in(data[1], data[0]);
     client->username = strdup(data[0]);
     client->user_uuid = strdup(data[1]);
     delete_array((void **)data);

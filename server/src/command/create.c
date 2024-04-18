@@ -26,7 +26,7 @@ static void create_server_team(server_t *server, user_t *user,
     server->teams->push_back(server->teams, team);
     user->send(user, "%d: Team:%s:%s:%s\n", CREATED, team->uuid_str,
         team->name, team->desc);
-    server->logger->team_created(team->uuid_str, team->name,
+    server_event_team_created(team->uuid_str, team->name,
         user->account->uuid_str);
 }
 
@@ -47,7 +47,7 @@ static void create_server_channel(server_t *server, team_t *team, user_t *user,
     strcpy(channel->name, packet->args[0]);
     strcpy(channel->desc, packet->args[1]);
     team->channels->push_back(team->channels, channel);
-    server->logger->channel_created(team->uuid_str, channel->uuid_str,
+    server_event_channel_created(team->uuid_str, channel->uuid_str,
         channel->name);
     user->send(user, "%d: Channel:%s:%s:%s\n", CREATED, channel->uuid_str,
         channel->name, channel->desc);
@@ -79,7 +79,7 @@ static void create_server_thread(server_t *server, channel_t *channel,
     thread->messages->push_back(thread->messages, message);
     user->send(user, "%d: Thread:%s:%s:%ld:%s:%s\n", CREATED, thread->uuid_str,
         user->account->uuid_str, thread->timestamp, thread->name, message);
-    server->logger->thread_created(channel->uuid_str, thread->uuid_str,
+    server_event_thread_created(channel->uuid_str, thread->uuid_str,
         user->account->uuid_str, thread->name, packet->args[1]);
 }
 
@@ -96,7 +96,7 @@ static void create_server_message(server_t *server, thread_t *thread,
     strcpy(message, packet->args[0]);
     thread->messages->push_back(thread->messages, message);
     user->send(user, "%d: Ok\n", CREATED);
-    server->logger->reply_created(thread->uuid_str, user->account->uuid_str,
+    server_event_reply_created(thread->uuid_str, user->account->uuid_str,
         packet->args[0]);
 }
 

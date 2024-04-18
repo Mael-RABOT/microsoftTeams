@@ -15,7 +15,6 @@ void messages_handler(client_t *client, codes_t code, char *response)
     if (!data || len_array((void **)data) < 4)
         return;
     timestamp = atol(data[2]);
-    client->logger->client_private_message_print_messages(
-        data[0], timestamp, data[3]);
+    client_private_message_print_messages(data[0], timestamp, data[3]);
     delete_array((void **)data);
 }

@@ -31,7 +31,6 @@
 
 typedef struct client_s {
     socket_t socket;
-    client_logger_t *logger;
     fd_set read_fds;
     fd_set write_fds;
     buffer_t *sending_buffer;

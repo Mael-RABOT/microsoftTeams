@@ -13,7 +13,6 @@ void users_handler(client_t *client, codes_t code, char *response)
 
     if (!data)
         return;
-    client->logger->client_print_users(data[0], data[1],
-        data[2][0] - '0');
+    client_print_users(data[0], data[1], data[2][0] - '0');
     delete_array((void **)data);
 }

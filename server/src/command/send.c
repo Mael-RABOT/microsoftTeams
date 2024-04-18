@@ -79,7 +79,7 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
     } else {
         dest_user->send(dest_user, "%d: %s: %s\n", MESSAGE_RECEIVED,
             user->account->uuid_str, packet->args[1]);
-        server->logger->private_message_sended(user->account->uuid_str,
+        server_event_private_message_sended(user->account->uuid_str,
             dest_user->account->uuid_str, packet->args[1]);
     }
     save_message(packet->args[1], user->account->uuid, target_uuid);

@@ -40,7 +40,7 @@ void unsubscribe_command(server_t *server, user_t *user, packet_t *packet)
         (bool (*)(void *, void *))uuid_strict_compare);
     if (team != NULL) {
         unsubscribe_user(team, user);
-        server->logger->user_unsubscribed(team->uuid_str,
+        server_event_user_unsubscribed(team->uuid_str,
             user->account->uuid_str);
     } else {
         user->send(user, "400 Cannot find team\n");

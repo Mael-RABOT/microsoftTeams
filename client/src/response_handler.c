@@ -52,9 +52,9 @@ static int special_case(client_t *client, int code, char *data)
     if (code >= UNKNOWN_USER && code <= UNKNOWN_THREAD)
         return (unknown_handler(client, code, data), 1);
     if (code == UNAUTHORIZED)
-        return (client->logger->client_error_unauthorized(), 1);
+        return (client_error_unauthorized(), 1);
     if (code == ALREADY_EXIST)
-        return (client->logger->client_error_already_exist(), 1);
+        return (client_error_already_exist(), 1);
     if (code == USERS_LIST)
         return (users_handler(client, code, data), 1);
     return 0;
