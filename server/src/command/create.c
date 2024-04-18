@@ -95,7 +95,11 @@ static void create_server_message(server_t *server, thread_t *thread,
     }
     strcpy(message, packet->args[0]);
     thread->messages->push_back(thread->messages, message);
-    user->send(user, "%d: Ok\n", CREATED);
+    user->send(user, "%d: Reply:%s:%s:%s:%s\n", CREATED,
+        user->account->context.team->uuid_str,
+        user->account->context.thread->uuid_str,
+        user->account->uuid_str,
+        packet->args[0]);
     server_event_reply_created(thread->uuid_str, user->account->uuid_str,
         packet->args[0]);
 }
