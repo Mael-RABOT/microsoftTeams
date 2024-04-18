@@ -16,6 +16,6 @@ void send_handler(client_t *client, codes_t code, char *response)
     if (!data || len_array((void **)data) < 2)
         return;
     spaceless = data[1] + 1;
-    client->logger->client_event_private_message_received(data[0], spaceless);
+    client_event_private_message_received(data[0], spaceless);
     delete_array((void **)data);
 }

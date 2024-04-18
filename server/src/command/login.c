@@ -27,7 +27,7 @@ static account_t *setup_account(server_t *server, packet_t *packet)
         return NULL;
     }
     strcpy(account->name, packet->args[0]);
-    server->logger->user_created(account->uuid_str, account->name);
+    server_event_user_created(account->uuid_str, account->name);
     server->accounts->push_back(server->accounts, account);
     account_persistance(account);
     return account;
@@ -62,7 +62,7 @@ void login_command(server_t *server, user_t *user, packet_t *packet)
     }
     user->level = LOGGED;
     user->account->is_connected = true;
-    server->logger->user_logged_in(user->account->uuid_str);
+    server_event_user_logged_in(user->account->uuid_str);
     user->send(user, "%d: %s: %s\n", OK, user->account->name,
         user->account->uuid_str);
 }

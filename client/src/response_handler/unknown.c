@@ -15,12 +15,12 @@ void unknown_handler(client_t *client, codes_t code, char *response)
     if (!data)
         return;
     if (code == UNKNOWN_USER)
-        return (void)client->logger->client_error_unknown_user(data[0]);
+        return (void)client_error_unknown_user(data[0]);
     if (code == UNKNOWN_TEAM)
-        return (void)client->logger->client_error_unknown_team(data[0]);
+        return (void)client_error_unknown_team(data[0]);
     if (code == UNKNOWN_CHANNEL)
-        return (void)client->logger->client_error_unknown_channel(data[0]);
+        return (void)client_error_unknown_channel(data[0]);
     if (code == UNKNOWN_THREAD)
-        return (void)client->logger->client_error_unknown_thread(data[0]);
+        return (void)client_error_unknown_thread(data[0]);
     delete_array((void **)data);
 }

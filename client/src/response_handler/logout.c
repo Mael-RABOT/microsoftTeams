@@ -12,6 +12,5 @@ void logout_handler(client_t *client, codes_t code, char *response)
     (void)response;
     if (code != DISCONNECTED)
         return;
-    client->logger->client_event_logged_out(
-        client->user_uuid, client->username);
+    client_event_logged_out(client->user_uuid, client->username);
 }

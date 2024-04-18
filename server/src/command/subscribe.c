@@ -20,7 +20,7 @@ void subscribe_command(server_t *server, user_t *user, packet_t *packet)
         offsetof(team_t, uuid),
         uuid, (bool (*)(void *, void *))uuid_strict_compare);
     if (team != NULL) {
-        server->logger->user_subscribed(team->uuid_str,
+        server_event_user_subscribed(team->uuid_str,
             user->account->uuid_str);
         team->subscribed->push_back(team->subscribed, user);
         user->send(user, "200 subscribed !\n");

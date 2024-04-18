@@ -24,7 +24,6 @@ void unload_server(server_t *server)
     if (server->socket.socket_fd != -1) {
         close(server->socket.socket_fd);
     }
-    delete_server_logger(server->logger);
     unload_queue(server->teams, (void (*)(void *))delete_team);
     unload_queue(server->users, (void (*)(void *))delete_user);
     unload_queue(server->accounts, (void (*)(void *))delete_account);

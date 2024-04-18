@@ -54,7 +54,7 @@ CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
 LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue \
-		-lbuffer
+		-lbuffer -L../libs/myteams -lmyteams
 LDFLAGS    =    $(LIB) -luuid
 
 COVERAGE    =    --coverage -lcriterion

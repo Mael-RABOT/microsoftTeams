@@ -33,7 +33,7 @@ static void parse_account_array(server_t *server, char **array, queue_t *queue)
     while (array[i] != NULL) {
         account = load_account(array[i]);
         if (account != NULL) {
-            server->logger->user_loaded(account->uuid_str, account->name);
+            server_event_user_loaded(account->uuid_str, account->name);
             queue->push_back(queue, account);
         }
         i += 1;
