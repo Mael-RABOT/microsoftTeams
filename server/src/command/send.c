@@ -46,6 +46,7 @@ void save_message(char *message, uuid_t sender_uuid, uuid_t receiver_uuid)
     char receiver_uuid_str[37];
     char *filename;
     char line[74 + 4 + strlen(message)];
+    time_t now = time(NULL);
 
     uuid_unparse(sender_uuid, sender_uuid_str);
     uuid_unparse(receiver_uuid, receiver_uuid_str);
@@ -55,7 +56,8 @@ void save_message(char *message, uuid_t sender_uuid, uuid_t receiver_uuid)
     file = fopen(filename, "a");
     if (file == NULL)
         return free(filename);
-    sprintf(line, "%s#%s#%s\n", sender_uuid_str, receiver_uuid_str, message);
+    sprintf(line, "%s#%s#%ld#%s\n", sender_uuid_str, receiver_uuid_str, now,
+        message);
     fwrite(line, 1, strlen(line), file);
     return (fclose(file), free(filename));
 }

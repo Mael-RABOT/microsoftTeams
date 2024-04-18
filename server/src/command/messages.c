@@ -58,17 +58,10 @@ static char **prepare_data(user_t *user, uuid_t receiver_uuid)
 
 static void print_data(user_t *user, char **data)
 {
-    char **line;
-
     if (!data)
         return;
-    user->send(user, "Handling data...\n");
     for (int i = 0; data[i] != NULL; i++) {
-        line = split(data[i], "#");
-        if (len_array((void **)line) != 3)
-            continue;
-        user->send(user, "%s to %s: %s\n", line[0], line[1], line[2]);
-        delete_array((void **)line);
+        user->send(user, "%d: %s\n", MESSAGES_LIST, data[i]);
     }
     delete_array((void **)data);
 }

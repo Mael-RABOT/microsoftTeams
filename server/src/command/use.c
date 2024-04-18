@@ -7,7 +7,7 @@
 
 #include "server_prototype.h"
 
-static void use_thread(user_t *user, const char *arg)
+static int use_thread(user_t *user, const char *arg)
 {
     uuid_t uuid;
     void *resource = NULL;
@@ -17,15 +17,15 @@ static void use_thread(user_t *user, const char *arg)
         offsetof(thread_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
-        user->send(user, "404 Cannot find resource\n");
+        user->send(user, "%d: %s\n", UNKNOWN_THREAD, arg);
+        return 1;
     } else {
-        user->send(user, "200 Context set\n");
         user->account->context.thread = resource;
+        return 0;
     }
-    return;
 }
 
-static void use_channel(user_t *user, const char *arg)
+static int use_channel(user_t *user, const char *arg)
 {
     uuid_t uuid;
     void *resource = NULL;
@@ -35,15 +35,15 @@ static void use_channel(user_t *user, const char *arg)
         offsetof(channel_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
-        user->send(user, "%d Cannot find resource\n");
+        user->send(user, "%d: %s\n", UNKNOWN_CHANNEL, arg);
+        return 1;
     } else {
-        user->send(user, "200 Context set\n");
         user->account->context.channel = resource;
+        return 0;
     }
-    return;
 }
 
-static void use_team(server_t *server, user_t *user, const char *arg)
+static int use_team(server_t *server, user_t *user, const char *arg)
 {
     uuid_t uuid;
     void *resource = NULL;
@@ -52,12 +52,12 @@ static void use_team(server_t *server, user_t *user, const char *arg)
     resource = get_resource(server->teams, offsetof(team_t, uuid),
         uuid, (bool (*)(void *, void *))uuid_strict_compare);
     if (resource == NULL) {
-        user->send(user, "%d Cannot find resource\n");
+        user->send(user, "%d: %s\n", UNKNOWN_TEAM, arg);
+        return 1;
     } else {
-        user->send(user, "200 Context set\n");
         user->account->context.team = resource;
+        return 0;
     }
-    return;
 }
 
 static void reset_context(user_t *user)
@@ -69,13 +69,17 @@ static void reset_context(user_t *user)
 
 void use_command(server_t *server, user_t *user, packet_t *packet)
 {
+    int status = 0;
+
     reset_context(user);
     if (len_array((void **)packet->args) == 0)
         return (void)dprintf(user->nsock, "%d: Context reset\n", OK);
     if (len_array((void **)packet->args) >= 1)
-        use_team(server, user, packet->args[0]);
+        status += use_team(server, user, packet->args[0]);
     if (len_array((void **)packet->args) >= 2)
-        use_channel(user, packet->args[1]);
+        status += use_channel(user, packet->args[1]);
     if (len_array((void **)packet->args) >= 3)
-        use_thread(user, packet->args[2]);
+        status += use_thread(user, packet->args[2]);
+    if (!status)
+        user->send(user, "%d: Context set\n", OK);
 }

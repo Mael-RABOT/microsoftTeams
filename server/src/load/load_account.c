@@ -44,8 +44,8 @@ queue_t *load_accounts(server_t *server)
     char **array = (char **)load_file("./data/users.txt");
     queue_t *queue = create_queue();
 
-    if (array == NULL || queue == NULL) {
-        delete_array((void **)array);
+    if (array == NULL) {
+        return queue;
     }
     parse_account_array(server, array, queue);
     delete_array((void **)array);
