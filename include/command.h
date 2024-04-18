@@ -49,6 +49,8 @@ typedef enum codes_e {
     TEAM_PRINT = 241,
     CHANNEL_PRINT = 242,
     THREAD_PRINT = 243,
+    CSUBSCRIBED = 250,
+    CUNSUBSCRIBED = 251,
 
     BAD_REQUEST = 400,
     UNAUTHORIZED = 401,

@@ -20,3 +20,5 @@ void unknown_handler(client_t *client, codes_t code, char *response);
 void messages_handler(client_t *client, codes_t code, char *response);
 void users_handler(client_t *client, codes_t code, char *response);
 void info_handler(client_t *client, codes_t code, char *response);
+void subscribe_handler(client_t *client, codes_t code, char *response);
+void unsubscribe_handler(client_t *client, codes_t code, char *response);

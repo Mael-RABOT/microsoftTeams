@@ -41,6 +41,15 @@ static void remove_trailing_newline(char *str)
     }
 }
 
+static int special_bis(client_t *client, int code, char *data)
+{
+    if (code == CSUBSCRIBED)
+        return (subscribe_handler(client, code, data), 1);
+    if (code == CUNSUBSCRIBED)
+        return (unsubscribe_handler(client, code, data), 1);
+    return 0;
+}
+
 static int special_case(client_t *client, int code, char *data)
 {
     if (code == MESSAGE_RECEIVED)
@@ -59,7 +68,7 @@ static int special_case(client_t *client, int code, char *data)
         return (users_handler(client, code, data), 1);
     if (code >= USER_PRINT && code <= THREAD_PRINT)
         return (info_handler(client, code, data), 1);
-    return 0;
+    return special_bis(client, code, data);
 }
 
 static void handler(
