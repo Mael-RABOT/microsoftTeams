@@ -11,7 +11,7 @@ static void perm_checker(server_t *server, packet_t *packet,
     user_t *user, int i)
 {
     if (command_list[i].required > user->level)
-        return (void)user->send(user, "%d Not logged in\n", BAD_REQUEST);
+        return (void)user->send(user, "%d: Not logged in\n", UNAUTHORIZED);
     command_list[i].func(server, user, packet);
 }
 

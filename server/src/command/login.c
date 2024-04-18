@@ -7,6 +7,18 @@
 
 #include "server_prototype.h"
 
+static void account_persistance(account_t *account)
+{
+    int fd = open("data/users.txt", O_WRONLY | O_APPEND | O_CREAT, 0666);
+
+    if (fd == -1) {
+        return;
+    }
+    dprintf(fd, "%s %s\n", account->name, account->uuid_str);
+    close(fd);
+    return;
+}
+
 static account_t *setup_account(server_t *server, packet_t *packet)
 {
     account_t *account = create_account();
@@ -17,6 +29,7 @@ static account_t *setup_account(server_t *server, packet_t *packet)
     strcpy(account->name, packet->args[0]);
     server->logger->user_created(account->uuid_str, account->name);
     server->accounts->push_back(server->accounts, account);
+    account_persistance(account);
     return account;
 }
 

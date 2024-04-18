@@ -36,12 +36,12 @@ static void create_server_channel(server_t *server, team_t *team, user_t *user,
     channel_t *channel = NULL;
 
     if (len_array((void **)packet->args) < 2) {
-        user->send(user, "400 Bad arguments\n");
+        user->send(user, "%d: bad arguments\n", BAD_REQUEST);
         return;
     }
     channel = create_channel();
     if (channel == NULL) {
-        user->send(user, "400 Failed to create channel\n");
+        user->send(user, "%d: failed to create channel\n", BAD_REQUEST);
         return;
     }
     strcpy(channel->name, packet->args[0]);
@@ -49,7 +49,7 @@ static void create_server_channel(server_t *server, team_t *team, user_t *user,
     team->channels->push_back(team->channels, channel);
     server->logger->channel_created(team->uuid_str, channel->uuid_str,
         channel->name);
-    user->send(user, "201: Channel:%s:%s:%s\n", channel->uuid_str,
+    user->send(user, "%d: Channel:%s:%s:%s\n", CREATED, channel->uuid_str,
         channel->name, channel->desc);
 }
 
@@ -70,15 +70,14 @@ static void create_server_thread(server_t *server, channel_t *channel,
 
     if (len_array((void **)packet->args) < 2 || message == NULL
             || thread == NULL) {
-        user->send(user, "400 Bad arguments\n");
-        user->send(user, "400 Failed to create thread\n");
+        user->send(user, "%d: Failed to create thread\n", BAD_REQUEST);
         free_n(2, message, thread);
         return;
     }
     thread_timer(&thread, packet, &message);
     channel->threads->push_back(channel->threads, thread);
     thread->messages->push_back(thread->messages, message);
-    user->send(user, "201: Thread:%s:%s:%ld:%s:%s\n", thread->uuid_str,
+    user->send(user, "%d: Thread:%s:%s:%ld:%s:%s\n", CREATED, thread->uuid_str,
         user->account->uuid_str, thread->timestamp, thread->name, message);
     server->logger->thread_created(channel->uuid_str, thread->uuid_str,
         user->account->uuid_str, thread->name, packet->args[1]);
@@ -90,13 +89,13 @@ static void create_server_message(server_t *server, thread_t *thread,
     char *message = malloc(MAX_BODY_LENGTH);
 
     if (len_array((void **)packet->args) < 1 || message == NULL) {
-        user->send(user, "400 Failed to create message\n");
+        user->send(user, "%d: Failed to create message\n", BAD_REQUEST);
         free(message);
         return;
     }
     strcpy(message, packet->args[0]);
     thread->messages->push_back(thread->messages, message);
-    user->send(user, "201 Ok\n");
+    user->send(user, "%d: Ok\n", CREATED);
     server->logger->reply_created(thread->uuid_str, user->account->uuid_str,
         packet->args[0]);
 }
