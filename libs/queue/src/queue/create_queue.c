@@ -24,6 +24,7 @@ queue_t *create_queue(void)
     queue->insert = &insert;
     queue->size = &size;
     queue->foreach = &foreach;
+    queue->foreach_arg = &foreach_arg;
     queue->contains = &in_queue;
     queue->remove = &remove_node;
     return queue;

@@ -9,14 +9,15 @@
 
 #include "thread.h"
 
+struct team_s;
+
 typedef struct channel_s {
     uuid_t uuid;
     char uuid_str[64];
     char name[MAX_NAME_LENGTH];
     char desc[MAX_DESCRIPTION_LENGTH];
     queue_t *threads;
-    void (*save)(struct channel_s *channel);
-    void (*restore)(struct channel_s *channel);
+    struct team_s *team;
 } channel_t;
 
 channel_t *create_channel(void);

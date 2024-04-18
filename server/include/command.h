@@ -11,6 +11,9 @@
 
 typedef struct server_s server_t;
 typedef struct user_s user_t;
+typedef struct channel_s channel_t;
+typedef struct thread_s thread_t;
+typedef struct team_s team_t;
 
 typedef struct command_s {
     command_type_t type;
@@ -35,5 +38,15 @@ void subscribed_command(server_t *server, user_t *user, packet_t *packet);
 void subscribe_command(server_t *server, user_t *user, packet_t *packet);
 void unsubscribe_command(server_t *server, user_t *user, packet_t *packet);
 void user_command(server_t *server, user_t *user, packet_t *packet);
+
+/* create command */
+
+void create_server_message(server_t *server, thread_t *thread, user_t *user,
+    packet_t *packet);
+void create_server_thread(server_t *server, channel_t *channel, user_t *user,
+    packet_t *packet);
+void create_server_channel(server_t *server, team_t *team, user_t *user,
+    packet_t *packet);
+void create_server_team(server_t *server, user_t *user, packet_t *packet);
 
 extern const struct command_s command_list[];
