@@ -18,4 +18,4 @@ myteams_server_test
 myteams_cli
 myteams_cli_test
 
-./data/*.txt
+data/*.txt

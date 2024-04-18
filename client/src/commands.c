@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static int get_length(char **array)
 {

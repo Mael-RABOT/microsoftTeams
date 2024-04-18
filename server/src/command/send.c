@@ -5,7 +5,7 @@
 ** login.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static char *create_filename(char *uuid1, char *uuid2)
 {
@@ -66,18 +66,20 @@ void send_command(server_t *server, user_t *user, packet_t *packet)
     user_t *dest_user = NULL;
 
     if (uuid_parse(packet->args[0], target_uuid) == -1) {
-        dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
+        user->send(user, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
         return;
     }
     dest_user = get_resource(server->users, offsetof(user_t, account),
         target_uuid, (bool (*)(void *, void *))account_compare);
     if (dest_user == NULL) {
-        dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "User not found");
+        user->send(user, "%d: %s\n", BAD_REQUEST, "User not found");
+        return;
     } else {
-        dprintf(
-            dest_user->nsock, "%d: %s: %s\n",
-                MESSAGE_RECEIVED, user->account->uuid_str, packet->args[1]);
+        dest_user->send(dest_user, "%d: %s: %s\n", MESSAGE_RECEIVED,
+            user->account->uuid_str, packet->args[1]);
+        server->logger->private_message_sended(user->account->uuid_str,
+            dest_user->account->uuid_str, packet->args[1]);
     }
     save_message(packet->args[1], user->account->uuid, target_uuid);
-    dprintf(user->nsock, "%d: %s\n", OK, "OK");
+    user->send(user, "%d: %s\n", OK, "OK");
 }

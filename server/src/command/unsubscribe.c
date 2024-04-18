@@ -5,7 +5,7 @@
 ** unsubscribe.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void unsubscribe_user(team_t *team, user_t *user)
 {
@@ -38,9 +38,11 @@ void unsubscribe_command(server_t *server, user_t *user, packet_t *packet)
     uuid_parse(packet->args[0], uuid);
     team = get_resource(server->teams, offsetof(team_t, uuid), uuid,
         (bool (*)(void *, void *))uuid_strict_compare);
-    if (team == NULL) {
-        user->send(user, "400 Cannot find team\n");
-    } else {
+    if (team != NULL) {
         unsubscribe_user(team, user);
+        server->logger->user_unsubscribed(team->uuid_str,
+            user->account->uuid_str);
+    } else {
+        user->send(user, "400 Cannot find team\n");
     }
 }

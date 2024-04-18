@@ -5,7 +5,7 @@
 ** client.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static int launch_client(client_t *client, const char *input_ip,
     const char *input_port)

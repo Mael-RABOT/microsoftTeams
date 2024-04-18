@@ -5,16 +5,15 @@
 ** help.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static void info_user(user_t *user)
 {
     char uuid[37];
 
     uuid_unparse(user->account->uuid, uuid);
-    dprintf(user->nsock,
-        "%d: User name: %s\n     User uuid: %s\n", OK, user->account->name,
-        uuid);
+    user->send(user, "%d: User name: %s\n     User uuid: %s\n", OK,
+        user->account->name, uuid);
 }
 
 static void info_team(user_t *user)
@@ -22,8 +21,7 @@ static void info_team(user_t *user)
     char uuid[37];
 
     uuid_unparse(user->account->context.team->uuid, uuid);
-    dprintf(user->nsock,
-        "%d: Team name: %s\n     Team uuid: %s\n", OK,
+    user->send(user, "%d: Team name: %s\n     Team uuid: %s\n", OK,
         user->account->context.team->name, uuid);
 }
 
@@ -32,8 +30,7 @@ static void info_channel(user_t *user)
     char uuid[37];
 
     uuid_unparse(user->account->context.channel->uuid, uuid);
-    dprintf(user->nsock,
-        "%d: Channel name: %s\n     Channel uuid: %s\n", OK,
+    user->send(user, "%d: Channel name: %s\n     Channel uuid: %s\n", OK,
         user->account->context.channel->name, uuid);
 }
 
@@ -42,8 +39,7 @@ static void info_thread(user_t *user)
     char uuid[37];
 
     uuid_unparse(user->account->context.thread->uuid, uuid);
-    dprintf(user->nsock,
-        "%d: Thread name: %s\n     Thread uuid: %s\n", OK,
+    user->send(user, "%d: Thread name: %s\n     Thread uuid: %s\n", OK,
         user->account->context.thread->name, uuid);
 }
 

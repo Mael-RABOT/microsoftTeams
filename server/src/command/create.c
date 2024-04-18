@@ -5,28 +5,27 @@
 ** create.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void create_server_team(server_t *server, user_t *user,
     packet_t *packet)
 {
     team_t *team = NULL;
-    char uuid_str[37];
 
     if (len_array((void **)packet->args) < 2) {
-        user->send(user, "400 bad arguments\n");
+        user->send(user, "%d: bad arguments\n", BAD_REQUEST);
         return;
     }
     team = create_team();
     if (team == NULL) {
-        user->send(user, "400 Failed to create team\n");
+        user->send(user, "%d: Failed to create team\n", INTERNAL_ERROR);
         return;
     }
-    uuid_unparse(team->uuid, uuid_str);
     strcpy(team->name, packet->args[0]);
     strcpy(team->desc, packet->args[1]);
     server->teams->push_back(server->teams, team);
-    user->send(user, "201: Team:%s:%s:%s\n", uuid_str, team->name, team->desc);
+    user->send(user, "%d: Team:%s:%s:%s\n", CREATED, team->uuid_str,
+        team->name, team->desc);
     server->logger->team_created(team->uuid_str, team->name,
         user->account->uuid_str);
 }

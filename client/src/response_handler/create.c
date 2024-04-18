@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static void handle_thread_creation(client_t *client, char **data)
 {

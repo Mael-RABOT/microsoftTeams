@@ -5,7 +5,7 @@
 ** create_account.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 account_t *create_account(void)
 {

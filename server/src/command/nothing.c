@@ -5,10 +5,10 @@
 ** nothing.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void nothing_command(server_t *server, user_t *user, packet_t *packet)
 {
-    dprintf(user->nsock, "%d: Not implemented\n", NOT_IMPLEMENTED);
+    user->send(user, "%d: Not implemented\n", NOT_IMPLEMENTED);
     return;
 }

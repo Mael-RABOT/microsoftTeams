@@ -5,7 +5,7 @@
 ** unload_client.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 void unload_client(client_t *client)
 {

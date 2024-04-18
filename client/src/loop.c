@@ -5,7 +5,7 @@
 ** loop.c
 */
 
-#include "client.h"
+#include "client_prototype.h"
 
 static command_map_t *get_command(void)
 {
@@ -73,22 +73,20 @@ static int handle_input(client_t *client, char *input)
     client->command_type = command_type;
     switch (command_type) {
         case ERROR:
-            printf("Invalid command.\n");
-            return 0;
         case TEXT:
             printf("Invalid command.\n");
             return 0;
         default:
             if (call_command(client, command_type, input))
                 return 0 * printf("Invalid arguments.\n");
-            return response_handler(client, command_type);
+            return 0;
     }
 }
 
 static int handle_stdin(client_t *client)
 {
     char *input = malloc(MAX_BODY_LENGTH * sizeof(char));
-    int status;
+    int status = 0;
 
     if (input == NULL)
         return -1 + 0 * fprintf(stdin, "Failed to allocate memory.\n");
@@ -106,16 +104,14 @@ int loop(client_t *client)
     int running = true;
 
     while (running) {
-        FD_ZERO(&client->read_fds);
-        FD_SET(0, &client->read_fds);
-        FD_SET(client->socket.socket_fd, &client->read_fds);
-        if (select(client->socket.socket_fd + 1, &client->read_fds,
-            NULL, NULL, NULL) == -1)
-            return -1 + 0 * fprintf(stderr, "Failed to select.\n");
-        if (FD_ISSET(0, &client->read_fds))
+        reset_fds(client);
+        if (FD_ISSET(0, &client->read_fds)) {
             running = !handle_stdin(client);
-        if (FD_ISSET(client->socket.socket_fd, &client->read_fds))
-            running = !response_handler(client, ERROR);
+        }
+        read_buffer(client);
+        if (client->reading_buffer->is_ready(client->reading_buffer)) {
+            running = !response_handler(client, client->command_type);
+        }
     }
     return running;
 }

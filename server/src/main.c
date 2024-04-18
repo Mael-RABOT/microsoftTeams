@@ -6,7 +6,7 @@
 */
 
 #include "channel.h"
-#include "prototype.h"
+#include "server_prototype.h"
 
 #ifdef COMPLETION
 const bool completion = true;
@@ -27,7 +27,7 @@ const struct command_s command_list[] = {
     {USERS, NOT_LOGGED, users_command},
     {USER, LOGGED, user_command},
     {SEND, LOGGED, send_command},
-    {MESSAGES, LOGGED, message_command},
+    {MESSAGES, LOGGED, messages_command},
     {SUBSCRIBE, LOGGED, subscribe_command},
     {SUBSCRIBED, LOGGED, subscribed_command},
     {UNSUBSCRIBE, LOGGED, unsubscribe_command},

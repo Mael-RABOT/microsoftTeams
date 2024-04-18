@@ -5,7 +5,7 @@
 ** create_thread
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 thread_t *create_thread(void)
 {

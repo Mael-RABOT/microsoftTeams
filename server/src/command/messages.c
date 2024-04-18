@@ -5,7 +5,7 @@
 ** help.c
 */
 
-#include "server.h"
+#include "server_prototype.h"
 
 static char *create_filename(char *uuid1, char *uuid2)
 {
@@ -62,12 +62,12 @@ static void print_data(user_t *user, char **data)
 
     if (!data)
         return;
-    dprintf(user->nsock, "Handling data...\n");
+    user->send(user, "Handling data...\n");
     for (int i = 0; data[i] != NULL; i++) {
         line = split(data[i], "#");
         if (len_array((void **)line) != 3)
             continue;
-        dprintf(user->nsock, "%s to %s: %s", line[0], line[1], line[2]);
+        user->send(user, "%s to %s: %s\n", line[0], line[1], line[2]);
         delete_array((void **)line);
     }
     delete_array((void **)data);
@@ -78,18 +78,18 @@ static void print_history(user_t *user, uuid_t receiver_uuid)
     char **data = prepare_data(user, receiver_uuid);
 
     if (!data) {
-        dprintf(user->nsock, "%d: User not found\n", BAD_REQUEST);
+        user->send(user, "%d: User not found\n", BAD_REQUEST);
         return;
     }
     print_data(user, data);
 }
 
-void message_command(server_t *server, user_t *user, packet_t *packet)
+void messages_command(server_t *server, user_t *user, packet_t *packet)
 {
     uuid_t target_uuid;
 
     if (uuid_parse(packet->args[0], target_uuid) == -1) {
-        dprintf(user->nsock, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
+        user->send(user, "%d: %s\n", BAD_REQUEST, "Invalid UUID");
         return;
     }
     return print_history(user, target_uuid);

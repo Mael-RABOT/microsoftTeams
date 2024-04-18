@@ -5,23 +5,17 @@
 ** help.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void broadcast_command(server_t *server, user_t *user, packet_t *packet)
 {
     char *message = packet->args[0];
-    unsigned int len = strlen(user->account->name) + strlen(message) + 3;
-    char *message_with_name = malloc(sizeof(char) * len);
-    user_t *tmp;
+    user_t *tmp_user = NULL;
 
-    if (!message_with_name)
-        return;
-    sprintf(message_with_name, "%s: %s", user->account->name, message);
     for (unsigned int i = 0; i < server->users->size(server->users); i++) {
-        tmp = server->users->at(server->users, i);
-        if (tmp->nsock != user->nsock)
-            dprintf(tmp->nsock, "%s\n", message_with_name);
+        tmp_user = server->users->at(server->users, i);
+        if (tmp_user->nsock != user->nsock)
+            tmp_user->send(tmp_user, "%s: %s\n", user->account->name, message);
     }
-    free(message_with_name);
-    dprintf(user->nsock, "%d Broadcast sent\n", OK);
+    user->send(user, "%d: Broadcast sent\n", OK);
 }

@@ -5,7 +5,7 @@
 ** delete_team.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void delete_team(team_t *team)
 {
@@ -17,5 +17,6 @@ void delete_team(team_t *team)
             (void (*)(void *))delete_channel);
         delete_queue(team->channels);
     }
+    delete_queue(team->subscribed);
     free(team);
 }

@@ -5,7 +5,7 @@
 ** use.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void use_thread(user_t *user, const char *arg)
 {

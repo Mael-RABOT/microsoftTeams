@@ -5,13 +5,13 @@
 ** loop_command.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
-static void perm_checker(
-    server_t *server, packet_t *packet, user_t *user, int i)
+static void perm_checker(server_t *server, packet_t *packet,
+    user_t *user, int i)
 {
     if (command_list[i].required > user->level)
-        return (void)dprintf(user->nsock, "%d Not logged in\n", BAD_REQUEST);
+        return (void)user->send(user, "%d Not logged in\n", BAD_REQUEST);
     command_list[i].func(server, user, packet);
 }
 
@@ -52,7 +52,7 @@ int loop_command(server_t *server)
 
     while (i < server->users->size(server->users)) {
         user = server->users->at(server->users, i);
-        if (FD_ISSET(user->nsock, &server->fd_set)) {
+        if (FD_ISSET(user->nsock, &server->read_fds)) {
             get_command(server, i);
         }
         i += 1;

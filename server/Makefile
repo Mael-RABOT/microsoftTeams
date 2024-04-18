@@ -10,7 +10,8 @@ ARCHIVE	=	../libs/libsocket.a \
 			../libs/libdlloader.a \
 			../libs/liblogging.a \
 			../libs/libcompletion.a \
-			../libs/libqueue.a
+			../libs/libqueue.a \
+			../libs/libbuffer.a
 
 MAIN_SRC    =	src/main.c
 
@@ -21,7 +22,7 @@ COMMAND_SRC	=	src/input_command/display.c \
 				src/command/use.c \
 				src/command/login.c \
 				src/command/logout.c \
-				src/command/message.c \
+				src/command/messages.c \
 				src/command/broadcast.c \
 				src/command/send.c \
 				src/command/quit.c \
@@ -54,8 +55,10 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/account/create_account.c \
 				src/account/delete_account.c \
 				src/loop.c \
+				src/send.c \
 				src/stdin.c \
 				src/server.c \
+				src/reset_fds.c \
 				src/disconnect.c \
 				src/conn/accept.c \
 				src/loop_command.c \
@@ -83,7 +86,8 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue \
+		-lbuffer
 LDFLAGS    =    $(LIB) -luuid
 
 COVERAGE    =    --coverage -lcriterion

@@ -5,7 +5,7 @@
 ** load_account.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static account_t *load_account(const char *line)
 {
@@ -24,7 +24,7 @@ static account_t *load_account(const char *line)
     return account;
 }
 
-static void parse_account_array(char **array, queue_t *queue)
+static void parse_account_array(server_t *server, char **array, queue_t *queue)
 {
     int i = 0;
     account_t *account = NULL;
@@ -32,13 +32,14 @@ static void parse_account_array(char **array, queue_t *queue)
     while (array[i] != NULL) {
         account = load_account(array[i]);
         if (account != NULL) {
+            server->logger->user_loaded(account->uuid_str, account->name);
             queue->push_back(queue, account);
         }
         i += 1;
     }
 }
 
-queue_t *load_accounts(void)
+queue_t *load_accounts(server_t *server)
 {
     char **array = (char **)load_file("./data/users.txt");
     queue_t *queue = create_queue();
@@ -46,7 +47,7 @@ queue_t *load_accounts(void)
     if (array == NULL || queue == NULL) {
         delete_array((void **)array);
     }
-    parse_account_array(array, queue);
+    parse_account_array(server, array, queue);
     delete_array((void **)array);
     return queue;
 }

@@ -10,7 +10,8 @@ ARCHIVE	=	../libs/libsocket.a \
 			../libs/libdlloader.a \
 			../libs/liblogging.a \
 			../libs/libcompletion.a \
-			../libs/libqueue.a
+			../libs/libqueue.a \
+			../libs/libbuffer.a
 
 MAIN_SRC    =	src/main.c
 
@@ -21,6 +22,8 @@ COMMON_SRC	=	../src/load_file.c \
 FILE_SRC    =	$(COMMON_SRC) \
 				src/client.c \
 				src/loop.c \
+				src/read.c \
+				src/reset_fds.c \
 				src/commands.c \
 				src/response_handler.c \
 				src/load/load_client.c \
@@ -47,7 +50,8 @@ NO_UNUSED	=	-Wno-unused-parameter -Wno-unused-function
 CFLAGS    = -Wall -Wextra -fanalyzer \
 			$(NO_UNUSED) $(INCLUDE)
 
-LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue
+LIB	=	-L../libs/ -lsocket -larray -llogging -ldlloader -lcompletion -lqueue \
+		-lbuffer
 LDFLAGS    =    $(LIB) -luuid
 
 COVERAGE    =    --coverage -lcriterion
@@ -70,7 +74,7 @@ $(EXE):	$(FILE_OBJ) $(MAIN_OBJ) $(LIB_DEPENDENCY)
 debug:	CFLAGS += $(DEBUG)
 debug:	all
 
-completion:	CFLAGS	+=	-DCOMPLETION
+completion:	CFLAGS += -DCOMPLETION
 completion:	all
 
 clean:
@@ -87,7 +91,7 @@ re:    fclean all
 
 unit_tests:	CFLAGS += $(COVERAGE) -DTEST
 unit_tests: LDFLAGS += $(COVERAGE)
-unit_tests: $(FILE_OBJ) $(TEST_OBJ) ../libs/libsocket.a
+unit_tests: $(FILE_OBJ) $(TEST_OBJ)
 	$(CC) -o $(EXE) $(FILE_OBJ) $(TEST_OBJ) $(LDFLAGS)
 
 tests_run:    clean unit_tests

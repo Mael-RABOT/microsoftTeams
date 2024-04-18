@@ -5,7 +5,7 @@
 ** user.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 static void write_team(user_t *user, user_t *user_info)
 {

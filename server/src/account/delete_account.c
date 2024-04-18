@@ -5,7 +5,7 @@
 ** delete_account.c
 */
 
-#include "prototype.h"
+#include "server_prototype.h"
 
 void delete_account(account_t *account)
 {
