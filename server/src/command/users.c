@@ -9,13 +9,15 @@
 
 void users_command(server_t *server, user_t *user, packet_t *packet)
 {
-    char **users = load_file(USER_FILE);
+    account_t *tmp;
 
-    if (!users)
+    if (!server->accounts)
         return;
-    user->send(user, "200: Here is the list of users :\n");
-    for (int i = 0; users[i] != NULL; i++)
-        user->send(user, users[i]);
-    delete_array((void **)users);
+    for (unsigned int i = 0; i < server->accounts->size(server->accounts);
+    i++) {
+        tmp = server->accounts->at(server->accounts, i);
+        user->send(user, "%d: %s#%s#%d\n", USERS_LIST, tmp->uuid_str,
+            tmp->name, (tmp->is_connected) ? 1 : 0);
+    }
     return;
 }

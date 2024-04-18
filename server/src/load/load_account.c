@@ -17,6 +17,7 @@ static account_t *load_account(const char *line)
         delete_account(account);
         return NULL;
     }
+    account->is_connected = false;
     strcpy(account->name, array[0]);
     strcpy(account->uuid_str, array[1]);
     uuid_parse(account->uuid_str, account->uuid);

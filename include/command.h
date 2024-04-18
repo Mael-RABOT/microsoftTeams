@@ -42,6 +42,7 @@ typedef enum codes_e {
     CREATED = 201,
     MESSAGE_RECEIVED = 202,
     MESSAGES_LIST = 203,
+    USERS_LIST = 204,
     CONNECTED = 220,
     DISCONNECTED = 221,
 
