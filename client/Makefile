@@ -37,6 +37,7 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/response_handler/users.c \
 				src/response_handler/info.c \
 				src/response_handler/subscribe_unsubscribe.c \
+				src/response_handler/list.c \
 
 TEST_SRC    =
 

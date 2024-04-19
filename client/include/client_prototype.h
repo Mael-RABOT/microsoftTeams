@@ -22,3 +22,4 @@ void users_handler(client_t *client, codes_t code, char *response);
 void info_handler(client_t *client, codes_t code, char *response);
 void subscribe_handler(client_t *client, codes_t code, char *response);
 void unsubscribe_handler(client_t *client, codes_t code, char *response);
+void list_handler(client_t *client, codes_t code, char *response);

@@ -47,6 +47,8 @@ static int special_bis(client_t *client, int code, char *data)
         return (subscribe_handler(client, code, data), 1);
     if (code == CUNSUBSCRIBED)
         return (unsubscribe_handler(client, code, data), 1);
+    if (code >= TEAM_LIST && code <= REPLY_LIST)
+        return (list_handler(client, code, data), 1);
     return 0;
 }
 

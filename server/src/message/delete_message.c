@@ -12,6 +12,5 @@ void delete_message(message_t *message)
     if (message == NULL) {
         return;
     }
-
     free(message);
 }
