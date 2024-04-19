@@ -7,15 +7,21 @@
 
 #include "server_prototype.h"
 
+static void thread_timer(message_t *message, packet_t *packet)
+{
+    time_t now = time(NULL);
+
+    strcpy(message->content, packet->args[0]);
+    message->timestamp = now;
+}
+
 static void display_all_message(user_t *user, va_list list)
 {
     message_t *message = va_arg(list, message_t *);
 
-    user->send(user, "%d: Reply:%s:%s:%s:%s\n", CREATED,
+    user->send(user, "%d: Reply:%s:%s:%ld:%s\n", CREATED,
         user->account->context.team->uuid_str,
-        user->account->context.thread->uuid_str,
-        user->account->uuid_str, message->content);
-
+        user->account->uuid_str, message->timestamp, message->content);
 }
 
 void create_server_message(server_t *server, thread_t *thread, user_t *user,
@@ -29,7 +35,8 @@ void create_server_message(server_t *server, thread_t *thread, user_t *user,
         free(message);
         return;
     }
-    strcpy(message->content, packet->args[0]);
+    message->thread = thread;
+    thread_timer(message, packet);
     thread->messages->push_back(thread->messages, message);
     team->subscribed->foreach_arg(team->subscribed,
         (void (*)(void *, va_list))display_all_message, message);

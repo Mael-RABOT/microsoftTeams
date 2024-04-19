@@ -16,10 +16,10 @@ struct channel_s;
 typedef struct thread_s {
     uuid_t uuid;
     char uuid_str[64];
-    struct user_s *author;
     queue_t *messages;
     char name[MAX_NAME_LENGTH];
     time_t timestamp;
+    struct user_s *author;
     struct channel_s *channel;
 } thread_t;
 

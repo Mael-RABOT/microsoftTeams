@@ -29,6 +29,7 @@ void create_server_channel(server_t *server, team_t *team, user_t *user,
         user->send(user, "%d: failed to create channel\n", BAD_REQUEST);
         return;
     }
+    channel->team = team;
     strcpy(channel->name, packet->args[0]);
     strcpy(channel->desc, packet->args[1]);
     team->channels->push_back(team->channels, channel);

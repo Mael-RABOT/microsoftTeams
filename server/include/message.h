@@ -13,6 +13,7 @@ typedef struct message_s {
     uuid_t uuid;
     char uuid_str[64];
     struct user_s *author;
+    struct thread_s *thread;
     char content[MAX_BODY_LENGTH];
     time_t timestamp;
 } message_t;
