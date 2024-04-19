@@ -19,9 +19,9 @@ static void display_all_message(user_t *user, va_list list)
 {
     message_t *message = va_arg(list, message_t *);
 
-    user->send(user, "%d: Reply:%s:%s:%ld:%s\n", CREATED,
+    user->send(user, "%d: %s:%s:%s:%s\n", NOTIF_REPLY,
         user->account->context.team->uuid_str,
-        user->account->uuid_str, message->timestamp, message->content);
+        message->thread->uuid_str, user->account->uuid_str, message->content);
 }
 
 void create_server_message(server_t *server, thread_t *thread, user_t *user,
@@ -41,6 +41,9 @@ void create_server_message(server_t *server, thread_t *thread, user_t *user,
     thread->messages->push_back(thread->messages, message);
     team->subscribed->foreach_arg(team->subscribed,
         (void (*)(void *, va_list))display_all_message, message);
+    user->send(user, "%d: Reply:%s:%s:%ld:%s\n", CREATED,
+        thread->uuid_str, user->account->uuid_str, message->timestamp,
+        message->content);
     server_event_reply_created(thread->uuid_str, user->account->uuid_str,
         packet->args[0]);
 }

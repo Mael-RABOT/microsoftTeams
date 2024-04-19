@@ -22,7 +22,7 @@ static void display_all_thread(user_t *user, va_list list)
     thread_t *thread = va_arg(list, thread_t *);
     message_t *message = va_arg(list, message_t *);
 
-    user->send(user, "%d: Thread:%s:%s:%ld:%s:%s\n", CREATED, thread->uuid_str,
+    user->send(user, "%d: %s:%s:%ld:%s:%s\n", NOTIF_THREAD, thread->uuid_str,
         user->account->uuid_str, thread->timestamp, thread->name,
         message->content);
 }
@@ -46,6 +46,9 @@ void create_server_thread(server_t *server, channel_t *channel, user_t *user,
     thread->messages->push_back(thread->messages, message);
     channel->team->subscribed->foreach_arg(channel->team->subscribed,
         (void (*)(void *, va_list))display_all_thread, thread, message);
+    user->send(user, "%d: Thread:%s:%s:%ld:%s:%s\n", CREATED, thread->uuid_str,
+        user->account->uuid_str, thread->timestamp, thread->name,
+        message->content);
     server_event_thread_created(channel->uuid_str, thread->uuid_str,
         user->account->uuid_str, thread->name, packet->args[1]);
 }

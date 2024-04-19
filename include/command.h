@@ -55,6 +55,10 @@ typedef enum codes_e {
     THREAD_PRINT = 243,
     CSUBSCRIBED = 250,
     CUNSUBSCRIBED = 251,
+    NOTIF_TEAM = 260,
+    NOTIF_CHANNEL = 261,
+    NOTIF_THREAD = 262,
+    NOTIF_REPLY = 263,
 
     BAD_REQUEST = 400,
     UNAUTHORIZED = 401,
