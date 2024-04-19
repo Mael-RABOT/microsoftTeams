@@ -16,13 +16,13 @@ static void unsubscribe_user(team_t *team, user_t *user)
         tmp_user = team->subscribed->at(team->subscribed, i);
         if (tmp_user == user) {
             team->subscribed->remove(team->subscribed, i);
-            user->send(user, "200: You have unsubscribe from team: %s\n",
-                team->name);
+            user->send(user, "%d: %s:%s\n", CUNSUBSCRIBED,
+                user->account->uuid_str, team->uuid_str);
             return;
         }
         i += 1;
     }
-    user->send(user, "You are not subscribed to this team\n");
+    user->send(user, "%d: %s\n", UNKNOWN_TEAM, team->uuid_str);
     return;
 }
 
@@ -32,7 +32,7 @@ void unsubscribe_command(server_t *server, user_t *user, packet_t *packet)
     team_t *team = NULL;
 
     if (len_array((void **)packet->args) < 1) {
-        user->send(user, "400 Bad arguments\n");
+        user->send(user, "%d Bad arguments\n", BAD_REQUEST);
         return;
     }
     uuid_parse(packet->args[0], uuid);
@@ -43,6 +43,6 @@ void unsubscribe_command(server_t *server, user_t *user, packet_t *packet)
         server_event_user_unsubscribed(team->uuid_str,
             user->account->uuid_str);
     } else {
-        user->send(user, "400 Cannot find team\n");
+        user->send(user, "%d: %S\n", UNKNOWN_TEAM, packet->args[0]);
     }
 }

@@ -11,60 +11,51 @@ static void list_teams(server_t *server, user_t *user)
 {
     team_t *team;
 
-    user->send(user, "%d: %s\n", OK, "List of teams:");
     for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
         team = server->teams->at(server->teams, i);
-        user->send(user, "     %s\n", team->name);
-    }
-}
-
-static void loop_channel(user_t *user, channel_t *channel)
-{
-    thread_t *thread;
-    unsigned int size = channel->threads->size(channel->threads);
-
-    for (unsigned int k = 0; k < size; k++) {
-        thread = channel->threads->at(channel->threads, k);
-        user->send(user, "     %s\n", thread->name);
+        user->send(user, "%d: %s#%s#%s\n", TEAM_LIST, team->uuid_str,
+            team->name, team->desc);
     }
 }
 
 static void list_channels(server_t *server, user_t *user)
 {
-    team_t *team;
+    team_t *team = user->account->context.team;
     channel_t *channel;
 
-    user->send(user, "%d: %s\n", OK, "List of channels:");
-    for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
-        team = server->teams->at(server->teams, i);
-        for (unsigned int j = 0;
-                j < team->channels->size(team->channels); j++) {
-            channel = team->channels->at(team->channels, j);
-            user->send(user, "     %s\n", channel->name);
-        }
+    for (unsigned int i = 0; i < team->channels->size(team->channels); i++) {
+        channel = team->channels->at(team->channels, i);
+        user->send(user, "%d: %s#%s#%s\n", CHANNEL_LIST, channel->uuid_str,
+            channel->name, channel->desc);
     }
 }
 
 static void list_thread(server_t *server, user_t *user)
 {
-    team_t *team;
-    channel_t *channel;
+    channel_t *channel = user->account->context.channel;
+    thread_t *thread;
 
-    user->send(user, "%d: %s\n", OK, "List of threads:");
-    for (unsigned int i = 0; i < server->teams->size(server->teams); i++) {
-        team = server->teams->at(server->teams, i);
-        for (unsigned int j = 0;
-                j < team->channels->size(team->channels); j++) {
-            channel = team->channels->at(team->channels, j);
-            loop_channel(user, channel);
-        }
+    for (unsigned int i = 0;
+        i < channel->threads->size(channel->threads); i++) {
+        thread = channel->threads->at(channel->threads, i);
+        user->send(user, "%d: %s#%s#%ld#%s#%s\n", THREAD_LIST,
+            thread->uuid_str, thread->author->account->uuid_str,
+            thread->timestamp, thread->name, thread->messages[0]);
     }
 }
 
 static void list_reply(server_t *server, user_t *user)
 {
-    user->send(user, "%d: %s\n", OK, "List of reply:");
-    user->send(user, "%d: %s\n", NOT_IMPLEMENTED, "Not implemented yet");
+    thread_t *thread = user->account->context.thread;
+    message_t *message;
+
+    for (unsigned int i = 0; i < thread->messages->size(thread->messages);
+    i++) {
+        message = thread->messages->at(thread->messages, i);
+        user->send(user, "%d: %s#%s#%ld#%s\n", REPLY_LIST, thread->uuid_str,
+            message->author->account->uuid_str, message->timestamp,
+            message->content);
+    }
 }
 
 void list_command(server_t *server, user_t *user, packet_t *packet)

@@ -23,7 +23,8 @@ void subscribe_command(server_t *server, user_t *user, packet_t *packet)
         server_event_user_subscribed(team->uuid_str,
             user->account->uuid_str);
         team->subscribed->push_back(team->subscribed, user);
-        user->send(user, "200 subscribed !\n");
+        user->send(user, "%d: %s:%s\n", CSUBSCRIBED, user->account->uuid_str,
+            team->uuid_str);
     } else {
         user->send(user, "400 bad uuid\n");
     }
