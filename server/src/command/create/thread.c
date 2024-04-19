@@ -40,6 +40,7 @@ void create_server_thread(server_t *server, channel_t *channel, user_t *user,
         return;
     }
     thread->channel = channel;
+    thread->author = user;
     thread_timer(thread, packet, message);
     channel->threads->push_back(channel->threads, thread);
     thread->messages->push_back(thread->messages, message);
