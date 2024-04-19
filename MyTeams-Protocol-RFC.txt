@@ -67,36 +67,48 @@ The following are the MyTeams commands from client to server:
             <-  221
             <-  400
         /users ->
-            <-  200
+            <-  204
         /user ->
-            <-  200
-            <-  404
+            <-  240
         /send ->
-            <-  200
+            <-  202
             <-  400
         /messages ->
-            <-  200
+            <-  206
             <-  400
         /subscribe ->
-            <-  200
+            <-  250
             <-  400
         /subscribed ->
             <-  200
             <-  400
         /unsubscribe ->
-            <-  200
+            <-  251
             <-  400
+            <-  411
         /use ->
             <-  200
-            <-  404
+            <-  411
+            <-  412
+            <-  413
         /create ->
             <-  201
+            <-  260
+            <-  261
+            <-  262
+            <-  263
             <-  400
+            <-  500
         /list ->
-            <-  200
-            <-  501
+            <-  205
+            <-  206
+            <-  207
+            <-  208
         /info ->
-            <-  200
+            <-  240
+            <-  241
+            <-  242
+            <-  243
 
 
 Numeric Order List of Reply Codes (Extract)
@@ -104,8 +116,24 @@ Numeric Order List of Reply Codes (Extract)
         200 OK
         201 Created
         202 Message received
+        203 Messages list
+        204 Users list
+        205 Team list
+        206 Channel list
+        207 Thread list
+        208 Reply list
         220 Connected
         221 Disconnected
+        240 User print
+        241 Team print
+        242 Channel print
+        243 Thread print
+        250 Subscribed
+        251 Unsubscribed
+        260 Team notification
+        261 Channel notification
+        262 Thread notification
+        263 Reply notification
 
         400 Bad request
         401 Unauthorized
