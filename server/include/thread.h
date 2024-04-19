@@ -8,15 +8,19 @@
 #pragma once
 
 #include "../../include/include.h"
+#include "message.h"
+
+struct user_s;
+struct channel_s;
 
 typedef struct thread_s {
     uuid_t uuid;
     char uuid_str[64];
     queue_t *messages;
     char name[MAX_NAME_LENGTH];
-    void (*save)(struct thread_s *thread);
-    void (*restore)(struct thread_s *thread);
     time_t timestamp;
+    struct user_s *author;
+    struct channel_s *channel;
 } thread_t;
 
 thread_t *create_thread(void);

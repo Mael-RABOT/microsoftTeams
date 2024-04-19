@@ -18,7 +18,11 @@ MAIN_SRC    =	src/main.c
 COMMAND_SRC	=	src/input_command/display.c \
 				src/input_command/clear.c \
 				src/command/help.c \
-				src/command/create.c \
+				src/command/create/create.c \
+				src/command/create/team.c \
+				src/command/create/channel.c \
+				src/command/create/thread.c \
+				src/command/create/message.c \
 				src/command/use.c \
 				src/command/login.c \
 				src/command/logout.c \
@@ -54,6 +58,8 @@ FILE_SRC    =	$(COMMON_SRC) \
 				src/thread/delete_thread.c \
 				src/account/create_account.c \
 				src/account/delete_account.c \
+				src/message/create_message.c \
+				src/message/delete_message.c \
 				src/loop.c \
 				src/send.c \
 				src/stdin.c \

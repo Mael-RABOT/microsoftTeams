@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 typedef struct head_s {
     struct node_s *head;
@@ -20,6 +21,8 @@ typedef struct head_s {
     void *(*at)(struct head_s *head, int index);
     void (*insert)(struct head_s *head, void *data, int index);
     void (*foreach)(struct head_s *head, void (*func)(void *arg));
+    void (*foreach_arg)(struct head_s *head,
+        void (*func)(void *, va_list list), ...);
     bool (*contains)(struct head_s *head, void *cmp);
     unsigned int (*size)(struct head_s *head);
     void (*remove)(struct head_s *head, unsigned int index);
