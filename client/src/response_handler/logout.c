@@ -9,8 +9,9 @@
 
 void logout_handler(client_t *client, codes_t code, char *response)
 {
-    (void)response;
+    char **data = split(response, "#");
+
     if (code != DISCONNECTED)
         return;
-    client_event_logged_out(client->user_uuid, client->username);
+    client_event_logged_out(data[0], data[1]);
 }

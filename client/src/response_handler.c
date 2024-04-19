@@ -51,6 +51,8 @@ static int special_bis(client_t *client, int code, char *data)
         return (list_handler(client, code, data), 1);
     if (code >= NOTIF_TEAM && code <= NOTIF_REPLY)
         return (create_event_handler(client, code, data), 1);
+    if (code == DISCONNECTED)
+        return (logout_handler(client, code, data), 1);
     return 0;
 }
 

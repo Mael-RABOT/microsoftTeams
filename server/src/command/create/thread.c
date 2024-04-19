@@ -36,8 +36,7 @@ void create_server_thread(server_t *server, channel_t *channel, user_t *user,
     if (len_array((void **)packet->args) < 2 || message == NULL
             || thread == NULL) {
         user->send(user, "%d: Failed to create thread\n", BAD_REQUEST);
-        free_n(2, message, thread);
-        return;
+        return free_n(2, message, thread);
     }
     thread->channel = channel;
     thread->author = user;
