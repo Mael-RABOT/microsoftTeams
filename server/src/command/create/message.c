@@ -36,6 +36,7 @@ void create_server_message(server_t *server, thread_t *thread, user_t *user,
         return;
     }
     message->thread = thread;
+    message->author = user;
     thread_timer(message, packet);
     thread->messages->push_back(thread->messages, message);
     team->subscribed->foreach_arg(team->subscribed,
