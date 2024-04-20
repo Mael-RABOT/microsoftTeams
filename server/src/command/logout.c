@@ -18,6 +18,6 @@ void logout_command(server_t *server, user_t *user, packet_t *packet)
     for (unsigned int i = 0; i < server->users->size(server->users); i++) {
         tmp_user = server->users->at(server->users, i);
         tmp_user->send(tmp_user, "%d: %s#%s\n", DISCONNECTED,
-            user->account->name, user->account->uuid_str);
+            user->account->uuid_str, user->account->name);
     }
 }
